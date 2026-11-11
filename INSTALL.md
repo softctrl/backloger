@@ -7,9 +7,10 @@ diretório local com todos os wheels compatíveis. Depois de instalado, o fluxo
 local funciona sem rede.
 
 Para incorporar em um projeto que já possui backlogs ou outros acompanhamentos,
-siga o [runbook de adoção e migração](docs/RUNBOOK_ADOPTION.md). O pacote inclui
-a skill `backloger-adoption`, referências de mapeamento e um helper de preparação
-que valida candidatos sem sobrescrever as fontes.
+siga o [runbook de instalação do comando e da skill](docs/RUNBOOK_ADOPTION.md).
+A skill `backloger-adoption` orienta o agente a integrar o Backloger, importar o
+acompanhamento anterior e registrar no projeto a rotina de atualização dos cards
+e relatórios durante os próximos trabalhos.
 
 ## Instalar pelo pacote ZIP
 

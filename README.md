@@ -6,18 +6,11 @@ Uma CLI e uma interface web usam o mesmo contrato e as mesmas regras. Cada
 projeto mantém seus próprios dados. Não requer servidor central ou banco de
 dados; depois de instalado, funciona sem rede.
 
-Para instalar a distribuição local, extraia `backloger-0.1.0-install.zip`,
-entre na pasta extraída e execute:
-
-```sh
-python3 install.py
-.venv/bin/backloger --project /caminho/meu-projeto serve --port 8765
-```
-
-O projeto precisa estar inicializado. O [guia de instalação](INSTALL.md)
-explica como criar o primeiro backlog, instalar com pipx/wheel, preparar PDF,
-atualizar e usar dependências locais. Python 3.12+ é necessário; Node é usado
-somente nos testes de interface. A instalação inicial resolve dependências.
+Para começar, siga o [runbook de instalação do comando e da skill](docs/RUNBOOK_ADOPTION.md).
+Você instala esses dois componentes e pede ao agente para integrar o Backloger,
+importar o acompanhamento existente e manter cards e relatórios atualizados nos
+próximos trabalhos. O [guia de instalação](INSTALL.md) reúne opções adicionais,
+PDF e atualização. Node é usado somente nos testes de interface.
 
 Para instalar a partir de um checkout ou do código-fonte extraído:
 
@@ -38,7 +31,7 @@ Também é possível instalar com `pipx install .` ou com o wheel produzido por
 `make package`. Esse alvo gera wheel, fonte, ZIP com instalador, SBOM SPDX e
 checksums em `dist/`. A publicação em PyPI/registry ainda não foi realizada.
 
-Para adotar em outro projeto: `backloger --project /repo init --name "Meu Sistema" --key SYS`.
+Uso direto da CLI para criar um backlog: `backloger --project /repo init --name "Meu Sistema" --key SYS`.
 
 - JSON por atividade ou arquivo único; schemas oficiais 1.0.0 e campos de extensão.
 - CLI de criação, consulta, edição, dependências, validação e diagnóstico.
@@ -77,8 +70,8 @@ P1/P2 (colaboração, integrações, plugins e múltiplos projetos) seguem no ba
 
 - [Especificação-base 1.0](docs/SPECIFICATION.md)
 - [Instalação, atualização e pacote distribuível](INSTALL.md)
-- [Runbook de adoção e migração em projetos existentes](docs/RUNBOOK_ADOPTION.md)
-- [Skill de adoção e migração assistida](skills/backloger-adoption/SKILL.md)
+- [Instalar o comando e a skill](docs/RUNBOOK_ADOPTION.md)
+- [Skill de integração e acompanhamento contínuo](skills/backloger-adoption/SKILL.md)
 - [Contrato, API e códigos CLI](docs/CONTRACT.md)
 - [Arquitetura e limites de concorrência](docs/ARCHITECTURE.md)
 - [Execução, Compose e recuperação](docs/OPERATIONS.md)

@@ -28,6 +28,8 @@ def build_fixture(tmp_path: Path) -> Path:
         "skills/backloger-adoption/SKILL.md",
         "skills/backloger-adoption/scripts/stage_backlog.py",
         "skills/backloger-adoption/agents/openai.yaml",
+        "skills/backloger-adoption/references/integration.md",
+        "skills/backloger-adoption/assets/AGENTS.backloger.md",
         "examples/demo/.backloger/.runtime/audit/secret.json",
         ".backloger/.runtime/audit/secret.json",
         ".env",
@@ -68,6 +70,8 @@ def test_installation_bundle_checksums_and_selected_contents(tmp_path: Path) -> 
             "examples/migration/legacy-status.csv",
             "skills/backloger-adoption/SKILL.md",
             "skills/backloger-adoption/scripts/stage_backlog.py",
+            "skills/backloger-adoption/references/integration.md",
+            "skills/backloger-adoption/assets/AGENTS.backloger.md",
         } <= names
         assert not any(".runtime" in name or ".aws" in name or name == ".env" for name in names)
         assert "unrelated.json" not in names

@@ -6,8 +6,9 @@ e checksums. Make/Compose são usados a partir do checkout ou do arquivo fonte
 extraído; a CLI instalada por wheel opera projetos sem copiar o código-fonte.
 
 Projetos com acompanhamento anterior devem seguir o
-[runbook de adoção](RUNBOOK_ADOPTION.md), que cobre inventário, skill, conversão,
-validação, entrada em uso e reversão. A skill e os exemplos acompanham o ZIP.
+[runbook de instalação do comando e da skill](RUNBOOK_ADOPTION.md). A skill cuida
+da integração, importação e rotina futura de acompanhamento pelo agente; seus
+detalhes técnicos e exemplos acompanham o ZIP.
 
 ## Dashboard, burndown e documento
 

@@ -8,7 +8,10 @@ produto; publica somente um candidato novo, sem modificar as fontes ou mesclar
 armazenamento ativo. Metadados de origem ficam em `extensions`, com mapa de IDs,
 hashes e reconciliação. Datas ausentes recebem origem explícita de importação;
 datas parciais exigem decisão. Histórico de cards não é convertido em auditoria
-retroativa. O runbook separa primeira adoção, merge incremental e reversão.
+retroativa. A referência técnica da skill orienta a primeira adoção e o merge
+incremental. A skill também incorpora ao `AGENTS.md` uma rotina de consulta,
+atualização de cards/histórico e regeneração do relatório. O runbook do usuário
+fica restrito a instalar comando/skill e solicitar a integração ao agente.
 
 Essa entrega é uma migração assistida por agente e um helper de staging; não
 implementa conectores ou um parser universal de Markdown/CSV. O pacote ZIP

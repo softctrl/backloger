@@ -118,7 +118,7 @@ xychart-beta
 
 > Somente eventos registrados pelo Backloger. Edições externas não são reconstruídas. Datas em UTC.
 
-Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 20. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
+Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 21. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
 
 ## 4. Marcos e iterações
 
@@ -651,8 +651,8 @@ Nenhum critério de aceite cadastrado.
 | Tipo | Funcionalidade | Responsável | Não definido |
 | Componente | Não definido | Prazo | Não definido |
 | Marco | Primeira versão utilizável | Iteração | Não definida |
-| Estimativa | Não definida | Versão | 2 |
-| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-11 15:19 |
+| Estimativa | Não definida | Versão | 3 |
+| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-11 20:51 |
 
 **Leitura de acompanhamento:** Sem bloqueio de dependência.
 
@@ -677,7 +677,7 @@ Nenhum critério de aceite cadastrado.
 
 **Último registro de acompanhamento**
 
-2026-11-11T15:19:45.365833+00:00 · v2 · Atualizados: Descrição.
+2026-11-11T20:51:07.595713+00:00 · v3 · Runbook simplificado para instalar comando/skill e solicitar integração. Skill atualizada para importar o legado, registrar a rotina no AGENTS.md e manter cards, histórico e relatório nos próximos trabalhos. Ruff/Mypy, validador da skill e 2 testes de pacote passaram; fluxo de integração/continuidade exercitado em projeto temporário.
 
 ### BKL-015 — Roadmap, timeline e relatórios avançados
 
@@ -881,6 +881,7 @@ Nenhum critério de aceite cadastrado.
 
 | Data/hora | Atividade | Versão | Registro |
 | --- | --- | --- | --- |
+| 2026-11-11T20:51:07.595713+00:00 | BKL-014 | 3 | Runbook simplificado para instalar comando/skill e solicitar integração. Skill atualizada para importar o legado, registrar a rotina no AGENTS.md e manter cards, histórico e relatório nos próximos trabalhos. Ruff/Mypy, validador da skill e 2 testes de pacote passaram; fluxo de integração/continuidade exercitado em projeto temporário. |
 | 2026-11-11T15:19:45.584388+00:00 | BKL-020 | 2 | Atualizados: Descrição. |
 | 2026-11-11T15:19:45.524303+00:00 | BKL-019 | 2 | Atualizados: Descrição. |
 | 2026-11-11T15:19:45.477526+00:00 | BKL-018 | 2 | Atualizados: Descrição. |

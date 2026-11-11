@@ -1,4 +1,4 @@
 interface:
-  display_name: "Backloger: adoção e migração"
-  short_description: "Migrar backlogs existentes com origem e validação"
-  default_prompt: "Use $backloger-adoption para inventariar os backlogs deste projeto e preparar uma migração validada para o Backloger."
+  display_name: "Backloger: integrar e manter atualizado"
+  short_description: "Importar backlogs e manter o acompanhamento do projeto"
+  default_prompt: "Use $backloger-adoption para integrar o Backloger neste projeto, importar o acompanhamento existente e manter o backlog atualizado durante os próximos trabalhos."

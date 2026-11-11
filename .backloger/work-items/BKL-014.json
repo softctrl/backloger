@@ -35,8 +35,8 @@
   ],
   "acceptance_criteria": [],
   "created_at": "2026-11-11T13:23:30.935004Z",
-  "updated_at": "2026-11-11T15:19:45.365711Z",
-  "version": 2,
+  "updated_at": "2026-11-11T20:51:07.595418Z",
+  "version": 3,
   "extensions": {
     "delivery_priority": "P0"
   },
@@ -50,6 +50,14 @@
       "changed_fields": [
         "description"
       ]
+    },
+    {
+      "id": "H-60928e3c296644efa91d926c9e97ffd1",
+      "at": "2026-11-11T20:51:07.595713Z",
+      "kind": "comment",
+      "text": "Runbook simplificado para instalar comando/skill e solicitar integração. Skill atualizada para importar o legado, registrar a rotina no AGENTS.md e manter cards, histórico e relatório nos próximos trabalhos. Ruff/Mypy, validador da skill e 2 testes de pacote passaram; fluxo de integração/continuidade exercitado em projeto temporário.",
+      "version": 3,
+      "changed_fields": []
     }
   ]
 }

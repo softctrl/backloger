@@ -1,5 +1,19 @@
 # Validação da fundação 0.1.0
 
+## Simplificação da instalação e rotina do agente
+
+O runbook foi reduzido a instalar o comando, copiar a skill e solicitar a
+integração. As instruções técnicas ficaram nas referências da skill, que agora
+também orienta a manutenção dos cards e incorpora a rotina ao `AGENTS.md`, com
+caminhos de armazenamento e relatório definidos para cada projeto.
+
+Ruff, Mypy, validador da skill e os dois testes de pacote foram aprovados. Um
+ensaio em projeto temporário aplicou a integração, preservou instruções e fonte
+existentes, iniciou um card, criou um documento de exemplo, atualizou aceite,
+status e histórico e regenerou o Markdown. A verificação registrada foi textual;
+não foi declarada execução de testes da aplicação de exemplo. Não houve mudança
+no núcleo nem nova execução da suíte completa nesta simplificação.
+
 ## Evolução: instalação, gitignore e adoção em projetos existentes
 
 `make check` aprovou **109 testes Python**, com 1 E2E de navegador fora dessa
@@ -27,7 +41,7 @@ testes cobrem destinos existentes, ciclos, referências ausentes, contagem
 divergente, datas parciais e metadados inválidos, sem publicar candidato inválido.
 
 O exemplo fictício reconciliou três registros em CSV/Markdown. O procedimento
-de transferência do runbook foi executado em um projeto temporário com README
+de transferência, agora nas referências da skill, foi executado em um projeto temporário com README
 e fonte existentes, preservou esses arquivos, conferiu a revisão canônica,
 recusou repetição sobre o destino ativo e gerou os três formatos de relatório.
 Nenhum projeto externo foi migrado nesta validação. Links locais foram conferidos.

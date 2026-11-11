@@ -2,11 +2,11 @@
 
 ## Em desenvolvimento
 
-Runbook para adoção em projetos existentes e skill `backloger-adoption`, com
-inventário, mapeamento de campos/IDs, reconciliação, preparação validada em pasta
-separada, entrada em uso, migração incremental e reversão. Exemplo fictício
-reconcilia CSV/Markdown preservando critérios, notas e datas de origem. O helper
-recusa destinos existentes e não é um importador universal de formatos legados.
+Runbook simplificado para instalar comando/skill e solicitar a integração ao
+agente. A skill `backloger-adoption` orienta importação e entrada em uso, incorpora
+a rotina ao `AGENTS.md` e mantém cards, histórico e relatórios durante os próximos
+trabalhos. Referências técnicas e exemplo CSV/Markdown ficam dentro da skill e
+do pacote. O helper recusa destinos existentes e valida o candidato normalizado.
 
 Distribuição local em ZIP com instalador Python, wheel, código-fonte,
 documentação, exemplos, schemas, SBOM e checksums. Guia de instalação e
