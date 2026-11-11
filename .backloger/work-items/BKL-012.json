@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-012",
+  "title": "Segurança web local",
+  "description": "Objetivo: proteger a aplicação local, os arquivos autorizados e a renderização de conteúdo do backlog.\n\nEntrega disponível: bind loopback por padrão, hosts explícitos, checagem de Origin/Fetch Metadata, token contra CSRF, limites de corpo/grafo e proteção contra traversal/symlinks. Conteúdo dos cards é escapado; a prévia usa iframe isolado. PDF roda em processo limitado e não busca URLs ou arquivos externos. Modo somente leitura impede mutações no repositório. Autenticação remota/multiusuário fica em BKL-017; auditoria online das dependências segue em BKL-014.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-008",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934970Z",
+  "updated_at": "2026-11-11T15:19:45.259873Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-40d36faa00a140889ae1acf79e5240ed",
+      "at": "2026-11-11T15:19:45.259984Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

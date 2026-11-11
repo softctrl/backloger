@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-008",
+  "title": "API FastAPI",
+  "description": "Objetivo: oferecer uma API local que consuma as mesmas regras e persistência da CLI.\n\nEntrega disponível: FastAPI com consulta do estado, criação/edição de atividades, visões salvas, análise de grafo, prévia de documento e downloads Markdown/HTML/PDF/CSV/Mermaid/SVG. Mutações exigem revisão If-Match, versão e token local. Há documentação HTTP local e contrato OpenAPI. Testes cobrem operações, erros, conflitos, leitura após edição externa e modo somente leitura.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-004",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934903Z",
+  "updated_at": "2026-11-11T15:19:45.138741Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-e928452bfe5945db8e948ece8b1fa98c",
+      "at": "2026-11-11T15:19:45.138913Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

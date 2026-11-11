@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-010",
+  "title": "Visualizador de grafos",
+  "description": "Objetivo: investigar visualmente dependências, bloqueadores e impacto de uma atividade.\n\nEntrega disponível: Cytoscape.js hospedado localmente, layouts hierárquico/concentrado/circular, zoom, enquadramento, seleção de atividade e destaque do caminho crítico. Atualizações preservam pan/zoom quando a topologia não muda. A análise vem do mesmo motor usado pela CLI. Seleção, relações e controles foram verificados em testes DOM com Cytoscape headless; interação e diagramação em navegador real ainda exigem homologação.",
+  "type": "feature",
+  "status": "in_progress",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-006",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-008",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934941Z",
+  "updated_at": "2026-11-11T15:19:45.194838Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-18a7319579ba47b19a4c84174231dfb1",
+      "at": "2026-11-11T15:19:45.194935Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

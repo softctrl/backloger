@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-015",
+  "title": "Roadmap, timeline e relatórios avançados",
+  "description": "Objetivo: ampliar a visão de planejamento e acompanhamento com roadmap, timeline e relatórios avançados.\n\nEscopo já disponível: visão básica de milestones e relatório gerencial com progresso por marco/iteração, burndown observado, referência ideal quando há baseline e detalhes das atividades. Evolução ainda aberta: timeline de calendário, comparação entre períodos, tendências e recursos avançados de planejamento. Previsões devem declarar dados insuficientes e separar esforço estimado de datas reais. A atividade permanece aberta; o relatório atual não encerra todo esse escopo.",
+  "type": "feature",
+  "status": "todo",
+  "priority": "high",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p1"
+  ],
+  "milestone_id": "M2",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-009",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.935020Z",
+  "updated_at": "2026-11-11T15:19:45.394314Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P1"
+  },
+  "history": [
+    {
+      "id": "H-375cc6a7feab4079a6c8c66265e1482d",
+      "at": "2026-11-11T15:19:45.394417Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

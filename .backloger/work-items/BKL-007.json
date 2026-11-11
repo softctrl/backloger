@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-007",
+  "title": "Geradores Markdown, CSV e Mermaid",
+  "description": "Objetivo: produzir documentação de acompanhamento que possa ser revisada no Git, compartilhada e consumida por outras ferramentas.\n\nEntrega disponível: relatório gerencial com resumo executivo, indicadores, alertas, distribuição por estado/prioridade, burndown, ritmo de entrega, marcos, próximas ações e ficha completa de cada atividade. Markdown usa Mermaid; HTML e PDF incorporam gráficos vetoriais sem rede ou navegador. Inclui descrições, critérios de aceite, dependências e histórico. CSV protege células de fórmulas; Mermaid e SVG também podem ser exportados separadamente.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-006",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934888Z",
+  "updated_at": "2026-11-11T15:19:45.111799Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-2cbb542e9dce49e9af7988e538d516a2",
+      "at": "2026-11-11T15:19:45.111883Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

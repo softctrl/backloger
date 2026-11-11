@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-017",
+  "title": "Autenticação e colaboração multiusuário",
+  "description": "Objetivo: permitir colaboração entre usuários com identificação, autenticação e permissões por projeto.\n\nEscopo previsto: sessões autenticadas, papéis/permissões, autoria dos registros, trilha de auditoria adequada e resolução de alterações simultâneas. A implementação deve preservar os controles otimistas e aplicar autorização em todas as operações. O modo atual é local e de usuário único; token CSRF não equivale a autenticação de conta. Entrega ainda não iniciada, dependente da base de segurança local.",
+  "type": "feature",
+  "status": "todo",
+  "priority": "high",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p1"
+  ],
+  "milestone_id": "M2",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-012",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.935051Z",
+  "updated_at": "2026-11-11T15:19:45.450233Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P1"
+  },
+  "history": [
+    {
+      "id": "H-22d8a7350a3b468296ddfba3b2ee11a7",
+      "at": "2026-11-11T15:19:45.450333Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

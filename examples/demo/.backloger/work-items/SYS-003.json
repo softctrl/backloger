@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "id": "SYS-003",
+  "title": "Criar interface de acesso",
+  "description": "",
+  "type": "story",
+  "status": "todo",
+  "priority": "medium",
+  "component": null,
+  "owner": "frontend-team",
+  "labels": [
+    "frontend"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": {
+    "unit": "hours",
+    "value": 8.0
+  },
+  "dependencies": [
+    {
+      "target_id": "SYS-001",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:31.030351Z",
+  "updated_at": "2026-11-11T13:23:31.030351Z",
+  "version": 1,
+  "extensions": {}
+}

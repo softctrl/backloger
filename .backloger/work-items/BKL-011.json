@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-011",
+  "title": "Sincronização de alterações externas",
+  "description": "Objetivo: refletir edições externas dos JSONs na aplicação e impedir que um formulário antigo sobrescreva dados concorrentes.\n\nEntrega disponível: polling por revisão de conteúdo/ETag, leitura de snapshots estáveis, atualização de indicadores e documento, controle otimista e aviso de conflito preservando o formulário. Edições externas são detectadas mesmo sem incremento de version e campos desconhecidos sobrevivem às alterações válidas. API, persistência e cenários DOM foram exercitados; falta o fluxo completo em navegador real. Não se reconstrói auditoria histórica de edições externas.",
+  "type": "feature",
+  "status": "in_progress",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-004",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-008",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934957Z",
+  "updated_at": "2026-11-11T15:19:45.224465Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-1e7e7283e4264d278742f8e08c35afd5",
+      "at": "2026-11-11T15:19:45.224644Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

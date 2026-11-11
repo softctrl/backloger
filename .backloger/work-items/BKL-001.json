@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-001",
+  "title": "Estrutura do projeto e empacotamento Python",
+  "description": "Objetivo: distribuir o Backloger como produto Python independente, instalável uma única vez e reutilizável em repositórios de qualquer linguagem.\n\nEntrega disponível: estrutura src/backloger, empacotamento Hatchling, ponto de entrada backloger, dependências de runtime/dev separadas, wheel e sdist com templates, assets, licenças e schemas. A instalação do wheel e a criação da API foram verificadas localmente. Publicação em PyPI/registry e distribuição reproduzível fazem parte do fechamento de BKL-014.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934722Z",
+  "updated_at": "2026-11-11T15:19:44.952853Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-82577b173f24415ea7b4d5b96c115123",
+      "at": "2026-11-11T15:19:44.952995Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

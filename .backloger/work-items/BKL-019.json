@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-019",
+  "title": "Instância centralizada multiprojeto",
+  "description": "Objetivo: oferecer uma instância central que acompanhe diversos projetos sem misturar seus dados e ciclos de vida.\n\nEscopo previsto: cadastro de diretórios autorizados, isolamento de acesso e armazenamento, dashboards consolidados e gestão de permissões. A adoção deve continuar possível no modo local, sem dependência dessa instância. Autenticação e colaboração são pré-requisitos. A aplicação atual fixa um projeto por processo e não implementa um serviço centralizado multiprojeto.",
+  "type": "feature",
+  "status": "todo",
+  "priority": "medium",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p2"
+  ],
+  "milestone_id": "M3",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-017",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.935080Z",
+  "updated_at": "2026-11-11T15:19:45.524191Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P2"
+  },
+  "history": [
+    {
+      "id": "H-0dae349d324c48ba91b3f3808a695035",
+      "at": "2026-11-11T15:19:45.524303Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

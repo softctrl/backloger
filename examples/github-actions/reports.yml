@@ -1,0 +1,24 @@
+# Copy to the consuming repository's .github/workflows/backloger-reports.yml.
+# Replace OWNER/BACKLOGER_REPO and FULL_COMMIT_SHA after publishing this action.
+name: Backlog reports
+on:
+  push:
+    paths: ['.backloger/**', 'backlog.json']
+  pull_request:
+    paths: ['.backloger/**', 'backlog.json']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: OWNER/BACKLOGER_REPO@FULL_COMMIT_SHA
+        with:
+          project-dir: .
+          formats: markdown,html,pdf
+          output-dir: backloger-reports
+          artifact-name: project-backlog

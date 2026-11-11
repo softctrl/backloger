@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-006",
+  "title": "Motor de dependências e análise de grafos",
+  "description": "Objetivo: transformar as relações de precedência em análise prática de execução e impacto.\n\nEntrega disponível: grafo dirigido de pré-requisito para dependente, validação de referências, rejeição de ciclos, identificação de itens isolados, bloqueadores transitivos, atividades prontas e gargalos por alcance. A seleção de uma atividade revela pré-requisitos e sucessores. Caminho crítico técnico é calculado quando todas as estimativas usam a mesma unidade; não representa previsão de calendário. Limites de nós e relações protegem o processamento.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-003",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934875Z",
+  "updated_at": "2026-11-11T15:19:45.085548Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-bb5eae967cc842958a03b95ec59b24b2",
+      "at": "2026-11-11T15:19:45.085649Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

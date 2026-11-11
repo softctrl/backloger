@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2650 580" role="img" aria-label="Dependências">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#686e78"/></marker></defs>
+<rect width="2650" height="580" fill="#f6f5f0"/>
+<path d="M280,65 L330,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M280,65 L330,155" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M570,65 L620,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M860,65 L910,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M860,65 L910,155" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M860,65 L910,245" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1150,65 L1200,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1150,65 L1200,245" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1150,65 L1490,245" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,65 L1490,425" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,65 L1490,515" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1150,155 L1200,155" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1150,155 L1490,155" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1150,155 L1490,425" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,155 L1490,425" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,245 L1490,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,245 L1490,155" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,245 L1490,245" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,245 L1490,335" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1440,245 L1490,425" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1730,65 L1780,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M1730,335 L1780,155" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M2020,155 L2070,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<path d="M2310,65 L2360,65" stroke="#686e78" fill="none" marker-end="url(#arrow)"/>
+<rect x="40" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="50" y="61" font-family="sans-serif" font-size="12">BKL-001</text>
+<text x="50" y="81" font-family="sans-serif" font-size="12">Estrutura do projeto e empac</text>
+<rect x="330" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="340" y="61" font-family="sans-serif" font-size="12">BKL-002</text>
+<text x="340" y="81" font-family="sans-serif" font-size="12">JSON Schema oficial e exempl</text>
+<rect x="620" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="630" y="61" font-family="sans-serif" font-size="12">BKL-003</text>
+<text x="630" y="81" font-family="sans-serif" font-size="12">Modelos de domínio e validaç</text>
+<rect x="910" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="920" y="61" font-family="sans-serif" font-size="12">BKL-004</text>
+<text x="920" y="81" font-family="sans-serif" font-size="12">Persistência JSON e escrita </text>
+<rect x="1200" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1210" y="61" font-family="sans-serif" font-size="12">BKL-005</text>
+<text x="1210" y="81" font-family="sans-serif" font-size="12">CLI completo</text>
+<rect x="910" y="130" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="920" y="151" font-family="sans-serif" font-size="12">BKL-006</text>
+<text x="920" y="171" font-family="sans-serif" font-size="12">Motor de dependências e anál</text>
+<rect x="1200" y="130" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1210" y="151" font-family="sans-serif" font-size="12">BKL-007</text>
+<text x="1210" y="171" font-family="sans-serif" font-size="12">Geradores Markdown, CSV e Me</text>
+<rect x="1200" y="220" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1210" y="241" font-family="sans-serif" font-size="12">BKL-008</text>
+<text x="1210" y="261" font-family="sans-serif" font-size="12">API FastAPI</text>
+<rect x="1490" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1500" y="61" font-family="sans-serif" font-size="12">BKL-009</text>
+<text x="1500" y="81" font-family="sans-serif" font-size="12">Dashboard e Kanban</text>
+<rect x="1490" y="130" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1500" y="151" font-family="sans-serif" font-size="12">BKL-010</text>
+<text x="1500" y="171" font-family="sans-serif" font-size="12">Visualizador de grafos</text>
+<rect x="1490" y="220" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1500" y="241" font-family="sans-serif" font-size="12">BKL-011</text>
+<text x="1500" y="261" font-family="sans-serif" font-size="12">Sincronização de alterações </text>
+<rect x="1490" y="310" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1500" y="331" font-family="sans-serif" font-size="12">BKL-012</text>
+<text x="1500" y="351" font-family="sans-serif" font-size="12">Segurança web local</text>
+<rect x="330" y="130" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="340" y="151" font-family="sans-serif" font-size="12">BKL-013</text>
+<text x="340" y="171" font-family="sans-serif" font-size="12">Docker Compose e Makefile</text>
+<rect x="1490" y="400" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1500" y="421" font-family="sans-serif" font-size="12">BKL-014</text>
+<text x="1500" y="441" font-family="sans-serif" font-size="12">Testes, CI e documentação</text>
+<rect x="1780" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1790" y="61" font-family="sans-serif" font-size="12">BKL-015</text>
+<text x="1790" y="81" font-family="sans-serif" font-size="12">Roadmap, timeline e relatóri</text>
+<rect x="1490" y="490" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1500" y="511" font-family="sans-serif" font-size="12">BKL-016</text>
+<text x="1500" y="531" font-family="sans-serif" font-size="12">Integrações GitHub e GitLab</text>
+<rect x="1780" y="130" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="1790" y="151" font-family="sans-serif" font-size="12">BKL-017</text>
+<text x="1790" y="171" font-family="sans-serif" font-size="12">Autenticação e colaboração m</text>
+<rect x="910" y="220" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="920" y="241" font-family="sans-serif" font-size="12">BKL-018</text>
+<text x="920" y="261" font-family="sans-serif" font-size="12">Importadores e plugins</text>
+<rect x="2070" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="2080" y="61" font-family="sans-serif" font-size="12">BKL-019</text>
+<text x="2080" y="81" font-family="sans-serif" font-size="12">Instância centralizada multi</text>
+<rect x="2360" y="40" width="240" height="54" rx="8" fill="white" stroke="#c6c8c4"/>
+<text x="2370" y="61" font-family="sans-serif" font-size="12">BKL-020</text>
+<text x="2370" y="81" font-family="sans-serif" font-size="12">Dependências entre projetos</text>
+</svg>

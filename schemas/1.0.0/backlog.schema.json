@@ -1,0 +1,593 @@
+{
+  "$defs": {
+    "AcceptanceCriterion": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "done": {
+          "default": false,
+          "title": "Done",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ],
+      "title": "AcceptanceCriterion",
+      "type": "object"
+    },
+    "Dependency": {
+      "additionalProperties": true,
+      "properties": {
+        "target_id": {
+          "pattern": "^[A-Z][A-Z0-9]{1,15}-[0-9]{3,9}$",
+          "title": "Target Id",
+          "type": "string"
+        },
+        "relation": {
+          "default": "blocked_by",
+          "enum": [
+            "blocked_by",
+            "blocks",
+            "relates_to",
+            "child_of"
+          ],
+          "title": "Relation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_id"
+      ],
+      "title": "Dependency",
+      "type": "object"
+    },
+    "Estimate": {
+      "additionalProperties": true,
+      "properties": {
+        "unit": {
+          "enum": [
+            "hours",
+            "days",
+            "points"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ],
+      "title": "Estimate",
+      "type": "object"
+    },
+    "HistoryEntry": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "at": {
+          "format": "date-time",
+          "title": "At",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "created",
+            "updated",
+            "comment",
+            "restored"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "changed_fields": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Changed Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "at",
+        "kind",
+        "text",
+        "version"
+      ],
+      "title": "HistoryEntry",
+      "type": "object"
+    },
+    "Iteration": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "due_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Due Date"
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Date"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Iteration",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "Milestone": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "due_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Due Date"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Milestone",
+      "type": "object"
+    },
+    "Project": {
+      "additionalProperties": true,
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "key": {
+          "pattern": "^[A-Z][A-Z0-9]{1,15}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "statuses": {
+          "items": {
+            "$ref": "#/$defs/Status"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Statuses",
+          "type": "array"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "key"
+      ],
+      "title": "Project",
+      "type": "object"
+    },
+    "SavedView": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "filters": {
+          "additionalProperties": {
+            "maxLength": 300,
+            "type": "string"
+          },
+          "title": "Filters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "SavedView",
+      "type": "object"
+    },
+    "Status": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_]{0,39}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "pending",
+            "active",
+            "done",
+            "cancelled"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "wip_limit": {
+          "anyOf": [
+            {
+              "maximum": 2000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wip Limit"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "category"
+      ],
+      "title": "Status",
+      "type": "object"
+    },
+    "WorkItem": {
+      "additionalProperties": true,
+      "properties": {
+        "schema_version": {
+          "const": "1.0.0",
+          "default": "1.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[A-Z][A-Z0-9]{1,15}-[0-9]{3,9}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "maxLength": 50000,
+          "title": "Description",
+          "type": "string"
+        },
+        "type": {
+          "default": "task",
+          "enum": [
+            "epic",
+            "feature",
+            "story",
+            "task",
+            "bug",
+            "maintenance",
+            "security",
+            "documentation",
+            "spike",
+            "incident"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "status": {
+          "default": "todo",
+          "pattern": "^[a-z][a-z0-9_]{0,39}$",
+          "title": "Status",
+          "type": "string"
+        },
+        "priority": {
+          "default": "medium",
+          "enum": [
+            "critical",
+            "high",
+            "medium",
+            "low"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "component": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Component"
+        },
+        "owner": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner"
+        },
+        "labels": {
+          "items": {
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Labels",
+          "type": "array"
+        },
+        "milestone_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Milestone Id"
+        },
+        "iteration_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Iteration Id"
+        },
+        "due_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Due Date"
+        },
+        "estimate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/Dependency"
+          },
+          "maxItems": 100,
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "acceptance_criteria": {
+          "items": {
+            "$ref": "#/$defs/AcceptanceCriterion"
+          },
+          "maxItems": 100,
+          "title": "Acceptance Criteria",
+          "type": "array"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        },
+        "version": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "history": {
+          "items": {
+            "$ref": "#/$defs/HistoryEntry"
+          },
+          "maxItems": 1000,
+          "title": "History",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title"
+      ],
+      "title": "WorkItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "project": {
+      "$ref": "#/$defs/Project"
+    },
+    "work_items": {
+      "items": {
+        "$ref": "#/$defs/WorkItem"
+      },
+      "maxItems": 2000,
+      "title": "Work Items",
+      "type": "array"
+    },
+    "milestones": {
+      "items": {
+        "$ref": "#/$defs/Milestone"
+      },
+      "maxItems": 200,
+      "title": "Milestones",
+      "type": "array"
+    },
+    "iterations": {
+      "items": {
+        "$ref": "#/$defs/Iteration"
+      },
+      "maxItems": 200,
+      "title": "Iterations",
+      "type": "array"
+    },
+    "views": {
+      "items": {
+        "$ref": "#/$defs/SavedView"
+      },
+      "maxItems": 100,
+      "title": "Views",
+      "type": "array"
+    }
+  },
+  "required": [
+    "project"
+  ],
+  "title": "Backlog",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://softctrl.com/backloger/schemas/1.0.0/backlog.schema.json"
+}

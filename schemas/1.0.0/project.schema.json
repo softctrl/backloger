@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "Status": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_]{0,39}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "pending",
+            "active",
+            "done",
+            "cancelled"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "wip_limit": {
+          "anyOf": [
+            {
+              "maximum": 2000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wip Limit"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "category"
+      ],
+      "title": "Status",
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "key": {
+      "pattern": "^[A-Z][A-Z0-9]{1,15}$",
+      "title": "Key",
+      "type": "string"
+    },
+    "statuses": {
+      "items": {
+        "$ref": "#/$defs/Status"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Statuses",
+      "type": "array"
+    },
+    "extensions": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Extensions",
+      "type": "object"
+    }
+  },
+  "required": [
+    "name",
+    "key"
+  ],
+  "title": "Project",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://softctrl.com/backloger/schemas/1.0.0/project.schema.json"
+}

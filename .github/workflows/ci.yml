@@ -1,0 +1,74 @@
+name: checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: ${{ matrix.python }}
+      - run: make install-dev
+      - run: make check coverage package
+      - if: matrix.python == '3.12'
+        run: .venv/bin/python -m playwright install --with-deps chromium
+      - if: matrix.python == '3.12'
+        run: make test-e2e
+      - if: matrix.python == '3.12'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: backloger-installation
+          if-no-files-found: error
+          path: |
+            dist/backloger-*-install.zip
+            dist/backloger-*.whl
+            dist/backloger-*.tar.gz
+            dist/SHA256SUMS
+            dist/sbom.spdx.json
+            dist/requirements-runtime.txt
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: make install-dev
+      - run: make docker-config test-docker
+  interface:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+      - run: make install-dev
+      - run: npm install --ignore-scripts
+      - run: make test-ui
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: make install-dev security-scan
+  report-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: ./
+        with:
+          project-dir: examples/demo
+          formats: markdown,html,pdf
+          artifact-name: demo-backlog-reports

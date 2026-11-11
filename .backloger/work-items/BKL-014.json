@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-014",
+  "title": "Testes, CI e documentação",
+  "description": "Objetivo: demonstrar a confiabilidade da entrega e preparar sua adoção por outros projetos.\n\nEntrega disponível: testes de domínio, arquivos, concorrência, recuperação, API/CLI, segurança, documentos/PDF e interface DOM; lint, tipos, schemas, empacotamento e SBOM. CI inclui navegador, Docker e uma composite action importável para relatórios opcionais Markdown/HTML/PDF, com manifesto SHA-256. Documentação cobre contrato, operação, arquitetura e limites. Pendências: CI remota, navegador real, Docker, auditoria online, locks com hashes e publicação da distribuição.",
+  "type": "feature",
+  "status": "in_progress",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-005",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-006",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-007",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-008",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.935004Z",
+  "updated_at": "2026-11-11T15:19:45.365711Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-e476120e7666413a94948df26b5b64f9",
+      "at": "2026-11-11T15:19:45.365833Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

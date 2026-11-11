@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-002",
+  "title": "JSON Schema oficial e exemplos",
+  "description": "Objetivo: publicar o contrato JSON 1.0.0 para projetos, atividades e backlog completo, permitindo adoção sem dependência da linguagem da aplicação.\n\nEntrega disponível: JSON Schemas gerados dos modelos Pydantic, exemplos de armazenamento dividido e único, referências de marcos/iterações e campos extensíveis. schema_version identifica o formato; version controla concorrência por atividade. A suíte verifica validade dos schemas e compatibilidade dos exemplos; o modo estrito identifica campos fora do contrato, preservando extensões declaradas.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-001",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934794Z",
+  "updated_at": "2026-11-11T15:19:44.980418Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-f62fa963ec8b430196853338e924e750",
+      "at": "2026-11-11T15:19:44.980522Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

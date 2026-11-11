@@ -1,0 +1,4 @@
+source_id,title,status,priority,owner,estimate_hours,depends_on,milestone,created_at,updated_at
+TASK-7,Definir contrato da API,Done,P1,equipe-api,4,,M1,2026-11-09T09:00:00-03:00,2026-11-10T10:00:00-03:00
+BUG-3,Corrigir autenticação,Doing,P0,equipe-api,8,TASK-7,M1,2026-11-09T10:00:00-03:00,2026-11-10T14:00:00-03:00
+DOC-2,Documentar instalação,To do,P2,,2,TASK-7,M1,,

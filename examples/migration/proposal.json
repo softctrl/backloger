@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "project": {
+    "name": "Exemplo fictício de adoção",
+    "key": "MIG",
+    "extensions": {
+      "backloger.migration": {
+        "status_mapping": {"Done": "done", "Doing": "in_progress", "To do": "todo"},
+        "priority_mapping": {"P0": "critical", "P1": "high", "P2": "medium"},
+        "decisions": ["As duas fontes descrevem os mesmos três IDs; foram reconciliadas por identidade."]
+      }
+    }
+  },
+  "milestones": [{"id": "M1", "name": "Primeira entrega"}],
+  "iterations": [],
+  "views": [],
+  "work_items": [
+    {
+      "id": "MIG-001",
+      "title": "Definir contrato da API",
+      "description": "Publicar os endpoints e validar os códigos de erro.",
+      "type": "task",
+      "status": "done",
+      "priority": "high",
+      "owner": "equipe-api",
+      "milestone_id": "M1",
+      "estimate": {"unit": "hours", "value": 4},
+      "created_at": "2026-11-09T09:00:00-03:00",
+      "updated_at": "2026-11-10T10:00:00-03:00",
+      "extensions": {"backloger.migration": {
+        "original_id": "TASK-7", "original_status": "Done", "original_priority": "P1",
+        "source_refs": ["legacy-status.csv#TASK-7", "legacy-backlog.md#TASK-7"]
+      }}
+    },
+    {
+      "id": "MIG-002",
+      "title": "Corrigir autenticação",
+      "description": "Corrigir a validação de credenciais e a expiração de sessão.",
+      "type": "bug",
+      "status": "in_progress",
+      "priority": "critical",
+      "owner": "equipe-api",
+      "milestone_id": "M1",
+      "estimate": {"unit": "hours", "value": 8},
+      "dependencies": [{"target_id": "MIG-001", "relation": "blocked_by"}],
+      "acceptance_criteria": [
+        {"id": "AC-1", "text": "Rejeitar credenciais inválidas", "done": true},
+        {"id": "AC-2", "text": "Expirar a sessão", "done": false}
+      ],
+      "history": [{"id": "H-LEGACY-1", "at": "2026-11-10T14:00:00-03:00", "kind": "comment",
+                   "text": "Origem legacy-backlog.md#BUG-3: credenciais inválidas verificadas; falta expiração.",
+                   "version": 1}],
+      "created_at": "2026-11-09T10:00:00-03:00",
+      "updated_at": "2026-11-10T14:00:00-03:00",
+      "extensions": {"backloger.migration": {
+        "original_id": "BUG-3", "original_status": "Doing", "original_priority": "P0",
+        "source_refs": ["legacy-status.csv#BUG-3", "legacy-backlog.md#BUG-3"]
+      }}
+    },
+    {
+      "id": "MIG-003",
+      "title": "Documentar instalação",
+      "description": "Descrever instalação, primeiro uso e recuperação.",
+      "type": "documentation",
+      "status": "todo",
+      "priority": "medium",
+      "milestone_id": "M1",
+      "estimate": {"unit": "hours", "value": 2},
+      "dependencies": [{"target_id": "MIG-001", "relation": "blocked_by"}],
+      "extensions": {"backloger.migration": {
+        "original_id": "DOC-2", "original_status": "To do", "original_priority": "P2",
+        "source_refs": ["legacy-status.csv#DOC-2", "legacy-backlog.md#DOC-2"]
+      }}
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>API · Backloger</title><link rel="stylesheet" href="/static/app.css"></head>
+<body><main>
+  <p class="eyebrow">BACKLOGER · API V1</p><h1>Contrato HTTP local</h1>
+  <p><a href="/">Voltar ao projeto</a> · <a href="/openapi.json">Baixar OpenAPI JSON</a></p>
+  <article class="panel">
+    <h2>Consultar e alterar o backlog</h2>
+    <p>Comece por GET /api/v1/state. A resposta contém a revisão e o header ETag.</p>
+    <p>Mutações exigem If-Match com o ETag e X-Backloger-Token com o token da meta tag backloger-token da página inicial. PATCH também exige expected_version. Conflitos retornam 409; ausência de revisão retorna 428. Modo somente leitura retorna 403.</p>
+    <table><thead><tr><th>Método</th><th>Caminho</th><th>Operação</th></tr></thead><tbody>
+      <tr><td>GET</td><td>/api/v1/state</td><td>Projeto, atividades, análise, métricas e revisão; aceita If-None-Match.</td></tr>
+      <tr><td>POST</td><td>/api/v1/items</td><td>Criar atividade com título e campos editáveis.</td></tr>
+      <tr><td>PATCH</td><td>/api/v1/items/{id}</td><td>Alterar campos e incrementar versão.</td></tr>
+      <tr><td>PUT</td><td>/api/v1/views/{id}</td><td>Salvar visualização com filtros.</td></tr>
+      <tr><td>GET</td><td>/api/v1/graph?item_id=SYS-001</td><td>Analisar pré-requisitos e impacto.</td></tr>
+      <tr><td>GET</td><td>/api/v1/export/{format}</td><td>Baixar markdown, pdf, csv, mermaid ou svg.</td></tr>
+      <tr><td>GET</td><td>/api/v1/document</td><td>Markdown canônico e revisão para a visualização do documento.</td></tr>
+      <tr><td>GET</td><td>/document</td><td>Documento HTML renderizado; standalone=true habilita impressão.</td></tr>
+      <tr><td>GET</td><td>/health</td><td>Validar disponibilidade dos dados.</td></tr>
+    </tbody></table>
+    <h3>Exemplo de PATCH</h3><pre>{"expected_version": 1, "status": "review"}</pre>
+    <p>O projeto é fixado ao iniciar o serviço. A API não recebe caminhos de arquivos ou de projetos.</p>
+    <p>Esta documentação e todos os assets funcionam sem acesso à internet. Os modelos de entrada completos estão no OpenAPI JSON.</p>
+  </article>
+</main></body></html>

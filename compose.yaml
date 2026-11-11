@@ -1,0 +1,28 @@
+services:
+  backloger:
+    build:
+      context: .
+    image: backloger:local
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    ports:
+      - "127.0.0.1:${BACKLOGER_PORT:-8765}:8765"
+    volumes:
+      - type: bind
+        source: ${BACKLOGER_PROJECT:-.}
+        target: /project
+        read_only: ${BACKLOGER_READ_ONLY:-false}
+        bind:
+          create_host_path: false
+    environment:
+      BACKLOGER_READ_ONLY: ${BACKLOGER_READ_ONLY:-false}
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 512m
+    cpus: 1.0
+    init: true
+    stop_grace_period: 20s
+    restart: unless-stopped

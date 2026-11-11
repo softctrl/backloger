@@ -1,0 +1,14 @@
+{
+  "name": "backloger-ui-tests",
+  "private": true,
+  "description": "Testes DOM dos assets locais; Node não é necessário em produção",
+  "scripts": {
+    "test": "make test-ui"
+  },
+  "devDependencies": {
+    "jsdom": "29.1.1"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
+}

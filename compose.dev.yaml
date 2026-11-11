@@ -1,0 +1,10 @@
+services:
+  backloger:
+    entrypoint: [python, -m, uvicorn]
+    command: ["backloger.web:create_app", "--factory", "--host", "0.0.0.0", "--port", "8765", "--reload", "--reload-dir", "/workspace/src", "--no-proxy-headers"]
+    volumes:
+      - ./src:/workspace/src:ro
+    environment:
+      PYTHONPATH: /workspace/src
+      BACKLOGER_PROJECT: /project
+    restart: "no"

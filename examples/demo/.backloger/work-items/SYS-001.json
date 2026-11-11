@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "id": "SYS-001",
+  "title": "Implementar autenticação",
+  "description": "",
+  "type": "feature",
+  "status": "in_progress",
+  "priority": "critical",
+  "component": "authentication",
+  "owner": "backend-team",
+  "labels": [
+    "security",
+    "backend",
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": {
+    "unit": "hours",
+    "value": 16.0
+  },
+  "dependencies": [
+    {
+      "target_id": "SYS-002",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-001",
+      "text": "Validar credenciais",
+      "done": true
+    },
+    {
+      "id": "AC-002",
+      "text": "Implementar testes de segurança",
+      "done": false
+    }
+  ],
+  "created_at": "2026-11-11T13:23:31.030324Z",
+  "updated_at": "2026-11-11T13:23:31.030326Z",
+  "version": 1,
+  "extensions": {}
+}

@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "backloger"
+version = "0.1.0"
+description = "Backlogs locais, portáveis e versionados em Git"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{name = "SoftCtrl.COM"}]
+dependencies = [
+  "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "pydantic>=2.12,<3",
+  "typer>=0.16,<1", "rich>=14,<15", "networkx>=3.4,<4",
+  "jinja2>=3.1.6,<4", "portalocker>=3.1,<4", "starlette>=0.49.2,<1",
+  "markdown-it-py>=4,<5", "weasyprint>=66,<69",
+]
+
+[project.scripts]
+backloger = "backloger.cli:app"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3,<10", "pytest-cov>=6,<8", "httpx>=0.28,<1",
+  "ruff>=0.11,<1", "mypy>=1.15,<3", "hatchling>=1.27,<2",
+  "pip-audit>=2.9,<3", "playwright>=1.51,<2", "pyyaml>=6,<7",
+  "jsonschema>=4.23,<5", "pypdf>=6,<7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/backloger"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"schemas" = "backloger/schemas"
+
+[tool.hatch.build.targets.sdist.force-include]
+".gitignore" = ".gitignore"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src/backloger"]
+
+[[tool.mypy.overrides]]
+module = ["networkx", "networkx.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["weasyprint", "weasyprint.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = ["error"]
+markers = ["unit: domínio e grafos", "integration: arquivos, CLI e API", "security: fronteiras de confiança", "e2e: navegador real (requer Chromium)"]
+
+[tool.coverage.run]
+source = ["backloger"]
+
+[tool.coverage.report]
+show_missing = true

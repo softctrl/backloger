@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-004",
+  "title": "Persistência JSON e escrita atômica",
+  "description": "Objetivo: manter os JSONs do projeto como fonte canônica sem perder alterações da interface, CLI ou editor externo.\n\nEntrega disponível: escrita atômica com fsync, lock cooperativo, revisão global por conteúdo, versão por atividade, backups, diário de intenção, auditoria e recuperação explícita. Testes exercitam gravações concorrentes, falhas antes/depois da substituição e recuperação de conteúdo válido. Editores que ignoram o lock continuam sujeitos ao limite de concorrência documentado; não há promessa de serialização universal de arquivos.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-003",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934841Z",
+  "updated_at": "2026-11-11T15:19:45.033764Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-0e6647dcbcd3434ebb0773eee4bdd114",
+      "at": "2026-11-11T15:19:45.033881Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

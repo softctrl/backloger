@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-020",
+  "title": "Dependências entre projetos",
+  "description": "Objetivo: representar dependências entre atividades de projetos distintos sem perder a independência dos arquivos de cada repositório.\n\nEscopo previsto: identificadores globais, resolução explícita de referências externas, regras de autorização, detecção de ciclos entre projetos e análise de impacto com fontes indisponíveis. A sincronização não deve exigir cópia ou sobrescrita dos JSONs do outro projeto. Depende da arquitetura multiprojeto; as relações atuais referenciam somente atividades do mesmo backlog.",
+  "type": "feature",
+  "status": "todo",
+  "priority": "medium",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p2"
+  ],
+  "milestone_id": "M3",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-019",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.935093Z",
+  "updated_at": "2026-11-11T15:19:45.584139Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P2"
+  },
+  "history": [
+    {
+      "id": "H-74290ae9248246dea08ec0a73bf1c540",
+      "at": "2026-11-11T15:19:45.584388Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

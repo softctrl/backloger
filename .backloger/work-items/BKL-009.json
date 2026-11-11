@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-009",
+  "title": "Dashboard e Kanban",
+  "description": "Objetivo: acompanhar e operar o projeto por dashboard e Kanban, com filtros e feedback das gravações.\n\nEntrega disponível: indicadores, gráficos de estado/prioridade/responsável, atividade histórica, burndown, quadro com drag-and-drop, editor, critérios de aceite, notas e histórico por card. Há limites WIP, filtros, visões salvas, tratamento de conflitos e exportações. Testes DOM exercitam as interações e o núcleo; falta homologação visual e funcional em Chromium real num ambiente que permita sua execução. Por isso a entrega permanece em andamento.",
+  "type": "feature",
+  "status": "in_progress",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-008",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934923Z",
+  "updated_at": "2026-11-11T15:19:45.167790Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-4441dcb562e142b6ae1573ef0690dada",
+      "at": "2026-11-11T15:19:45.167888Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

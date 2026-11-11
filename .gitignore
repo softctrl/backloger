@@ -1,0 +1,134 @@
+# Python: ambientes, bytecode e empacotamento
+.venv/
+.venv-*/
+venv/
+env/
+ENV/
+.Python
+__pycache__/
+*.py[cod]
+*$py.class
+.eggs/
+*.egg-info/
+pip-wheel-metadata/
+build/
+dist/
+
+# Testes, cobertura, análise estática e caches
+.pytest_cache/
+.hypothesis/
+.tox/
+.nox/
+.ruff_cache/
+.mypy_cache/
+.pytype/
+.pyre/
+.cache/
+.coverage
+.coverage.*
+coverage.xml
+coverage.json
+htmlcov/
+coverage/
+junit*.xml
+pytest-report*.xml
+.benchmarks/
+
+# JavaScript é usado nos testes; dependências e caches são locais
+node_modules/
+.npm/
+.node_repl_history
+.eslintcache
+.stylelintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Navegadores e resultados de testes de interface
+.playwright/
+playwright-report/
+blob-report/
+test-results/
+
+# Dados operacionais locais do Backloger (inclui projetos de exemplo)
+# NÃO ignorar .backloger inteiro: JSONs canônicos e history devem ir para o Git.
+**/.backloger/.runtime/
+backloger-reports/
+*.sqlite
+*.sqlite3
+*.db
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.db-wal
+*.db-shm
+
+# Configuração local e credenciais; manter modelos sem segredos versionáveis
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.template
+!.env.sample
+/.aws/
+/.ssh/
+/.gnupg/
+/.docker/
+/secrets/
+/.secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+
+# Estado local de ferramentas de assistência; AGENTS.md continua versionável
+/.codex/
+.aider.chat.history.md
+.aider.input.history
+.aider.tags.cache.v*/
+
+# Logs, temporários, processos e arquivos de editor
+*.log
+*.pid
+*.pid.lock
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+.#*
+\#*\#
+.idea/
+*.iml
+.fleet/
+.history/
+*.code-workspace
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Arquivos do sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.AppleDouble/
+.LSOverride
+.Spotlight-V100/
+.Trashes/
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Intencionalmente versionáveis: pyproject.toml, arquivos de lock, schemas,
+# exemplos, .github/, AGENTS.md, docs/BACKLOG.md e docs/graph.svg.

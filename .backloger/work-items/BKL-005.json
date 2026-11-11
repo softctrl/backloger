@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-005",
+  "title": "CLI completo",
+  "description": "Objetivo: operar o backlog sem iniciar a interface web e permitir automações com saída estruturada.\n\nEntrega disponível: inicialização, criação, consulta, edição, movimentação, dependências, validação estrita, análise de bloqueios, relatórios, diagnóstico, backups e recuperação. Há seleção de projeto, saída JSON, códigos de retorno documentados, autocomplete e servidor local. Exportações Markdown, HTML e PDF compartilham o relatório gerencial; CSV, Mermaid e SVG atendem integrações e documentação técnica.",
+  "type": "feature",
+  "status": "done",
+  "priority": "critical",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p0"
+  ],
+  "milestone_id": "M1",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-004",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.934861Z",
+  "updated_at": "2026-11-11T15:19:45.059553Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P0"
+  },
+  "history": [
+    {
+      "id": "H-bba73a847d6a40c0b6b3d96ab1bf8170",
+      "at": "2026-11-11T15:19:45.059652Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "name": "Meu Sistema",
+  "key": "SYS",
+  "statuses": [
+    {
+      "id": "todo",
+      "name": "A fazer",
+      "category": "pending",
+      "wip_limit": null
+    },
+    {
+      "id": "in_progress",
+      "name": "Em andamento",
+      "category": "active",
+      "wip_limit": null
+    },
+    {
+      "id": "review",
+      "name": "Em revisão",
+      "category": "active",
+      "wip_limit": null
+    },
+    {
+      "id": "done",
+      "name": "Concluído",
+      "category": "done",
+      "wip_limit": null
+    },
+    {
+      "id": "cancelled",
+      "name": "Cancelado",
+      "category": "cancelled",
+      "wip_limit": null
+    }
+  ],
+  "extensions": {}
+}

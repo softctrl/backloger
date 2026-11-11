@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-018",
+  "title": "Importadores e plugins",
+  "description": "Objetivo: facilitar adoção de backlogs existentes e expansão por integrações controladas.\n\nEscopo previsto: contratos para importadores, validação prévia, mapeamento de IDs/estados e prévia das alterações antes de persistir. Plugins devem declarar capacidades e origem; dados importados passam pelas mesmas regras de domínio e referências. Formatos de terceiros e política de execução de plugins ainda precisam ser definidos e implementados. Nenhum importador/plugin de terceiros está entregue nesta versão.",
+  "type": "feature",
+  "status": "todo",
+  "priority": "high",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p1"
+  ],
+  "milestone_id": "M2",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-003",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.935067Z",
+  "updated_at": "2026-11-11T15:19:45.477441Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P1"
+  },
+  "history": [
+    {
+      "id": "H-5a42fdda52834adfafd643a1487e8a7c",
+      "at": "2026-11-11T15:19:45.477526Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

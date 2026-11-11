@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-016",
+  "title": "Integrações GitHub e GitLab",
+  "description": "Objetivo: integrar GitHub e GitLab mantendo os JSONs de cada projeto como fonte independente e versionada.\n\nEscopo previsto: vincular issues e pull/merge requests, importar informações com identificação de origem, propor sincronizações e tratar conflitos sem sobrescritas silenciosas. Credenciais, permissões e limites de API precisam de contratos próprios. A action atual de geração de relatórios é uma automação de CI; a sincronização bidirecional com issues/requests ainda não foi entregue.",
+  "type": "feature",
+  "status": "todo",
+  "priority": "high",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p1"
+  ],
+  "milestone_id": "M2",
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-005",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [],
+  "created_at": "2026-11-11T13:23:30.935036Z",
+  "updated_at": "2026-11-11T15:19:45.425153Z",
+  "version": 2,
+  "extensions": {
+    "delivery_priority": "P1"
+  },
+  "history": [
+    {
+      "id": "H-04c7f725f4f4409b900b9f1cdbe3c31a",
+      "at": "2026-11-11T15:19:45.425251Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 2,
+      "changed_fields": [
+        "description"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0.0",
+  "project": {
+    "schema_version": "1.0.0",
+    "name": "Meu Sistema",
+    "key": "SYS",
+    "statuses": [
+      {
+        "id": "todo",
+        "name": "A fazer",
+        "category": "pending",
+        "wip_limit": null
+      },
+      {
+        "id": "in_progress",
+        "name": "Em andamento",
+        "category": "active",
+        "wip_limit": null
+      },
+      {
+        "id": "review",
+        "name": "Em revisão",
+        "category": "active",
+        "wip_limit": null
+      },
+      {
+        "id": "done",
+        "name": "Concluído",
+        "category": "done",
+        "wip_limit": null
+      },
+      {
+        "id": "cancelled",
+        "name": "Cancelado",
+        "category": "cancelled",
+        "wip_limit": null
+      }
+    ],
+    "extensions": {}
+  },
+  "work_items": [
+    {
+      "schema_version": "1.0.0",
+      "id": "SYS-001",
+      "title": "Implementar autenticação",
+      "description": "",
+      "type": "feature",
+      "status": "in_progress",
+      "priority": "critical",
+      "component": "authentication",
+      "owner": "backend-team",
+      "labels": [
+        "security",
+        "backend",
+        "p0"
+      ],
+      "milestone_id": "M1",
+      "iteration_id": null,
+      "due_date": null,
+      "estimate": {
+        "unit": "hours",
+        "value": 16.0
+      },
+      "dependencies": [
+        {
+          "target_id": "SYS-002",
+          "relation": "blocked_by"
+        }
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-001",
+          "text": "Validar credenciais",
+          "done": true
+        },
+        {
+          "id": "AC-002",
+          "text": "Implementar testes de segurança",
+          "done": false
+        }
+      ],
+      "created_at": "2026-11-11T13:23:31.030324Z",
+      "updated_at": "2026-11-11T13:23:31.030326Z",
+      "version": 1,
+      "extensions": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "SYS-002",
+      "title": "Definir contrato da API",
+      "description": "",
+      "type": "task",
+      "status": "done",
+      "priority": "high",
+      "component": null,
+      "owner": "backend-team",
+      "labels": [
+        "backend"
+      ],
+      "milestone_id": "M1",
+      "iteration_id": null,
+      "due_date": null,
+      "estimate": {
+        "unit": "hours",
+        "value": 4.0
+      },
+      "dependencies": [],
+      "acceptance_criteria": [],
+      "created_at": "2026-11-11T13:23:31.030341Z",
+      "updated_at": "2026-11-11T13:23:31.030342Z",
+      "version": 1,
+      "extensions": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "SYS-003",
+      "title": "Criar interface de acesso",
+      "description": "",
+      "type": "story",
+      "status": "todo",
+      "priority": "medium",
+      "component": null,
+      "owner": "frontend-team",
+      "labels": [
+        "frontend"
+      ],
+      "milestone_id": "M1",
+      "iteration_id": null,
+      "due_date": null,
+      "estimate": {
+        "unit": "hours",
+        "value": 8.0
+      },
+      "dependencies": [
+        {
+          "target_id": "SYS-001",
+          "relation": "blocked_by"
+        }
+      ],
+      "acceptance_criteria": [],
+      "created_at": "2026-11-11T13:23:31.030351Z",
+      "updated_at": "2026-11-11T13:23:31.030351Z",
+      "version": 1,
+      "extensions": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "SYS-004",
+      "title": "Validar fluxo completo",
+      "description": "",
+      "type": "task",
+      "status": "todo",
+      "priority": "high",
+      "component": null,
+      "owner": "quality-team",
+      "labels": [
+        "quality"
+      ],
+      "milestone_id": "M1",
+      "iteration_id": null,
+      "due_date": null,
+      "estimate": {
+        "unit": "hours",
+        "value": 4.0
+      },
+      "dependencies": [
+        {
+          "target_id": "SYS-001",
+          "relation": "blocked_by"
+        },
+        {
+          "target_id": "SYS-003",
+          "relation": "blocked_by"
+        }
+      ],
+      "acceptance_criteria": [],
+      "created_at": "2026-11-11T13:23:31.030361Z",
+      "updated_at": "2026-11-11T13:23:31.030361Z",
+      "version": 1,
+      "extensions": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "SYS-005",
+      "title": "Documentar instalação",
+      "description": "",
+      "type": "documentation",
+      "status": "todo",
+      "priority": "low",
+      "component": null,
+      "owner": null,
+      "labels": [
+        "docs"
+      ],
+      "milestone_id": null,
+      "iteration_id": null,
+      "due_date": null,
+      "estimate": {
+        "unit": "hours",
+        "value": 2.0
+      },
+      "dependencies": [],
+      "acceptance_criteria": [],
+      "created_at": "2026-11-11T13:23:31.030368Z",
+      "updated_at": "2026-11-11T13:23:31.030369Z",
+      "version": 1,
+      "extensions": {}
+    }
+  ],
+  "milestones": [
+    {
+      "id": "M1",
+      "name": "Primeira entrega",
+      "due_date": null
+    }
+  ],
+  "iterations": [],
+  "views": []
+}

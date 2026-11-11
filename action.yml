@@ -1,0 +1,100 @@
+name: Backloger Reports
+description: Validate a local JSON backlog and generate optional Markdown, HTML and PDF reports.
+branding:
+  icon: clipboard
+  color: green
+inputs:
+  project-dir:
+    description: Project directory inside the checked-out workspace
+    default: .
+  formats:
+    description: Comma-separated formats to generate (markdown,html,pdf)
+    default: markdown
+  output-dir:
+    description: Report directory inside the workspace
+    default: backloger-reports
+  strict:
+    description: Reject fields outside the official contract (use extensions for custom data)
+    default: 'true'
+  python-version:
+    description: Python 3.12 or newer
+    default: '3.12'
+  upload-artifact:
+    description: Upload only the generated reports and manifest
+    default: 'true'
+  artifact-name:
+    description: Name of the report artifact
+    default: backloger-reports
+outputs:
+  report-dir:
+    description: Absolute directory containing the reports
+    value: ${{ steps.reports.outputs.directory }}
+  markdown:
+    description: Markdown path, or empty when not requested
+    value: ${{ steps.reports.outputs.markdown }}
+  html:
+    description: HTML path, or empty when not requested
+    value: ${{ steps.reports.outputs.html }}
+  pdf:
+    description: PDF path, or empty when not requested
+    value: ${{ steps.reports.outputs.pdf }}
+  manifest:
+    description: Source revision and SHA-256 hashes of the generated reports
+    value: ${{ steps.reports.outputs.manifest }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Validate action inputs
+      id: configuration
+      shell: bash
+      env:
+        BACKLOGER_ACTION_PATH: ${{ github.action_path }}
+        BACKLOGER_INPUT_PROJECT: ${{ inputs.project-dir }}
+        BACKLOGER_INPUT_OUTPUT: ${{ inputs.output-dir }}
+        BACKLOGER_INPUT_FORMATS: ${{ inputs.formats }}
+        BACKLOGER_INPUT_STRICT: ${{ inputs.strict }}
+      run: |
+        if [ "$RUNNER_OS" != "Linux" ]; then
+          echo "Backloger Reports requires a Linux runner." >&2
+          exit 1
+        fi
+        python -I "$BACKLOGER_ACTION_PATH/scripts/action_reports.py" --check
+    - name: Install PDF system libraries when requested
+      if: steps.configuration.outputs.needs-pdf == 'true'
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends libpango-1.0-0 libpangoft2-1.0-0 fonts-dejavu-core
+    - name: Install Backloger in an isolated environment
+      shell: bash
+      env:
+        BACKLOGER_ACTION_PATH: ${{ github.action_path }}
+      run: |
+        BACKLOGER_ACTION_VENV=$(mktemp -d "$RUNNER_TEMP/backloger-action.XXXXXX")
+        python -m venv "$BACKLOGER_ACTION_VENV"
+        "$BACKLOGER_ACTION_VENV/bin/python" -m pip install --disable-pip-version-check "$BACKLOGER_ACTION_PATH"
+        echo "BACKLOGER_ACTION_PYTHON=$BACKLOGER_ACTION_VENV/bin/python" >> "$GITHUB_ENV"
+    - name: Generate selected reports from a single read-only snapshot
+      id: reports
+      shell: bash
+      env:
+        BACKLOGER_ACTION_PATH: ${{ github.action_path }}
+        BACKLOGER_INPUT_PROJECT: ${{ inputs.project-dir }}
+        BACKLOGER_INPUT_OUTPUT: ${{ inputs.output-dir }}
+        BACKLOGER_INPUT_FORMATS: ${{ inputs.formats }}
+        BACKLOGER_INPUT_STRICT: ${{ inputs.strict }}
+      run: '"$BACKLOGER_ACTION_PYTHON" -I "$BACKLOGER_ACTION_PATH/scripts/action_reports.py"'
+    - name: Upload generated reports
+      if: inputs.upload-artifact == 'true'
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      with:
+        name: ${{ inputs.artifact-name }}
+        if-no-files-found: error
+        path: |
+          ${{ steps.reports.outputs.markdown }}
+          ${{ steps.reports.outputs.html }}
+          ${{ steps.reports.outputs.pdf }}
+          ${{ steps.reports.outputs.manifest }}
