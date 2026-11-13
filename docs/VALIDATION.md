@@ -1,5 +1,49 @@
 # Validação da fundação 0.1.0
 
+## Evolução: dependências em projetos grandes — 13/11/2026
+
+`make check` aprovou **117 testes Python**, com 1 E2E excluído, Ruff em 46
+arquivos e Mypy strict em 22 módulos. **14 testes DOM** passaram com Cytoscape
+headless: recorte automático de 205 atividades, busca fora do recorte, hierarquia
+por maior precedência com atalhos, estimativas ausentes, navegação, tela inteira
+com alternativa por CSS, saída para o editor e exportação sem mutação em modo
+somente leitura.
+
+Os casos Python cobrem rotas críticas empatadas, folga, estimativas zero e
+fracionárias, escopos restante/completo, unidades incompatíveis, DAG aleatório
+comparado ao alcance do NetworkX e contagens exatas com listas limitadas. A API
+foi exercitada nos armazenamentos split/single, com SVG escapado, PDF real,
+revisão antiga, CSRF, IDs inexistentes e limites de geometria/páginas. PDF de
+quatro páginas confirmou panorama, duas regiões e inventário com pré-requisito
+fora da visão.
+
+Um ensaio no limite contratual usou **2.000 atividades e 9.985 relações**:
+contagem final de 1.999 bloqueadores, lista limitada a 100 e cadeia completa de
+2.000 itens. A análise levou 6,321 segundos nesta execução; esse valor isolado
+não constitui garantia de latência. A resposta JSON limitada ocupou cerca de
+3,53 MB, incluindo relações, duas análises de caminho e listas de bloqueios.
+
+O grafo do produto gerou PDF A4 paisagem de oito páginas (panorama, seis regiões
+e inventário). Panorama e primeira região foram inspecionados por rasterização;
+os 20 IDs foram conferidos por extração. Relatórios gerenciais e pacote foram
+regenerados para incluir a nova análise, documentação, módulos e assets.
+
+A regeneração do PDF **gerencial** do produto atingiu o timeout padrão de 30
+segundos em duas tentativas. Para produzir o artefato local, somente esse
+processo recebeu espera de até 90 segundos, mantendo memória e CPU limitadas
+no worker. A geração terminou em 46,785 segundos, com 21,637 segundos de CPU do
+worker. Esse ajuste pontual não alterou o limite da aplicação/action, que segue
+em 30 segundos. Portanto a exportação gerencial desse volume continua sujeita
+a timeout nesta máquina; Markdown/HTML foram gerados normalmente. Os testes do
+PDF do grafo e o exemplo de oito páginas passaram com o limite padrão.
+
+O E2E foi ampliado para tela inteira, seleção e downloads SVG/PDF. A primeira
+tentativa não encontrou a versão esperada do Chromium. Com o executável local
+disponível, a inicialização terminou em SIGTRAP, com `shutdown: Operation not
+permitted` no sandbox do navegador. Não houve execução das interações desse
+E2E nem homologação visual em navegador real. As pendências anteriores de
+Docker, CI remota e auditoria online permanecem.
+
 ## Simplificação da instalação e rotina do agente
 
 O runbook foi reduzido a instalar o comando, copiar a skill e solicitar a

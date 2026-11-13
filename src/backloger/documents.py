@@ -145,10 +145,16 @@ def pdf(
         raise BacklogError(
             "Documento maior que 2 MiB; exporte Markdown para processá-lo localmente"
         )
+    return render_pdf(report_html(source, backlog.project.name))
+
+
+def render_pdf(document: str) -> bytes:
+    """Render internally generated HTML through the same isolated worker."""
+    if len(document.encode()) > 8 * 1024 * 1024:
+        raise BacklogError("Documento excede 8 MiB; reduza a visão exportada")
     if not PDF_SLOTS.acquire(blocking=False):
         raise PDFUnavailable("Há um PDF sendo gerado; aguarde e tente novamente")
     try:
-        document = report_html(source, backlog.project.name)
         result = subprocess.run(
             [sys.executable, "-I", "-m", "backloger.pdf_worker"],
             input=document.encode(),

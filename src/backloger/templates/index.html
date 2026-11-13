@@ -11,6 +11,7 @@
   <script defer src="/static/vendor/cytoscape.min.js"></script>
   <script defer src="/static/vendor/htmx.js"></script>
   <script defer src="/static/charts.js"></script>
+  <script defer src="/static/graph-layout.js"></script>
   <script defer src="/static/dependency-view.js"></script>
   <script defer src="/static/app.js"></script>
 </head>
@@ -64,7 +65,25 @@
       <div class="dashboard-grid"><article class="panel"><div class="panel-heading"><div><p class="eyebrow">FLUXO DE TRABALHO</p><h2>Progresso por estado</h2></div></div><div id="status-bars"></div></article><article class="panel"><div class="panel-heading"><div><p class="eyebrow">PRÓXIMOS PASSOS</p><h2>Prontas para começar</h2></div><span class="ready-indicator">Sem bloqueios</span></div><div id="ready-items"></div></article></div>
       <article class="panel history-note" hx-get="/partials/history" hx-trigger="load, every 60s" hx-swap="innerHTML"><p>O histórico começa com alterações feitas pelo Backloger.</p></article>
     </section>
-    <section id="graph-view" class="view-panel" hidden><article class="panel graph-panel"><div class="graph-header"><div><p class="eyebrow">O MAPA DO SEU PROJETO</p><h2>Como o trabalho se conecta</h2><p>Pré-requisito → dependente. Selecione uma atividade para explorar seu impacto.</p></div><div class="graph-controls"><select id="graph-layout" aria-label="Organização do grafo"><option value="breadthfirst">Por dependências</option><option value="concentric">Concêntrico</option><option value="circle">Circular</option></select><button id="graph-fit" class="secondary">Enquadrar</button></div></div><div class="graph-legend"><span><i class="dot-pending"></i>Pendente</span><span><i class="dot-active"></i>Em andamento</span><span><i class="dot-done"></i>Concluído</span><label><input type="checkbox" id="graph-critical"> Caminho crítico</label></div><div class="graph-stage"><div id="graph-canvas" aria-label="Grafo interativo de dependências"></div><div class="graph-zoom"><button id="graph-zoom-in" aria-label="Ampliar grafo">＋</button><button id="graph-zoom-out" aria-label="Reduzir grafo">−</button><button id="graph-reset" aria-label="Limpar seleção do grafo">↺</button></div><div id="graph-empty" class="graph-empty" hidden>Não há atividades com os filtros atuais.</div></div><div class="graph-selection"><label for="graph-select">Explorar atividade</label><select id="graph-select"><option value="">Selecione uma atividade</option></select></div><div id="graph-detail" class="graph-detail" role="status">Selecione uma atividade no grafo ou na lista para ver pré-requisitos e impactos.</div><p id="critical-path"></p></article></section>
+    <section id="graph-view" class="view-panel" hidden>
+      <article class="panel graph-panel" id="graph-panel" aria-labelledby="graph-heading">
+        <div class="graph-header"><div><p class="eyebrow">O MAPA DO SEU PROJETO</p><h2 id="graph-heading">Dependências e pendências</h2><p>Pré-requisito → dependente. Explore uma atividade para reduzir o ruído.</p></div><div class="graph-actions"><button id="graph-export-svg" class="secondary">↓ SVG</button><button id="graph-export-pdf" class="secondary">↓ PDF da visão</button><button id="graph-fullscreen" class="secondary" aria-pressed="false">⛶ Tela inteira</button></div></div>
+        <div class="graph-controls graph-workbench">
+          <label>Escopo<select id="graph-scope"><option value="remaining">Pendências</option><option value="project">Projeto completo</option></select></label>
+          <label>Visão<select id="graph-mode"><option value="auto">Automática</option><option value="overview">Panorama completo</option><option value="neighbors">Vizinhança da atividade</option><option value="prerequisites">Pré-requisitos</option><option value="impacts">Impactos</option><option value="critical">Rotas destacadas</option><option value="missing">Sem estimativa</option></select></label>
+          <label>Organização<select id="graph-layout" aria-label="Organização do grafo"><option value="breadthfirst">Hierárquica</option><option value="concentric">Concêntrica</option><option value="circle">Circular</option></select></label>
+          <label>Direção<select id="graph-direction"><option value="LR">Esquerda → direita</option><option value="TB">Cima → baixo</option></select></label>
+          <label>Rótulos<select id="graph-labels"><option value="auto">Automáticos</option><option value="full">ID e título</option><option value="ids">Somente ID</option></select></label>
+          <button id="graph-fit" class="secondary">Enquadrar</button>
+        </div>
+        <div class="graph-critical-summary"><label><input type="checkbox" id="graph-critical"> <span id="graph-critical-label">Destacar caminho</span></label><p id="critical-path"></p><button id="graph-show-critical" class="text-button">Ver rotas</button><button id="graph-missing" class="text-button" hidden>Completar estimativas</button></div>
+        <div class="graph-legend"><span><i class="dot-pending"></i>Pendente</span><span><i class="dot-active"></i>Em andamento</span><span><i class="dot-done"></i>Concluído</span><span class="critical-key">━ Rota destacada</span><span id="graph-stats" role="status"></span></div>
+        <div class="graph-stage"><div id="graph-canvas" aria-label="Grafo interativo de dependências"></div><div class="graph-zoom"><button id="graph-zoom-in" aria-label="Ampliar grafo">＋</button><button id="graph-zoom-out" aria-label="Reduzir grafo">−</button><button id="graph-reset" aria-label="Limpar seleção do grafo">↺</button></div><div id="graph-empty" class="graph-empty" hidden>Nenhuma atividade neste escopo e filtros.</div></div>
+        <p id="graph-context-note" class="metric-note"></p>
+        <div class="graph-selection"><label for="graph-search">Localizar atividade</label><input id="graph-search" type="search" placeholder="ID ou título em todo o escopo"><select id="graph-select" aria-label="Explorar atividade"><option value="">Selecione uma atividade</option></select></div>
+        <div id="graph-detail" class="graph-detail" role="status">Selecione uma atividade para ver pré-requisitos e impactos.</div>
+      </article>
+    </section>
     <section id="table-view" class="view-panel" hidden><div class="panel table-wrap"><table><thead><tr><th>ID</th><th>Atividade</th><th>Tipo</th><th>Estado</th><th>Prioridade</th><th>Responsável</th><th>Prazo</th></tr></thead><tbody id="item-table"></tbody></table></div></section>
     <section id="roadmap-view" class="view-panel" hidden><div id="roadmap" class="roadmap"></div></section>
     <section id="document-view" class="view-panel" hidden>

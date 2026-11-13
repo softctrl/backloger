@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Annotated, Any
 from uuid import uuid4
 
-from fastapi import FastAPI, Header, Request
+from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -17,6 +17,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from backloger import documents, exports
 from backloger.errors import BacklogError, ReadOnlyError
 from backloger.graph import analyze
+from backloger.graph_export import GraphDocument, GraphExport
 from backloger.models import SavedView
 from backloger.repository import Repository
 from backloger.security import LocalSecurity
@@ -159,7 +160,24 @@ def create_app(
 
     @app.get("/api/v1/graph")
     def graph(item_id: str | None = None) -> dict[str, Any]:
-        return analyze(service.snapshot().backlog, item_id)
+        return analyze(service.snapshot().backlog, item_id, blocker_limit=100)
+
+    @app.post("/api/v1/graph/export/{format}")
+    def export_graph(
+        format: str, request: GraphExport, if_match: Annotated[str | None, Header()] = None
+    ) -> Response:
+        if format not in {"svg", "pdf"}:
+            raise BacklogError("Formato do grafo deve ser svg ou pdf")
+        if not if_match:
+            raise HTTPException(428, "Envie If-Match com a revisão da visão exportada")
+        snapshot = service.snapshot(if_match.strip('"'))
+        document = GraphDocument(snapshot.backlog, request)
+        content = document.pdf() if format == "pdf" else document.svg().encode()
+        return Response(
+            content,
+            media_type="application/pdf" if format == "pdf" else "image/svg+xml",
+            headers={"Content-Disposition": f'attachment; filename="DEPENDENCIAS.{format}"'},
+        )
 
     @app.get("/api/v1/document")
     def document_source() -> dict[str, Any]:

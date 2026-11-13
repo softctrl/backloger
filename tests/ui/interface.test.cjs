@@ -66,7 +66,10 @@ async function harness(t, readOnly = false) {
         revision: data.revision,
         item_count: data.work_items.length,
       });
-    if (path === "/api/v1/export/pdf")
+    if (
+      path === "/api/v1/export/pdf" ||
+      path.startsWith("/api/v1/graph/export/")
+    )
       return {
         ok: true,
         status: 200,
@@ -97,11 +100,12 @@ async function harness(t, readOnly = false) {
     }
     throw new Error("Unexpected request " + path);
   };
-  ["charts.js", "dependency-view.js", "app.js"].forEach((name) =>
-    vm.runInContext(
-      fs.readFileSync("src/backloger/static/" + name, "utf8"),
-      dom.getInternalVMContext(),
-    ),
+  ["charts.js", "graph-layout.js", "dependency-view.js", "app.js"].forEach(
+    (name) =>
+      vm.runInContext(
+        fs.readFileSync("src/backloger/static/" + name, "utf8"),
+        dom.getInternalVMContext(),
+      ),
   );
   t.after(() => {
     w.eval("graph")?.destroy();
@@ -231,6 +235,8 @@ test("empty historical data stays explicit and charts tolerate an empty filtered
 test("graph focuses prerequisites and impacts, highlights critical path and preserves viewport", async (t) => {
   const h = await harness(t);
   h.view("graph");
+  h.d.querySelector("#graph-scope").value = "project";
+  h.change("#graph-scope");
   const graph = h.w.eval("graph");
   assert.ok(graph, h.d.querySelector("#notice").textContent);
   assert.equal(graph.nodes().length, 5);
@@ -371,4 +377,160 @@ test("read-only mode permits reading/export but offers no edit or drag mutation"
       (request) => !request.options.method || request.options.method === "GET",
     ),
   );
+});
+
+test("graph distinguishes structural chains from estimated critical paths and helps complete estimates", async (t) => {
+  const h = await harness(t);
+  for (const [scope, data] of Object.entries(h.data.analysis.critical_paths)) {
+    data.method = "structure";
+    data.duration = null;
+    data.missing_estimates = h.data.work_items
+      .filter((item) => scope === "project" || item.status !== "done")
+      .map((item) => item.id);
+    data.reason = `${data.missing_estimates.length} atividades sem estimativa neste escopo.`;
+  }
+  h.data.work_items.forEach((item) => (item.estimate = null));
+  h.data.revision = "missing-estimates";
+  await h.w.refresh(true);
+  h.view("graph");
+  const graph = h.w.eval("graph");
+  assert.equal(graph.nodes().length, 4);
+  assert.equal(graph.getElementById("SYS-002").length, 0);
+  assert.match(
+    h.d.querySelector("#graph-critical-label").textContent,
+    /Cadeia de precedência/,
+  );
+  assert.equal(h.d.querySelector("#graph-critical").disabled, false);
+  h.d.querySelector("#graph-show-critical").click();
+  assert.equal(graph.nodes(".critical").length, 3);
+  assert.match(
+    h.d.querySelector("#critical-path").textContent,
+    /Não é uma previsão de duração/,
+  );
+  h.d.querySelector("#graph-missing").click();
+  assert.equal(h.d.querySelector("#graph-mode").value, "missing");
+  assert.equal(graph.nodes().length, 4);
+  h.data.analysis.critical_paths.remaining.missing_estimates = ["SYS-003"];
+  h.data.revision = "one-missing-estimate";
+  await h.w.refresh(true);
+  assert.equal(graph.nodes().length, 1);
+  assert.equal(graph.nodes()[0].id(), "SYS-003");
+  h.d.querySelector("#graph-select").value = "SYS-001";
+  h.change("#graph-select");
+  assert.equal(h.d.querySelector("#graph-mode").value, "neighbors");
+  assert.equal(graph.getElementById("SYS-001").length, 1);
+});
+
+test("graph fullscreen falls back to an expanded accessible panel and Escape restores focus", async (t) => {
+  const h = await harness(t);
+  h.view("graph");
+  const panel = h.d.querySelector("#graph-panel"),
+    button = h.d.querySelector("#graph-fullscreen");
+  panel.requestFullscreen = async () => {
+    throw new Error("Fullscreen unavailable");
+  };
+  button.focus();
+  button.click();
+  await h.tick();
+  assert.equal(panel.classList.contains("graph-expanded"), true);
+  assert.equal(panel.getAttribute("aria-modal"), "true");
+  assert.equal(button.getAttribute("aria-pressed"), "true");
+  h.d.dispatchEvent(
+    new h.w.KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+  );
+  await h.tick();
+  assert.equal(panel.classList.contains("graph-expanded"), false);
+  assert.equal(h.d.body.classList.contains("graph-is-expanded"), false);
+  assert.equal(h.d.activeElement, button);
+  h.d.querySelector("#graph-select").value = "SYS-001";
+  h.change("#graph-select");
+  button.click();
+  await h.tick();
+  h.d.querySelector("#graph-detail button").click();
+  await h.tick();
+  assert.equal(panel.classList.contains("graph-expanded"), false);
+  assert.equal(h.d.querySelector("#editor").open, true);
+});
+
+test("graph exports the visible geometry in read-only mode without changing cards", async (t) => {
+  const h = await harness(t, true);
+  h.view("graph");
+  h.d.querySelector("#graph-critical").checked = true;
+  h.change("#graph-critical");
+  const original = structuredClone(h.data.work_items);
+  h.d.querySelector("#graph-export-pdf").click();
+  await h.tick();
+  const request = h.requests.findLast(
+    (request) => request.path === "/api/v1/graph/export/pdf",
+  );
+  assert.equal(request.options.headers["If-Match"], `"${h.data.revision}"`);
+  assert.equal(request.options.headers["X-Backloger-Token"], "test-token");
+  const payload = JSON.parse(request.options.body);
+  assert.equal(Object.keys(payload.positions).length, 4);
+  assert.equal(payload.scope, "remaining");
+  assert.equal(payload.highlight_critical, true);
+  assert.equal(payload.positions["SYS-001"].width, 200);
+  assert.ok(Number.isFinite(payload.positions["SYS-001"].x));
+  assert.equal(h.downloads[0].name, "SYS-DEPENDENCIAS.pdf");
+  h.d.querySelector("#graph-export-svg").click();
+  await h.tick();
+  assert.equal(h.downloads[1].name, "SYS-DEPENDENCIAS.svg");
+  assert.deepEqual(h.data.work_items, original);
+});
+
+test("large graphs start with a bounded neighborhood and can locate nodes outside the initial crop", async (t) => {
+  const h = await harness(t);
+  const template = h.data.work_items[4];
+  for (let i = 6; i <= 205; i++) {
+    const id = `SYS-${String(i).padStart(3, "0")}`;
+    h.data.work_items.push({
+      ...structuredClone(template),
+      id,
+      title: `Entrega ${i}`,
+      status: "todo",
+      dependencies: [{ target_id: "SYS-001", relation: "blocked_by" }],
+    });
+    h.data.analysis.edges.push({ source: "SYS-001", target: id });
+  }
+  h.data.analysis.bottlenecks = [{ id: "SYS-001", affected: 202 }];
+  h.data.revision = "large-project";
+  await h.w.refresh(true);
+  h.view("graph");
+  const graph = h.w.eval("graph");
+  assert.ok(graph.nodes().length <= 180);
+  assert.match(
+    h.d.querySelector("#graph-context-note").textContent,
+    /limitado a 180/,
+  );
+  const input = h.d.querySelector("#graph-search");
+  input.value = "SYS-205";
+  input.dispatchEvent(new h.w.Event("input"));
+  input.dispatchEvent(
+    new h.w.KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
+  );
+  assert.equal(graph.getElementById("SYS-205").length, 1);
+  assert.equal(graph.nodes().length, 2);
+  h.d.querySelector("#graph-mode").value = "overview";
+  h.change("#graph-mode");
+  assert.equal(graph.nodes().length, 204);
+  assert.ok(
+    graph
+      .nodes()
+      .every(
+        (node) =>
+          Number.isFinite(node.position().x) &&
+          Number.isFinite(node.position().y),
+      ),
+  );
+});
+
+test("hierarchical layout follows longest precedence ranks even when shortcuts exist", async (t) => {
+  const h = await harness(t);
+  const positions = h.w.eval(
+    'BacklogGraphLayout.positions(["A","B","C","D","E"], [{source:"A",target:"D"},{source:"A",target:"B"},{source:"B",target:"C"},{source:"C",target:"D"}], "LR")',
+  );
+  assert.ok(positions.get("D").x > positions.get("C").x);
+  assert.ok(positions.get("C").x > positions.get("B").x);
+  assert.ok(positions.get("B").x > positions.get("A").x);
+  assert.notDeepEqual(positions.get("E"), positions.get("A"));
 });

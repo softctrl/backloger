@@ -98,6 +98,20 @@ def test_browser_kanban_external_edit_graph_and_readonly(tmp_path: Path) -> None
             "typeof graph !== 'undefined' && graph && graph.nodes().length === 2"
         )
         assert page.evaluate("graph.edges().length") == 1
+        expect(page.locator("#critical-path")).to_contain_text("sem estimativa")
+        page.locator("#graph-fullscreen").click()
+        expect(page.locator("#graph-panel")).to_have_attribute("aria-modal", "true")
+        page.locator("#graph-search").fill("SYS-002")
+        page.locator("#graph-search").press("Enter")
+        expect(page.locator("#graph-detail h3")).to_contain_text("Segunda entrega")
+        with page.expect_download() as download:
+            page.locator("#graph-export-svg").click()
+        assert download.value.suggested_filename == "SYS-DEPENDENCIAS.svg"
+        with page.expect_download() as download:
+            page.locator("#graph-export-pdf").click()
+        assert download.value.suggested_filename == "SYS-DEPENDENCIAS.pdf"
+        page.locator("#graph-fullscreen").click()
+        expect(page.locator("#graph-fullscreen")).to_have_attribute("aria-pressed", "false")
         page.get_by_role("button", name="Tabela", exact=False).click()
         expect(page.locator("#item-table tr")).to_have_count(2)
         page.get_by_role("button", name="Roadmap", exact=False).click()

@@ -2,7 +2,7 @@
 
 Relatório gerencial de acompanhamento de status
 
-**Projeto:** BKL · **Referência:** 2026-11-11 (UTC) · **Contrato:** 1.0.0
+**Projeto:** BKL · **Referência:** 2026-11-13 (UTC) · **Contrato:** 1.0.0
 
 Dados canônicos do projeto, consolidados para acompanhamento de execução, priorização e decisões de entrega.
 
@@ -80,27 +80,28 @@ xychart-beta
 ### Burndown do projeto — últimos 30 dias
 
 ```mermaid
-%% backloger-chart-v1 {"kind":"line","title":"Burndown · atividades restantes","labels":["10-13","10-14","10-15","10-16","10-17","10-18","10-19","10-20","10-21","10-22","10-23","10-24","10-25","10-26","10-27","10-28","10-29","10-30","10-31","11-01","11-02","11-03","11-04","11-05","11-06","11-07","11-08","11-09","11-10","11-11"],"series":[{"name":"Restantes","values":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,11.0]}],"colors":[]}
+%% backloger-chart-v1 {"kind":"line","title":"Burndown · atividades restantes","labels":["10-15","10-16","10-17","10-18","10-19","10-20","10-21","10-22","10-23","10-24","10-25","10-26","10-27","10-28","10-29","10-30","10-31","11-01","11-02","11-03","11-04","11-05","11-06","11-07","11-08","11-09","11-10","11-11","11-12","11-13"],"series":[{"name":"Restantes","values":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,11.0,null,11.0]}],"colors":[]}
 xychart-beta
     title "Burndown #183; atividades restantes"
-    x-axis ["11-11"]
+    x-axis ["11-11", "11-13"]
     y-axis "Atividades" 0 --> 11
-    line [11]
+    line [11, 11]
 ```
 
-**Saldo atual: 11 atividades abertas.** Há 1 dia(s) com observação nesta janela. Dias sem checkpoint ficam sem valor; não há reconstrução retroativa. Novas atividades, reaberturas e cancelamentos podem alterar a curva.
+**Saldo atual: 11 atividades abertas.** Há 2 dia(s) com observação nesta janela. Dias sem checkpoint ficam sem valor; não há reconstrução retroativa. Novas atividades, reaberturas e cancelamentos podem alterar a curva.
 
 | Data observada (UTC) | Restantes | Escopo total |
 | --- | --- | --- |
 | 2026-11-11 | 11 | 20 |
+| 2026-11-13 | 11 | 20 |
 
 ### Ritmo de entrega — últimos 7 dias
 
 ```mermaid
-%% backloger-chart-v1 {"kind":"bar","title":"Entradas e conclusões observadas","labels":["11-05","11-06","11-07","11-08","11-09","11-10","11-11"],"series":[{"name":"Criadas","values":[0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{"name":"Concluídas","values":[0.0,0.0,0.0,0.0,0.0,0.0,0.0]}],"colors":[]}
+%% backloger-chart-v1 {"kind":"bar","title":"Entradas e conclusões observadas","labels":["11-07","11-08","11-09","11-10","11-11","11-12","11-13"],"series":[{"name":"Criadas","values":[0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{"name":"Concluídas","values":[0.0,0.0,0.0,0.0,0.0,0.0,0.0]}],"colors":[]}
 xychart-beta
     title "Entradas e conclusões observadas"
-    x-axis ["11-05", "11-06", "11-07", "11-08", "11-09", "11-10", "11-11"]
+    x-axis ["11-07", "11-08", "11-09", "11-10", "11-11", "11-12", "11-13"]
     y-axis "Atividades" 0 --> 1
     bar [0, 0, 0, 0, 0, 0, 0]
     bar [0, 0, 0, 0, 0, 0, 0]
@@ -108,17 +109,17 @@ xychart-beta
 
 | Data (UTC) | Criadas | Concluídas |
 | --- | --- | --- |
-| 2026-11-05 | 0 | 0 |
-| 2026-11-06 | 0 | 0 |
 | 2026-11-07 | 0 | 0 |
 | 2026-11-08 | 0 | 0 |
 | 2026-11-09 | 0 | 0 |
 | 2026-11-10 | 0 | 0 |
 | 2026-11-11 | 0 | 0 |
+| 2026-11-12 | 0 | 0 |
+| 2026-11-13 | 0 | 0 |
 
 > Somente eventos registrados pelo Backloger. Edições externas não são reconstruídas. Datas em UTC.
 
-Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 21. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
+Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 24. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
 
 ## 4. Marcos e iterações
 
@@ -168,7 +169,7 @@ Nenhum registro cadastrado.
 
 Impacto considera todos os sucessores do grafo, inclusive itens já encerrados.
 
-**Caminho crítico:** indisponível; todas as atividades precisam de estimativas na mesma unidade para esse cálculo técnico.
+**Maior cadeia de precedência restante:** BKL-017 → BKL-019 → BKL-020 · 3 atividades. 11 atividades sem estimativa neste escopo. Não é uma previsão de duração; complete estimativas na mesma unidade para calcular o caminho crítico técnico.
 
 ### Próximas ações sem bloqueio de dependência
 
@@ -385,8 +386,8 @@ Nenhum critério de aceite cadastrado.
 | Tipo | Funcionalidade | Responsável | Não definido |
 | Componente | Não definido | Prazo | Não definido |
 | Marco | Primeira versão utilizável | Iteração | Não definida |
-| Estimativa | Não definida | Versão | 2 |
-| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-11 15:19 |
+| Estimativa | Não definida | Versão | 3 |
+| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 18:45 |
 
 **Leitura de acompanhamento:** Concluída.
 
@@ -394,7 +395,9 @@ Nenhum critério de aceite cadastrado.
 
 > Objetivo: transformar as relações de precedência em análise prática de execução e impacto.
 > 
-> Entrega disponível: grafo dirigido de pré-requisito para dependente, validação de referências, rejeição de ciclos, identificação de itens isolados, bloqueadores transitivos, atividades prontas e gargalos por alcance. A seleção de uma atividade revela pré-requisitos e sucessores. Caminho crítico técnico é calculado quando todas as estimativas usam a mesma unidade; não representa previsão de calendário. Limites de nós e relações protegem o processamento.
+> Entrega disponível: grafo dirigido de pré-requisito para dependente, referências/ciclos validados, isolados, bloqueadores transitivos, itens prontos e gargalos. Alcance usa bitsets e passagens topológicas; respostas HTTP limitam listas, mantendo contagens exatas. CPM de ida/volta calcula início, fim, folga e todas as rotas críticas empatadas, com caminho representativo estável e escopos de projeto/trabalho restante. Estimativas incompletas ou em unidades diferentes mostram a maior cadeia estrutural e o motivo, sem duração inventada. Estimativas técnicas não representam previsão de calendário.
+> 
+> Validação: rotas paralelas, folga, zero/frações, encerrados, unidades diferentes e DAG aleatório comparado ao NetworkX. Ensaio com 2.000 atividades/9.985 relações preservou a cadeia completa e contagens exatas.
 
 **Critérios de aceite**
 
@@ -408,7 +411,7 @@ Nenhum critério de aceite cadastrado.
 
 **Último registro de acompanhamento**
 
-2026-11-11T15:19:45.085649+00:00 · v2 · Atualizados: Descrição.
+2026-11-13T18:45:36.150765+00:00 · v3 · Motor atualizado com bitsets, CPM de ida/volta, rotas empatadas e escopos restante/completo. Cadeia estrutural explícita quando faltam estimativas. Casos novos e suíte completa aprovados; teste no limite contratual de 2.000 atividades e 9.985 relações.
 
 ### BKL-007 — Geradores Markdown, CSV e Mermaid
 
@@ -517,16 +520,20 @@ Nenhum critério de aceite cadastrado.
 | Tipo | Funcionalidade | Responsável | Não definido |
 | Componente | Não definido | Prazo | Não definido |
 | Marco | Primeira versão utilizável | Iteração | Não definida |
-| Estimativa | Não definida | Versão | 2 |
-| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-11 15:19 |
+| Estimativa | Não definida | Versão | 3 |
+| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 18:45 |
 
 **Leitura de acompanhamento:** Sem bloqueio de dependência.
 
 **Descrição e escopo**
 
-> Objetivo: investigar visualmente dependências, bloqueadores e impacto de uma atividade.
+> Objetivo: investigar dependências, bloqueadores e impacto com leitura viável em projetos grandes.
 > 
-> Entrega disponível: Cytoscape.js hospedado localmente, layouts hierárquico/concentrado/circular, zoom, enquadramento, seleção de atividade e destaque do caminho crítico. Atualizações preservam pan/zoom quando a topologia não muda. A análise vem do mesmo motor usado pela CLI. Seleção, relações e controles foram verificados em testes DOM com Cytoscape headless; interação e diagramação em navegador real ainda exigem homologação.
+> Entrega disponível: Cytoscape.js local, tela inteira com alternativa CSS/teclado, busca por ID/título em todo o escopo, recortes automáticos de até 180 nós, panorama, vizinhança, pré-requisitos e impactos. Layout hierárquico por maior precedência, agrupamento de componentes, direções e rótulos adaptáveis. Painel textual lista relações transitivas 30 por vez e permite abrir cards. Destaque de todas as rotas sem folga, duração técnica/folga quando há estimativas compatíveis e orientação para completar estimativas ausentes. Atualizações preservam pan/zoom se a topologia não muda.
+> 
+> Exportação da visão em SVG e PDF A4 paisagem: panorama, regiões legíveis e inventário com títulos/estados/pré-requisitos, inclusive externos ao recorte. Texto e relações canônicos, revisão e CSRF, sem gravação; funciona em modo somente leitura. PDF compartilha o worker isolado existente.
+> 
+> Validação: 14 testes DOM, casos de API/PDF nos dois armazenamentos e inspeção raster do PDF. Pendência: interação/diagramação em navegador real; Chromium foi bloqueado pelo sandbox deste ambiente.
 
 **Critérios de aceite**
 
@@ -541,7 +548,7 @@ Nenhum critério de aceite cadastrado.
 
 **Último registro de acompanhamento**
 
-2026-11-11T15:19:45.194935+00:00 · v2 · Atualizados: Descrição.
+2026-11-13T18:45:39.769225+00:00 · v3 · Entregues tela inteira, busca, recortes para grafos grandes, hierarquia por maior precedência, rotas críticas/estimativas e exportação SVG/PDF paginada. 14 testes DOM e API/PDF passaram; panorama e região do PDF inspecionados. Homologação em Chromium segue pendente por bloqueio do sandbox.
 
 ### BKL-011 — Sincronização de alterações externas
 
@@ -651,8 +658,8 @@ Nenhum critério de aceite cadastrado.
 | Tipo | Funcionalidade | Responsável | Não definido |
 | Componente | Não definido | Prazo | Não definido |
 | Marco | Primeira versão utilizável | Iteração | Não definida |
-| Estimativa | Não definida | Versão | 3 |
-| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-11 20:51 |
+| Estimativa | Não definida | Versão | 4 |
+| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 18:45 |
 
 **Leitura de acompanhamento:** Sem bloqueio de dependência.
 
@@ -677,7 +684,7 @@ Nenhum critério de aceite cadastrado.
 
 **Último registro de acompanhamento**
 
-2026-11-11T20:51:07.595713+00:00 · v3 · Runbook simplificado para instalar comando/skill e solicitar integração. Skill atualizada para importar o legado, registrar a rotina no AGENTS.md e manter cards, histórico e relatório nos próximos trabalhos. Ruff/Mypy, validador da skill e 2 testes de pacote passaram; fluxo de integração/continuidade exercitado em projeto temporário.
+2026-11-13T18:45:45.394254+00:00 · v4 · Evolução de dependências documentada em DEPENDENCIES, contrato, arquitetura e operação. make check: 117 testes Python, Ruff e Mypy aprovados; 14 testes DOM aprovados. PDF real validado e inspecionado, limite de 2.000 nós/9.985 relações exercitado. E2E ampliado; Chromium bloqueado ao iniciar. Relatórios e pacote local atualizados; navegador real, Docker, CI remota e auditoria online continuam pendentes.
 
 ### BKL-015 — Roadmap, timeline e relatórios avançados
 
@@ -881,6 +888,11 @@ Nenhum critério de aceite cadastrado.
 
 | Data/hora | Atividade | Versão | Registro |
 | --- | --- | --- | --- |
+| 2026-11-13T18:45:45.394254+00:00 | BKL-014 | 4 | Evolução de dependências documentada em DEPENDENCIES, contrato, arquitetura e operação. make check: 117 testes Python, Ruff e Mypy aprovados; 14 testes DOM aprovados. PDF real validado e inspecionado, limite de 2.000 nós/9.985 relações exercitado. E2E ampliado; Chromium bloqueado ao iniciar. Relatórios e pacote local atualizados; navegador real, Docker, CI remota e auditoria online continuam pendentes. |
+| 2026-11-13T18:45:39.769225+00:00 | BKL-010 | 3 | Entregues tela inteira, busca, recortes para grafos grandes, hierarquia por maior precedência, rotas críticas/estimativas e exportação SVG/PDF paginada. 14 testes DOM e API/PDF passaram; panorama e região do PDF inspecionados. Homologação em Chromium segue pendente por bloqueio do sandbox. |
+| 2026-11-13T18:45:39.769084+00:00 | BKL-010 | 3 | Atualizados: Descrição. |
+| 2026-11-13T18:45:36.150765+00:00 | BKL-006 | 3 | Motor atualizado com bitsets, CPM de ida/volta, rotas empatadas e escopos restante/completo. Cadeia estrutural explícita quando faltam estimativas. Casos novos e suíte completa aprovados; teste no limite contratual de 2.000 atividades e 9.985 relações. |
+| 2026-11-13T18:45:36.150628+00:00 | BKL-006 | 3 | Atualizados: Descrição. |
 | 2026-11-11T20:51:07.595713+00:00 | BKL-014 | 3 | Runbook simplificado para instalar comando/skill e solicitar integração. Skill atualizada para importar o legado, registrar a rotina no AGENTS.md e manter cards, histórico e relatório nos próximos trabalhos. Ruff/Mypy, validador da skill e 2 testes de pacote passaram; fluxo de integração/continuidade exercitado em projeto temporário. |
 | 2026-11-11T15:19:45.584388+00:00 | BKL-020 | 2 | Atualizados: Descrição. |
 | 2026-11-11T15:19:45.524303+00:00 | BKL-019 | 2 | Atualizados: Descrição. |

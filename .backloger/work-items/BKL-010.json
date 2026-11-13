@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "id": "BKL-010",
   "title": "Visualizador de grafos",
-  "description": "Objetivo: investigar visualmente dependências, bloqueadores e impacto de uma atividade.\n\nEntrega disponível: Cytoscape.js hospedado localmente, layouts hierárquico/concentrado/circular, zoom, enquadramento, seleção de atividade e destaque do caminho crítico. Atualizações preservam pan/zoom quando a topologia não muda. A análise vem do mesmo motor usado pela CLI. Seleção, relações e controles foram verificados em testes DOM com Cytoscape headless; interação e diagramação em navegador real ainda exigem homologação.",
+  "description": "Objetivo: investigar dependências, bloqueadores e impacto com leitura viável em projetos grandes.\n\nEntrega disponível: Cytoscape.js local, tela inteira com alternativa CSS/teclado, busca por ID/título em todo o escopo, recortes automáticos de até 180 nós, panorama, vizinhança, pré-requisitos e impactos. Layout hierárquico por maior precedência, agrupamento de componentes, direções e rótulos adaptáveis. Painel textual lista relações transitivas 30 por vez e permite abrir cards. Destaque de todas as rotas sem folga, duração técnica/folga quando há estimativas compatíveis e orientação para completar estimativas ausentes. Atualizações preservam pan/zoom se a topologia não muda.\n\nExportação da visão em SVG e PDF A4 paisagem: panorama, regiões legíveis e inventário com títulos/estados/pré-requisitos, inclusive externos ao recorte. Texto e relações canônicos, revisão e CSRF, sem gravação; funciona em modo somente leitura. PDF compartilha o worker isolado existente.\n\nValidação: 14 testes DOM, casos de API/PDF nos dois armazenamentos e inspeção raster do PDF. Pendência: interação/diagramação em navegador real; Chromium foi bloqueado pelo sandbox deste ambiente.",
   "type": "feature",
   "status": "in_progress",
   "priority": "critical",
@@ -27,8 +27,8 @@
   ],
   "acceptance_criteria": [],
   "created_at": "2026-11-11T13:23:30.934941Z",
-  "updated_at": "2026-11-11T15:19:45.194838Z",
-  "version": 2,
+  "updated_at": "2026-11-13T18:45:39.768045Z",
+  "version": 3,
   "extensions": {
     "delivery_priority": "P0"
   },
@@ -42,6 +42,24 @@
       "changed_fields": [
         "description"
       ]
+    },
+    {
+      "id": "H-d961214b331645b6a57a1c691cd69d6a",
+      "at": "2026-11-13T18:45:39.769084Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 3,
+      "changed_fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "H-87c2a5cb0b24427fb77e57d28f7ab377",
+      "at": "2026-11-13T18:45:39.769225Z",
+      "kind": "comment",
+      "text": "Entregues tela inteira, busca, recortes para grafos grandes, hierarquia por maior precedência, rotas críticas/estimativas e exportação SVG/PDF paginada. 14 testes DOM e API/PDF passaram; panorama e região do PDF inspecionados. Homologação em Chromium segue pendente por bloqueio do sandbox.",
+      "version": 3,
+      "changed_fields": []
     }
   ]
 }

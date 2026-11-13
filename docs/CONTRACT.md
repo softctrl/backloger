@@ -93,6 +93,47 @@ todos os ciclos ou todos os caminhos de um grafo.
 O hash global é conservador: editar B pode invalidar uma edição aberta de A.
 Isso protege referências e configurações que mudaram durante a edição.
 
+## Análise e exportação do grafo
+
+`GET /api/v1/graph?item_id=SYS-003` retorna arestas, bloqueios, itens prontos,
+isolados, gargalos e os pré-requisitos/impactos transitivos do item selecionado.
+`/api/v1/state` inclui a mesma análise. As duas respostas HTTP limitam a lista
+de bloqueadores a 100 IDs por atividade; `blocker_counts` mantém a contagem
+exata e `blockers_truncated` informa se houve corte. A seleção de um item retorna
+suas relações completas. CLI e relatórios usam a análise completa.
+
+`critical_paths.project` e `critical_paths.remaining` detalham os dois escopos:
+`path` representativo, `nodes` e `edges` de todas as rotas sem folga, `timings`
+com start/finish/latest_start/slack, `duration`, `unit`, `method`, `reason`,
+`missing_estimates`, `units`, `length`, `scope` e `note`.
+
+`method=estimate` exige estimativas compatíveis em todo o escopo. `structure`
+representa a maior cadeia por quantidade de atividades, com duration/unit nulos
+e tempos estruturais sem unidade de duração; `empty` representa escopo vazio.
+O campo anterior `critical_path` continua disponível para compatibilidade e
+mantém path vazio quando não há duração estimável do projeto completo.
+
+`POST /api/v1/graph/export/svg` ou `/pdf` recebe somente geometria:
+
+```json
+{
+  "scope": "remaining",
+  "highlight_critical": true,
+  "positions": {
+    "SYS-001": {"x": 120, "y": 90, "width": 200, "height": 72},
+    "SYS-003": {"x": 420, "y": 90, "width": 200, "height": 72}
+  }
+}
+```
+
+Use `X-Backloger-Token` e `If-Match` da revisão desenhada. Funciona em modo
+somente leitura, sem gravar dados. Títulos, estados e relações vêm do snapshot
+canônico, sem aceitar HTML/SVG fornecido pelo cliente. Coordenadas devem ser
+finitas e limitadas a ±10.000.000; largura 40–400 e altura 24–180. O corpo HTTP
+continua limitado a 256 KiB e a visão a 2.000 IDs existentes. PDF limita regiões
+a 36 e usa o mesmo worker isolado e limites do documento gerencial. Consulte
+[DEPENDENCIES.md](DEPENDENCIES.md) para escopos e leitura do resultado.
+
 ## Histórico dos cards
 
 `history` é um campo opcional de cada atividade. Arquivos existentes sem esse

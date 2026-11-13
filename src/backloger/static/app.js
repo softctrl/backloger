@@ -66,7 +66,7 @@ let state = null,
   pdfBusy = false,
   toastTimer = null;
 const metricValues = new Map();
-const graphView = BacklogGraph.create(openEditor);
+const graphView = BacklogGraph.create(openEditor, notice);
 function markChanged(id) {
   lastChangedItem = id;
   setTimeout(() => {

@@ -15,8 +15,10 @@ detalhes técnicos e exemplos acompanham o ZIP.
 A página inicial abre o dashboard. Os gráficos de estado, prioridade e
 responsável permitem abrir as atividades correspondentes no Kanban. Ritmo de
 entrega admite janelas de 7/14/30 dias e tabela alternativa acessível. Animações
-respeitam a preferência do sistema por movimento reduzido. O grafo permite zoom,
-três layouts, seleção de pré-requisitos/impactos e destaque do caminho crítico.
+respeitam a preferência do sistema por movimento reduzido. O grafo permite busca,
+recortes de vizinhança/pré-requisitos/impactos, tela inteira, três organizações e
+exportação da visão em SVG/PDF paginado. Caminho crítico distingue estimativas
+de cadeias estruturais sem duração; veja [DEPENDENCIES.md](DEPENDENCIES.md).
 
 O burndown usa quantidade de atividades restantes, com seleção de projeto ou
 iteração. Gravações registram checkpoints reais; datas anteriores ao histórico

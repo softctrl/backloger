@@ -462,19 +462,24 @@ def _dependencies(data: ReportData) -> str:
                 "Impacto considera todos os sucessores do grafo, inclusive itens já encerrados.\n",
             ]
         )
-    critical = data.analysis["critical_path"]
-    if critical["path"]:
+    critical = data.analysis["critical_paths"]["remaining"]
+    if critical["method"] == "estimate":
         lines.append(
-            "**Caminho crítico técnico:** "
+            "**Caminho crítico técnico restante:** "
             + " → ".join(critical["path"])
             + f" · {critical['duration']:g} {UNITS[critical['unit']]}. "
             "Estimativa de esforço/precedência; não é uma previsão de calendário.\n"
         )
-    else:
+    elif critical["method"] == "structure":
         lines.append(
-            "**Caminho crítico:** indisponível; todas as atividades precisam de estimativas "
-            "na mesma unidade para esse cálculo técnico.\n"
+            "**Maior cadeia de precedência restante:** "
+            + " → ".join(critical["path"])
+            + f" · {critical['length']} atividades. {critical['reason']} "
+            "Não é uma previsão de duração; complete estimativas na mesma unidade "
+            "para calcular o caminho crítico técnico.\n"
         )
+    else:
+        lines.append("**Caminho crítico restante:** nenhuma atividade pendente.\n")
     ready = [i for i in data.open_items if i.id in data.analysis["ready"]][:8]
     lines.extend(
         [

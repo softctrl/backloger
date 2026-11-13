@@ -18,7 +18,8 @@ recortam o relatório. Após atualizar o código, reinicie o servidor Python.
    iteração mostram até cinco linhas de base. As tabelas de marcos/iterações são
    completas.
 5. Dependências: bloqueadores transitivos, impactos potenciais, caminho crítico
-   técnico quando calculável e até oito ações sem bloqueio, ordenadas por
+   técnico do trabalho restante quando calculável (ou maior cadeia estrutural
+   com motivo da ausência de duração) e até oito ações sem bloqueio, ordenadas por
    prioridade, prazo e ID.
 6. Inventário completo das atividades.
 7. Ficha de cada atividade: descrição integral, tipo, status, prioridade,
@@ -55,6 +56,10 @@ cards acompanham os JSONs. Um clone sem auditoria não recupera séries passadas
 O documento declara essa limitação e mostra throughput indisponível quando não
 há histórico observado. Zeros no gráfico de eventos não comprovam produtividade
 nula. Edições externas não geram eventos retroativos.
+
+O [grafo interativo](DEPENDENCIES.md) tem exportação própria em SVG/PDF da visão,
+com páginas de regiões e inventário. Essa exportação é separada do documento
+gerencial e usa a mesma análise de dependências.
 
 ## Arquivos e automação
 

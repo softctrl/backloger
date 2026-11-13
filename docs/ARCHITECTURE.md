@@ -1,5 +1,28 @@
 # Arquitetura e decisões
 
+## ADR-009 — Grafo navegável e cálculo explícito de precedência
+
+O cálculo usa passagens topológicas com bitsets para alcance transitivo e CPM
+com ida/volta para início, fim e folga. Rotas críticas empatadas são destacadas
+sem enumerar todos os caminhos. Um caminho representativo tem desempate estável.
+Estimativas incompletas/incompatíveis produzem uma cadeia estrutural declarada,
+sem duração inventada. Trabalho restante e projeto completo têm cálculos
+separados; cancelados não entram no CPM. As respostas web limitam listas de
+bloqueadores, preservando as contagens e o detalhamento do item selecionado.
+
+A web começa com vizinhança limitada em projetos grandes. O layout hierárquico
+usa maior precedência, duas passagens baricêntricas e separação de componentes,
+sem simulação física ou dependência de CDN. Busca e painel textual mantêm acesso
+a itens fora do desenho. Tela inteira tem alternativa por CSS e controle de foco.
+
+Exportação recebe somente posições finitas e limitadas, CSRF e revisão. O núcleo
+consulta texto/relações canônicos e gera SVG escapado. PDF divide regiões do
+desenho, inclui inventário e usa o worker isolado existente, com limites de
+páginas, conteúdo, tempo, memória e acesso a recursos. Nenhuma escrita é exigida
+para exportar, inclusive com volume somente leitura. Não se aceita markup do
+cliente nem se busca recurso externo. Navegador real permanece como verificação
+distinta dos testes DOM com Cytoscape headless.
+
 ## ADR-008 — Adoção assistida sem importação destrutiva
 
 A skill de adoção inventaria fontes e produz uma proposta no contrato Backlog.

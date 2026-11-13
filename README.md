@@ -37,6 +37,7 @@ Uso direto da CLI para criar um backlog: `backloger --project /repo init --name 
 - CLI de criação, consulta, edição, dependências, validação e diagnóstico.
 - Escrita atômica, lock, revisão por conteúdo, backups, auditoria e recuperação.
 - Análise de bloqueios transitivos, impacto, ciclos e caminho crítico técnico.
+- Grafo com busca, recortes para grandes projetos, tela inteira e exportação SVG/PDF paginada.
 - Dashboard com gráficos interativos e burndown, Kanban, grafo Cytoscape, tabela e roadmap.
 - Histórico automático e notas de andamento em cada card, preservados no Git.
 - Relatório gerencial com resumo executivo, gráficos, burndown, alertas e atividades detalhadas.
@@ -79,5 +80,6 @@ P1/P2 (colaboração, integrações, plugins e múltiplos projetos) seguem no ba
 - [Resultados de validação](docs/VALIDATION.md)
 - [Importar a action de relatórios](docs/GITHUB_ACTION.md)
 - [Conteúdo e leitura dos relatórios gerenciais](docs/REPORTS.md)
+- [Explorar dependências, caminho crítico e exportar o grafo](docs/DEPENDENCIES.md)
 
 Licença [Apache-2.0](LICENSE). Bibliotecas JavaScript incluem suas próprias licenças.

@@ -220,7 +220,7 @@ class BacklogService:
     def state(self) -> dict[str, Any]:
         snapshot = self.snapshot()
         backlog = snapshot.backlog
-        analysis = analyze(backlog)
+        analysis = analyze(backlog, blocker_limit=100)
         categories = {s.id: s.category for s in backlog.project.statuses}
         events = self.repository.events()
         return {

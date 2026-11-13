@@ -2,6 +2,15 @@
 
 ## Em desenvolvimento
 
+Dependências com tela inteira, busca por ID/título, escopo de pendências/projeto,
+recortes de vizinhança/pré-requisitos/impactos, rótulos adaptáveis e layout
+hierárquico por maior precedência. Exportação SVG e PDF da visão com panorama,
+regiões legíveis e inventário. Motor com alcance transitivo por bitsets, folgas
+e todas as rotas críticas empatadas. Estimativas ausentes/incompatíveis são
+declaradas; a maior cadeia estrutural fica navegável sem inventar duração.
+Relatório gerencial passa a usar o caminho restante, com explicação dos dados
+necessários. Documentação de uso e contrato da nova exportação incluídos.
+
 Runbook simplificado para instalar comando/skill e solicitar a integração ao
 agente. A skill `backloger-adoption` orienta importação e entrada em uso, incorpora
 a rotina ao `AGENTS.md` e mantém cards, histórico e relatórios durante os próximos
