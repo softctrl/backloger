@@ -93,6 +93,39 @@ todos os ciclos ou todos os caminhos de um grafo.
 O hash global é conservador: editar B pode invalidar uma edição aberta de A.
 Isso protege referências e configurações que mudaram durante a edição.
 
+## Sprints (iterações)
+
+A interface chama de sprint a entidade `Iteration` do contrato existente.
+Mantém `id`, `name`, `start_date` e `due_date` opcionais, além de extensões
+preservadas. Quando as duas datas existem, o fim não pode anteceder o início.
+As atividades usam `iteration_id`; referências inexistentes rejeitam a gravação.
+
+`POST /api/v1/iterations` cria uma sprint com ID `SPR-NNN` alocado pelo serviço.
+`PUT /api/v1/iterations/{id}` atualiza nome e período, preservando campos extras
+que já estavam armazenados. Ambos exigem CSRF e `If-Match`; a revisão global
+protege a entidade, que não possui contador de versão próprio.
+
+```json
+{"name":"Sprint de entrega","start_date":"2026-11-13","due_date":"2026-11-26"}
+```
+
+POST retorna 201 e PUT 200, com `iteration`, `revision` e `ETag`. Datas nulas
+limpam o período em PUT. Não há exclusão de sprints nessa interface. A associação
+de atividades usa o PATCH existente, por exemplo:
+
+```json
+{"expected_version":3,"iteration_id":"SPR-001"}
+```
+
+`GET /api/v1/state` acrescenta `sprint_overview`: `today` em UTC, `iterations`
+com um resumo de cada ciclo e `unassigned` para itens sem sprint. Cada resumo
+tem identificação/período, phase (`current`, `upcoming`, `past`, `undated` ou
+`unplanned`), total, pending/active/done/cancelled, remaining, blocked, overdue,
+progress percentual ou nulo e open_estimates separado por unidade. Esses
+campos são derivados e não são persistidos nos JSONs canônicos. Filtros da web
+não alteram os totais. Os dois armazenamentos usam a mesma validação, escrita
+atômica, backup, auditoria e verificação de revisão.
+
 ## Análise e exportação do grafo
 
 `GET /api/v1/graph?item_id=SYS-003` retorna arestas, bloqueios, itens prontos,

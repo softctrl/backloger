@@ -1,5 +1,25 @@
 # Arquitetura e decisões
 
+## ADR-011 — Sprints como visão das iterações existentes
+
+A nova visualização usa `Iteration` e `WorkItem.iteration_id`, sem criar outra
+fonte de dados. O núcleo deriva os resumos por categorias de estado, cancelados,
+bloqueadores transitivos e unidade de estimativa. A UI consome esses resumos
+integrais e aplica filtros somente aos cards. Não existe conversão implícita de
+estimativas nem conclusão automática ao terminar um período.
+
+Criação/edição usam DTO restrito, revisão global e o repositório compartilhado.
+O commit de metadados admite a coleção iterations além de views, preservando os
+dois armazenamentos, backup, recuperação e auditoria. Associações continuam no
+PATCH da atividade e geram histórico por card. Campos externos armazenados na
+iteração sobrevivem à edição de nome/período. Datas invertidas são inválidas.
+
+O planejamento inclui uma atividade por gravação, com versão/revisão e resultado
+explícito, evitando alegar atomicidade de um lote de arquivos. Novos cards herdam
+o ciclo selecionado; transferências usam o editor existente. A visão não infere
+sprints em dados legados. Listas limitam o DOM inicialmente e permitem busca e
+carregamento adicional. O burndown usa os mesmos checkpoints do dashboard.
+
 ## ADR-010 — PDF completo com memória limitada
 
 O relatório de um projeto com 482 atividades esgotou os 768 MiB de endereço do

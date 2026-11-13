@@ -12,6 +12,12 @@ detalhes técnicos e exemplos acompanham o ZIP.
 
 ## Dashboard, burndown e documento
 
+Em **Sprints**, escolha um ciclo para acompanhar A fazer, Em andamento e
+Concluídas, com progresso, restantes e bloqueios do escopo completo. É possível
+criar/editar sprints, adicionar atividades existentes e cadastrar novas já
+associadas ao ciclo. A opção Sem sprint mostra o backlog não alocado. Veja
+[SPRINTS.md](SPRINTS.md) para planejamento, filtros e burndown.
+
 A página inicial abre o dashboard. Os gráficos de estado, prioridade e
 responsável permitem abrir as atividades correspondentes no Kanban. Ritmo de
 entrega admite janelas de 7/14/30 dias e tabela alternativa acessível. Animações

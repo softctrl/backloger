@@ -147,6 +147,12 @@ class Milestone(Contract):
 class Iteration(Milestone):
     start_date: date | None = None
 
+    @model_validator(mode="after")
+    def valid_period(self) -> Self:
+        if self.start_date and self.due_date and self.due_date < self.start_date:
+            raise ValueError("O fim da sprint deve ser igual ou posterior ao início")
+        return self
+
 
 class SavedView(Contract):
     id: Reference

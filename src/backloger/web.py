@@ -18,10 +18,16 @@ from backloger import documents, exports
 from backloger.errors import BacklogError, ReadOnlyError
 from backloger.graph import analyze
 from backloger.graph_export import GraphDocument, GraphExport
-from backloger.models import SavedView
+from backloger.models import Reference, SavedView
 from backloger.repository import Repository
 from backloger.security import LocalSecurity
-from backloger.service import BacklogService, CreateItem, SaveViewRequest, UpdateItem
+from backloger.service import (
+    BacklogService,
+    CreateItem,
+    IterationRequest,
+    SaveViewRequest,
+    UpdateItem,
+)
 
 ASSETS = Path(__file__).parent
 
@@ -157,6 +163,34 @@ def create_app(
             SavedView.model_validate(request.model_dump()), mutation_revision(if_match)
         )
         return {"revision": saved.revision}
+
+    @app.post("/api/v1/iterations", status_code=201)
+    def create_iteration(
+        request: IterationRequest,
+        if_match: Annotated[str | None, Header()] = None,
+    ) -> JSONResponse:
+        iteration, snapshot = service.save_iteration(request, mutation_revision(if_match))
+        return JSONResponse(
+            {"iteration": iteration.model_dump(mode="json"), "revision": snapshot.revision},
+            status_code=201,
+            headers={"ETag": f'"{snapshot.revision}"'},
+        )
+
+    @app.put("/api/v1/iterations/{iteration_id}")
+    def update_iteration(
+        iteration_id: Reference,
+        request: IterationRequest,
+        if_match: Annotated[str | None, Header()] = None,
+    ) -> JSONResponse:
+        iteration, snapshot = service.save_iteration(
+            request,
+            mutation_revision(if_match),
+            iteration_id,
+        )
+        return JSONResponse(
+            {"iteration": iteration.model_dump(mode="json"), "revision": snapshot.revision},
+            headers={"ETag": f'"{snapshot.revision}"'},
+        )
 
     @app.get("/api/v1/graph")
     def graph(item_id: str | None = None) -> dict[str, Any]:

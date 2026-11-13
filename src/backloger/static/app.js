@@ -24,6 +24,11 @@ const pages = {
     "O ritmo do projeto, com os dados que você já tem.",
     "DASHBOARD",
   ],
+  sprints: [
+    "Cada sprint, com foco no que falta",
+    "Acompanhe o trabalho em andamento e o que precisa ser entregue neste ciclo.",
+    "SPRINTS",
+  ],
   graph: [
     "Cada entrega tem conexões",
     "Entenda pré-requisitos, bloqueios e o impacto de cada atividade.",
@@ -67,6 +72,13 @@ let state = null,
   toastTimer = null;
 const metricValues = new Map();
 const graphView = BacklogGraph.create(openEditor, notice);
+const sprintView = BacklogSprints.create({
+  api,
+  refresh,
+  openItem: openEditor,
+  toast,
+  notice,
+});
 function markChanged(id) {
   lastChangedItem = id;
   setTimeout(() => {
@@ -214,7 +226,7 @@ function filters() {
     ]),
   );
 }
-function visibleItems() {
+function visibleItems(ignoreIteration = false) {
   const f = filters(),
     q = f.search.toLocaleLowerCase();
   return state.work_items.filter(
@@ -225,7 +237,9 @@ function visibleItems() {
       (!f["filter-priority"] || i.priority === f["filter-priority"]) &&
       (!f["filter-label"] || i.labels.includes(f["filter-label"])) &&
       (!f["filter-component"] || i.component === f["filter-component"]) &&
-      (!f["filter-iteration"] || i.iteration_id === f["filter-iteration"]) &&
+      (ignoreIteration ||
+        !f["filter-iteration"] ||
+        i.iteration_id === f["filter-iteration"]) &&
       (f["filter-blocked"] !== "true" || state.analysis.blockers[i.id]?.length),
   );
 }
@@ -699,7 +713,7 @@ async function downloadPDF() {
 }
 function renderView() {
   if (!state) return;
-  const items = visibleItems();
+  const items = visibleItems(currentView === "sprints");
   filterIds.forEach((id) =>
     $("#" + id).classList.toggle(
       "filter-active",
@@ -719,6 +733,7 @@ function renderView() {
     graph: renderGraph,
     roadmap: renderRoadmap,
     document: renderDocument,
+    sprints: (items) => sprintView.update(state, items),
   })[currentView](items);
 }
 function setView(view) {
@@ -726,6 +741,8 @@ function setView(view) {
   currentView = view;
   history.replaceState(null, "", `#${view}`);
   $(".toolbar").hidden = view === "document";
+  $("#metrics").hidden = view === "sprints";
+  $("#filter-iteration").hidden = view === "sprints";
   $$("[data-view]").forEach((button) => {
     button.classList.toggle("active", button.dataset.view === view);
     if (button.dataset.view === view)
@@ -842,6 +859,8 @@ function openEditor(item = null, status = null) {
         item?.[key] ??
         (key === "type" ? "task" : key === "priority" ? "medium" : "")),
   );
+  if (!item && currentView === "sprints")
+    field("iteration_id").value = sprintView.selectedId() || "";
   field("status").value =
     item?.status ||
     status ||

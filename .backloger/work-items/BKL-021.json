@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "id": "BKL-021",
+  "title": "Visão e planejamento de sprints",
+  "description": "Objetivo: acompanhar em uma sprint o que está em andamento e o que ainda precisa ser entregue.\n\nEntrega disponível: visão por iteração com A fazer, Em andamento e Concluídas, resumo integral, progresso, restantes, bloqueios, prazos, estimativas por unidade, burndown e canceladas separadas. Criação/edição com período opcional e revisão global. Inclusão individual de atividades do backlog, nova atividade herdando o ciclo e transferências pelo editor existente. Filtros recortam os cards, preservando os totais; listas grandes carregam mais e a busca alcança itens fora da página.\n\nDados usam iterations/iteration_id do contrato atual, com validação, escrita atômica, backup, auditoria e somente leitura. Mudanças externas são refletidas pelo polling.\n\nValidação: 134 testes Python, 21 testes DOM e E2E Chromium com criação, planejamento, conclusão (50%), viewport desktop/móvel e fluxo anterior da aplicação. Documentação de uso/contrato/arquitetura e instalação pipx atualizadas; servidor local reiniciado com nova API saudável.",
+  "type": "feature",
+  "status": "done",
+  "priority": "high",
+  "component": null,
+  "owner": null,
+  "labels": [
+    "p1",
+    "sprints"
+  ],
+  "milestone_id": null,
+  "iteration_id": null,
+  "due_date": null,
+  "estimate": null,
+  "dependencies": [
+    {
+      "target_id": "BKL-003",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-004",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-008",
+      "relation": "blocked_by"
+    },
+    {
+      "target_id": "BKL-009",
+      "relation": "blocked_by"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-SPR-01",
+      "text": "Exibir o escopo da sprint por categorias e progresso sem canceladas no denominador.",
+      "done": true
+    },
+    {
+      "id": "AC-SPR-02",
+      "text": "Criar e editar sprints com revisão, referências, backup e somente leitura.",
+      "done": true
+    },
+    {
+      "id": "AC-SPR-03",
+      "text": "Incluir atividades existentes e associar novas ao ciclo selecionado.",
+      "done": true
+    },
+    {
+      "id": "AC-SPR-04",
+      "text": "Preservar totais sob filtros e refletir mudanças externas.",
+      "done": true
+    },
+    {
+      "id": "AC-SPR-05",
+      "text": "Validar interface desktop/móvel e atualizar documentação e pacote.",
+      "done": true
+    }
+  ],
+  "created_at": "2026-11-13T23:02:35.700193Z",
+  "updated_at": "2026-11-13T23:10:48.975200Z",
+  "version": 2,
+  "extensions": {},
+  "history": [
+    {
+      "id": "H-f400af49387549df9b893c65ce8c8164",
+      "at": "2026-11-13T23:02:35.699847Z",
+      "kind": "created",
+      "text": "Atividade criada.",
+      "version": 1,
+      "changed_fields": []
+    },
+    {
+      "id": "H-e23be4fd488e44c9b96a748b1a2abf52",
+      "at": "2026-11-13T23:02:35.699970Z",
+      "kind": "comment",
+      "text": "Implementação e testes de domínio/API, DOM e Chromium concluídos; preparando documentação, pacote e atualização local.",
+      "version": 1,
+      "changed_fields": []
+    },
+    {
+      "id": "H-c14e2ee744a14f60b234fed914be7e25",
+      "at": "2026-11-13T23:10:48.975830Z",
+      "kind": "updated",
+      "text": "Estado: Em andamento → Concluído. Atualizados: Descrição, Estado, Critérios de aceite.",
+      "version": 2,
+      "changed_fields": [
+        "description",
+        "status",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "id": "H-4a327865388d45b6865a15e1477ee635",
+      "at": "2026-11-13T23:10:48.975918Z",
+      "kind": "comment",
+      "text": "Entrega validada em domínio/API nos dois armazenamentos, DOM e Chromium desktop/móvel. Pacote Python atualizado via pipx e aplicação local reiniciada. Guia SPRlNTS, contrato e decisões documentados; dados do consumidor permanecem consultados sem criar sprints automaticamente.",
+      "version": 2,
+      "changed_fields": []
+    }
+  ]
+}

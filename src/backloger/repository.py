@@ -158,6 +158,7 @@ class Repository:
         item_id: str | None,
         action: str,
         previous_status: str | None = None,
+        collection: Literal["views", "iterations"] = "views",
     ) -> Snapshot:
         self.writable()
         dependency_graph(backlog)
@@ -170,8 +171,8 @@ class Repository:
             safe_path(self.root, target)
             after = encode(item.model_dump(mode="json"))
         else:
-            target = ".backloger/views.json"
-            after = encode([v.model_dump(mode="json") for v in backlog.views])
+            target = f".backloger/{collection}.json"
+            after = encode([v.model_dump(mode="json") for v in getattr(backlog, collection)])
         if len(after) > 8 * 1024 * 1024:
             raise BacklogError("Arquivo resultante excede 8 MiB")
         if (

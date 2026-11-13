@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -93,9 +94,41 @@ def test_browser_kanban_external_edit_graph_and_readonly(tmp_path: Path) -> None
         assert json.loads(path.read_text())["title"] == data["title"]
         page.get_by_role("button", name="Fechar editor", exact=True).click()
         expect(page.locator('.card[data-id="SYS-001"]')).to_contain_text(data["title"])
+        page.locator('[data-view="sprints"]').click()
+        page.locator("#sprint-create").click()
+        page.get_by_label("Nome da sprint", exact=True).fill("Sprint de entrega")
+        today = datetime.now(UTC).date()
+        page.get_by_label("Início da sprint", exact=True).fill(today.isoformat())
+        page.get_by_label("Fim da sprint", exact=True).fill(
+            (today + timedelta(days=13)).isoformat()
+        )
+        page.locator("#sprint-save").click()
+        expect(page.locator("#sprint-editor")).not_to_be_visible()
+        expect(page.locator("#sprint-name")).to_have_text("Sprint de entrega")
+        page.locator("#sprint-add").click()
+        for item_id in ("SYS-001", "SYS-002"):
+            page.locator("#sprint-backlog-search").fill(item_id)
+            button = page.get_by_role("button", name=f"Adicionar {item_id} à sprint", exact=True)
+            button.click()
+            expect(button).to_have_count(0)
+        page.locator("#sprint-planner-close").click()
+        expect(page.locator('#sprint-board [data-category="active"] .card')).to_have_count(1)
+        expect(page.locator('#sprint-board [data-category="pending"] .card')).to_have_count(1)
+        page.locator('#sprint-board .card[data-id="SYS-002"]').click()
+        expect(page.locator("#editor")).to_be_visible()
+        page.locator('#editor select[name="status"]').select_option("done")
+        page.locator("#save-item").click()
+        expect(page.locator("#sprint-progress-label")).to_contain_text("50%")
+        screenshot = os.getenv("BACKLOGER_SPRINT_SCREENSHOT")
+        if screenshot:
+            page.screenshot(path=screenshot, full_page=True)
+        page.set_viewport_size({"width": 390, "height": 844})
+        assert page.evaluate("() => document.documentElement.scrollWidth <= window.innerWidth")
+        page.set_viewport_size({"width": 1440, "height": 1000})
         page.get_by_role("button", name="Dependências", exact=False).click()
+        page.locator("#graph-scope").select_option("project")
         page.wait_for_function(
-            "typeof graph !== 'undefined' && graph && graph.nodes().length === 2"
+            "() => typeof graph !== 'undefined' && graph && graph.nodes().length === 2"
         )
         assert page.evaluate("graph.edges().length") == 1
         expect(page.locator("#critical-path")).to_contain_text("sem estimativa")

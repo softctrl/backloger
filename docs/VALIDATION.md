@@ -1,5 +1,37 @@
 # Validação da fundação 0.1.0
 
+## Evolução: visão e planejamento de sprints — 13/11/2026
+
+`make check` aprovou **134 testes Python**, Ruff em 51 arquivos e Mypy strict
+em 25 módulos. A evolução acrescenta testes de resumo com estados personalizados,
+bloqueadores fora da sprint, cancelamentos fora do denominador, estimativas por
+unidade, períodos, iterações vazias, criação/edição nos dois armazenamentos,
+preservação de campos externos, CSRF, somente leitura e revisões antigas.
+
+Os **21 testes DOM** passaram. Os novos casos verificam seleção do ciclo atual,
+filtros sem alteração dos totais, períodos inválidos, nome como texto seguro,
+conflito preservando o formulário, inclusão de card, nova atividade herdando a
+sprint, somente leitura, mudança externa e paginação de uma sprint com 203
+atividades, incluindo busca fora da página inicial.
+
+O E2E em **Chromium real passou** com criação de sprint, definição de período,
+inclusão de duas atividades existentes e conclusão de uma delas, atualizando o
+progresso para 50%. A página foi conferida em desktop e largura de 390 pixels,
+sem rolagem horizontal. Captura da visão desktop foi inspecionada. O fluxo
+anterior de Kanban/conflitos, grafos, downloads e documentos continuou passando.
+Os dados usados nesses testes são fictícios, em projeto temporário.
+
+A implementação reutiliza `iterations`/`iteration_id`, sem migrar dados nem
+inferir sprints a partir de milestones ou etiquetas. O projeto consumidor em
+uso não possuía sprints cadastradas; a visão Sem sprint permite consultar seu
+backlog e iniciar o planejamento pela interface.
+
+A instalação pipx foi atualizada e o servidor reiniciado com a nova API.
+Na consulta real de 484 atividades sem sprint, a interface exibiu 72 cards
+iniciais (24 por coluna), com acesso ao restante pela busca/carregamento
+adicional. Desktop e viewport de 390 pixels foram verificados. Essa inspeção
+usou somente GET/HEAD e não cadastrou ciclos nem alterou atividades do consumidor.
+
 ## Correção: PDF de projetos grandes — 13/11/2026
 
 Uma falha em projeto local com 482 atividades foi reproduzida no ambiente pipx:

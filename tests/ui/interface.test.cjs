@@ -14,14 +14,16 @@ const fixture = JSON.parse(
   ),
 );
 
-async function harness(t, readOnly = false) {
+async function harness(t, readOnly = false, withSprints = false) {
   const dom = new JSDOM(readOnly ? fixture.readonly_html : fixture.html, {
     url: "http://localhost/",
     runScripts: "outside-only",
   });
   const w = dom.window,
     d = w.document;
-  let data = structuredClone(fixture.state),
+  let data = structuredClone(
+      withSprints ? fixture.sprint_state : fixture.state,
+    ),
     revision = 0;
   data.read_only = readOnly;
   const downloads = [],
@@ -81,6 +83,19 @@ async function harness(t, readOnly = false) {
       if (options.headers["If-Match"] !== `"${data.revision}"`)
         return result({ message: "Os dados mudaram; recarregue" }, 409);
       const payload = JSON.parse(options.body);
+      if (path.startsWith("/api/v1/iterations")) {
+        const id =
+          options.method === "POST" ? "SPR-003" : path.split("/").at(-1);
+        let iteration = data.iterations.find((value) => value.id === id);
+        if (!iteration) {
+          iteration = { id };
+          data.iterations.push(iteration);
+        }
+        Object.assign(iteration, payload);
+        data.revision = `revision-${++revision}`;
+        updateSprintSummaries();
+        return result({ iteration, revision: data.revision });
+      }
       let item;
       if (options.method === "POST") {
         item = { ...payload, id: "SYS-006", version: 1, extensions: {} };
@@ -96,16 +111,62 @@ async function harness(t, readOnly = false) {
         data.metrics.by_status[status.id] = data.work_items.filter(
           (i) => i.status === status.id,
         ).length;
+      updateSprintSummaries();
       return result({ item, revision: data.revision });
     }
     throw new Error("Unexpected request " + path);
   };
-  ["charts.js", "graph-layout.js", "dependency-view.js", "app.js"].forEach(
-    (name) =>
-      vm.runInContext(
-        fs.readFileSync("src/backloger/static/" + name, "utf8"),
-        dom.getInternalVMContext(),
-      ),
+  function updateSprintSummaries() {
+    const template = data.sprint_overview.unassigned;
+    const build = (iteration) => {
+      const items = data.work_items.filter(
+        (item) => (item.iteration_id || null) === (iteration?.id || null),
+      );
+      const counts = Object.fromEntries(
+        ["pending", "active", "done", "cancelled"].map((category) => [
+          category,
+          items.filter(
+            (item) =>
+              data.project.statuses.find((status) => status.id === item.status)
+                .category === category,
+          ).length,
+        ]),
+      );
+      return {
+        ...template,
+        ...iteration,
+        ...counts,
+        phase: iteration
+          ? data.sprint_overview.iterations.find((i) => i.id === iteration.id)
+              ?.phase || "undated"
+          : "unplanned",
+        total: items.length,
+        remaining: counts.pending + counts.active,
+        blocked: 0,
+        overdue: 0,
+        open_estimates: {},
+        progress:
+          items.length - counts.cancelled
+            ? (100 * counts.done) / (items.length - counts.cancelled)
+            : null,
+      };
+    };
+    data.sprint_overview.iterations = data.iterations.map((iteration) =>
+      build(iteration),
+    );
+    data.sprint_overview.unassigned = build(null);
+  }
+  [
+    "charts.js",
+    "graph-layout.js",
+    "dependency-view.js",
+    "sprint-view.js",
+    "app.js",
+  ].forEach((name) =>
+    vm.runInContext(
+      fs.readFileSync("src/backloger/static/" + name, "utf8"),
+      dom.getInternalVMContext(),
+    ),
   );
   t.after(() => {
     w.eval("graph")?.destroy();
@@ -119,6 +180,7 @@ async function harness(t, readOnly = false) {
     data,
     requests,
     downloads,
+    syncSprints: updateSprintSummaries,
     tick,
     view: (name) => d.querySelector(`[data-view="${name}"]`).click(),
     field: (name) => d.querySelector(`[name="${name}"]`),
@@ -533,4 +595,178 @@ test("hierarchical layout follows longest precedence ranks even when shortcuts e
   assert.ok(positions.get("C").x > positions.get("B").x);
   assert.ok(positions.get("B").x > positions.get("A").x);
   assert.notDeepEqual(positions.get("E"), positions.get("A"));
+});
+
+test("sprint view selects current period and keeps complete totals while filtering cards", async (t) => {
+  const h = await harness(t, false, true);
+  h.d.querySelector("#filter-iteration").value = "SPR-002";
+  h.change("#filter-iteration");
+  h.view("sprints");
+  assert.equal(h.d.querySelector("#sprint-select").value, "SPR-001");
+  assert.equal(h.d.querySelectorAll("#sprint-board .card").length, 3);
+  assert.match(
+    h.d.querySelector("#sprint-progress-label").textContent,
+    /33,3%.*1 de 3/,
+  );
+  assert.equal(h.d.querySelector("#metrics").hidden, true);
+  assert.equal(h.d.querySelector("#filter-iteration").hidden, true);
+  h.d.querySelector("#filter-owner").value = "backend";
+  h.change("#filter-owner");
+  assert.equal(h.d.querySelectorAll("#sprint-board .card").length, 2);
+  assert.match(
+    h.d.querySelector("#sprint-progress-label").textContent,
+    /1 de 3/,
+  );
+  assert.match(
+    h.d.querySelector("#sprint-scope-note").textContent,
+    /3 atividades.*2 com os filtros/,
+  );
+  h.d.querySelector("#sprint-select").value = "SPR-002";
+  h.change("#sprint-select");
+  assert.match(
+    h.d.querySelector("#sprint-progress-label").textContent,
+    /Sem atividades aplicáveis/,
+  );
+  assert.equal(h.d.querySelectorAll("#sprint-board .card").length, 0);
+});
+
+test("sprint creation validates dates and renders names as text", async (t) => {
+  const h = await harness(t);
+  h.view("sprints");
+  assert.equal(h.d.querySelector("#sprint-onboarding").hidden, false);
+  h.d.querySelector("#sprint-create").click();
+  const form = h.d.querySelector("#sprint-form");
+  form.elements.namedItem("name").value = 'Sprint <img src=x onerror="bad()">';
+  form.elements.namedItem("start_date").value = "2026-11-20";
+  form.elements.namedItem("due_date").value = "2026-11-01";
+  form.dispatchEvent(
+    new h.w.Event("submit", { bubbles: true, cancelable: true }),
+  );
+  assert.match(
+    h.d.querySelector("#sprint-editor-error").textContent,
+    /posterior ao início/,
+  );
+  assert.equal(
+    h.requests.some((r) => r.path === "/api/v1/iterations"),
+    false,
+  );
+  form.elements.namedItem("due_date").value = "2026-11-30";
+  form.dispatchEvent(
+    new h.w.Event("submit", { bubbles: true, cancelable: true }),
+  );
+  await h.tick();
+  assert.equal(h.d.querySelector("#sprint-editor").open, false);
+  assert.equal(h.d.querySelector("#sprint-select").value, "SPR-003");
+  assert.match(h.d.querySelector("#sprint-name").textContent, /Sprint <img/);
+  assert.equal(h.d.querySelector("#sprint-name img"), null);
+});
+
+test("sprint editor preserves input on a concurrent project edit", async (t) => {
+  const h = await harness(t, false, true);
+  h.view("sprints");
+  h.d.querySelector("#sprint-edit").click();
+  const form = h.d.querySelector("#sprint-form");
+  form.elements.namedItem("name").value = "Minha revisão ainda aberta";
+  h.data.iterations[0].name = "Mudança externa";
+  h.data.revision = "sprint-changed-externally";
+  h.syncSprints();
+  await h.w.refresh(true);
+  assert.match(
+    h.d.querySelector("#sprint-editor-error").textContent,
+    /projeto mudou/,
+  );
+  form.dispatchEvent(
+    new h.w.Event("submit", { bubbles: true, cancelable: true }),
+  );
+  await h.tick();
+  assert.equal(h.d.querySelector("#sprint-editor").open, true);
+  assert.equal(
+    form.elements.namedItem("name").value,
+    "Minha revisão ainda aberta",
+  );
+  assert.equal(h.data.iterations[0].name, "Mudança externa");
+});
+
+test("sprint planning assigns an existing card and new cards inherit the selected sprint", async (t) => {
+  const h = await harness(t, false, true);
+  h.view("sprints");
+  h.d.querySelector("#sprint-add").click();
+  const search = h.d.querySelector("#sprint-backlog-search");
+  search.value = "SYS-004";
+  search.dispatchEvent(new h.w.Event("input"));
+  h.d.querySelector('[aria-label="Adicionar SYS-004 à sprint"]').click();
+  await h.tick();
+  assert.equal(
+    h.data.work_items.find((i) => i.id === "SYS-004").iteration_id,
+    "SPR-001",
+  );
+  assert.equal(h.d.querySelectorAll("#sprint-board .card").length, 4);
+  assert.match(
+    h.d.querySelector("#sprint-progress-label").textContent,
+    /25%.*1 de 4/,
+  );
+  h.d.querySelector("#sprint-planner-close").click();
+  h.d.querySelector("#sprint-new").click();
+  assert.equal(h.field("iteration_id").value, "SPR-001");
+});
+
+test("read-only sprint view exposes cards but disables planning actions", async (t) => {
+  const h = await harness(t, true, true);
+  h.view("sprints");
+  for (const id of ["sprint-create", "sprint-edit", "sprint-add", "sprint-new"])
+    assert.equal(h.d.getElementById(id).disabled, true);
+  h.d.querySelector("#sprint-board .card").click();
+  assert.equal(h.d.querySelector("#editor").open, true);
+  assert.equal(h.field("iteration_id").disabled, true);
+  assert.ok(h.requests.every((r) => !r.options.method));
+});
+
+test("external sprint assignment updates the view and lets users inspect the other sprint", async (t) => {
+  const h = await harness(t, false, true);
+  h.view("sprints");
+  h.data.work_items.find((i) => i.id === "SYS-003").iteration_id = "SPR-002";
+  h.data.revision = "external-sprint-assignment";
+  h.syncSprints();
+  await h.w.refresh(true);
+  assert.equal(h.d.querySelectorAll("#sprint-board .card").length, 2);
+  h.d.querySelector("#sprint-select").value = "SPR-002";
+  h.change("#sprint-select");
+  assert.equal(h.d.querySelectorAll("#sprint-board .card").length, 1);
+  assert.equal(h.d.querySelector("#sprint-board .card").dataset.id, "SYS-003");
+});
+
+test("large sprint lists paginate while search can find cards beyond the initial page", async (t) => {
+  const h = await harness(t, false, true);
+  for (let n = 6; n <= 205; n++)
+    h.data.work_items.push({
+      ...structuredClone(h.data.work_items[0]),
+      id: `SYS-${String(n).padStart(3, "0")}`,
+      title: `Entrega ${n}`,
+      iteration_id: "SPR-001",
+    });
+  h.syncSprints();
+  h.data.revision = "large-sprint";
+  await h.w.refresh(true);
+  h.view("sprints");
+  assert.equal(
+    h.d.querySelectorAll('#sprint-board [data-category="pending"] .card')
+      .length,
+    24,
+  );
+  h.d
+    .querySelector('#sprint-board [data-category="pending"] .sprint-more')
+    .click();
+  assert.equal(
+    h.d.querySelectorAll('#sprint-board [data-category="pending"] .card')
+      .length,
+    48,
+  );
+  h.d.querySelector("#search").value = "SYS-205";
+  h.d.querySelector("#search").dispatchEvent(new h.w.Event("input"));
+  assert.equal(h.d.querySelectorAll("#sprint-board .card").length, 1);
+  assert.equal(h.d.querySelector("#sprint-board .card").dataset.id, "SYS-205");
+  assert.match(
+    h.d.querySelector("#sprint-scope-note").textContent,
+    /203 atividades/,
+  );
 });

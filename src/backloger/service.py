@@ -18,6 +18,7 @@ from backloger.models import (
     Dependency,
     Estimate,
     ItemType,
+    Iteration,
     Priority,
     SavedView,
     WorkItem,
@@ -25,6 +26,7 @@ from backloger.models import (
 )
 from backloger.report_markdown import markdown
 from backloger.repository import Repository, Snapshot
+from backloger.sprints import overview as sprint_overview
 from backloger.transactions import BackupRecord
 
 
@@ -71,6 +73,13 @@ class UpdateItem(BaseModel):
 
 class SaveViewRequest(SavedView):
     model_config = ConfigDict(extra="forbid")
+
+
+class IterationRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    name: Annotated[str, Field(min_length=1, max_length=120)]
+    start_date: date | None = None
+    due_date: date | None = None
 
 
 class BacklogService:
@@ -167,6 +176,47 @@ class BacklogService:
             raise BacklogError("Limite de 100 visualizações excedido")
         return self.repository.commit(snapshot, updated, item_id=None, action="save_view")
 
+    def save_iteration(
+        self,
+        request: IterationRequest,
+        expected_revision: str | None = None,
+        iteration_id: str | None = None,
+    ) -> tuple[Iteration, Snapshot]:
+        snapshot = self.snapshot(expected_revision)
+        old = next((i for i in snapshot.backlog.iterations if i.id == iteration_id), None)
+        if iteration_id and old is None:
+            raise NotFoundError("Sprint inexistente")
+        if old is None:
+            if len(snapshot.backlog.iterations) >= 200:
+                raise BacklogError("Limite de 200 sprints excedido")
+            number = (
+                max(
+                    (
+                        int(i.id[4:])
+                        for i in snapshot.backlog.iterations
+                        if re.fullmatch(r"SPR-\d+", i.id)
+                    ),
+                    default=0,
+                )
+                + 1
+            )
+            iteration_id = f"SPR-{number:03}"
+        data = old.model_dump(mode="json") if old else {"id": iteration_id}
+        data.update(request.model_dump(mode="json"))
+        iteration = Iteration.model_validate(data)
+        updated = snapshot.backlog.model_copy(deep=True)
+        updated.iterations = [iteration if i.id == iteration.id else i for i in updated.iterations]
+        if old is None:
+            updated.iterations.append(iteration)
+        saved = self.repository.commit(
+            snapshot,
+            updated,
+            item_id=None,
+            action="update_iteration" if old else "create_iteration",
+            collection="iterations",
+        )
+        return iteration, saved
+
     def restore(
         self,
         item_id: str,
@@ -229,6 +279,7 @@ class BacklogService:
             "read_only": self.repository.read_only,
             "storage": snapshot.storage,
             "analysis": analysis,
+            "sprint_overview": sprint_overview(backlog, analysis, now().date()),
             "history": activity_history(backlog.project, events, now()),
             "burndown": burndown_history(backlog, events, now()),
             "metrics": {

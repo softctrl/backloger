@@ -2,6 +2,13 @@
 
 ## Em desenvolvimento
 
+Visão de Sprints com seleção de ciclo, colunas por categoria de estado, progresso,
+restantes, bloqueios, prazos e burndown. Criação/edição de sprints e inclusão de
+atividades existentes pela web; novas atividades herdam a sprint selecionada.
+Filtros não alteram os indicadores do escopo completo, canceladas ficam separadas
+e listas grandes carregam mais cards sob demanda. As entidades reutilizam
+`iterations`/`iteration_id`, com concorrência, backup, auditoria e somente leitura.
+
 Correção da exportação PDF para relatórios com centenas de atividades: layout em
 partes menores, metadados dos cards em blocos de texto, memória liberada entre
 partes e reunião em arquivo único com paginação global. Limites de recursos e

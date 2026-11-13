@@ -10,16 +10,16 @@ Dados canônicos do projeto, consolidados para acompanhamento de execução, pri
 
 ## 1. Resumo executivo
 
-**Situação geral: Atenção necessária.** O projeto reúne 20 atividades: 9 concluídas, 5 em execução/revisão, 6 aguardando início e 0 canceladas. O avanço do escopo válido é de **45%**.
+**Situação geral: Atenção necessária.** O projeto reúne 21 atividades: 10 concluídas, 5 em execução/revisão, 6 aguardando início e 0 canceladas. O avanço do escopo válido é de **48%**.
 
 | Indicador | Resultado | Leitura gerencial |
 | --- | --- | --- |
-| Conclusão do escopo | 45% | Concluídas ÷ total não cancelado |
+| Conclusão do escopo | 48% | Concluídas ÷ total não cancelado |
 | Atividades abertas | 11 | Aguardando início ou em execução/revisão |
 | Bloqueadas | 3 | Dependem de pré-requisitos ainda abertos |
 | Prazos vencidos | 0 | Abertas com data anterior à referência |
-| Entregas nos últimos 7 dias | 0 | Atividades distintas concluídas em eventos observados; não é previsão |
-| Critérios de aceite | Não definidos | Critérios marcados como atendidos ÷ cadastrados |
+| Entregas nos últimos 7 dias | 1 | Atividades distintas concluídas em eventos observados; não é previsão |
+| Critérios de aceite | 5/5 | Critérios marcados como atendidos ÷ cadastrados |
 
 ### Pontos de atenção e encaminhamentos
 
@@ -35,20 +35,20 @@ Dados canônicos do projeto, consolidados para acompanhamento de execução, pri
 ### Situação das atividades
 
 ```mermaid
-%% backloger-chart-v1 {"kind":"donut","title":"Distribuição por estado","labels":["A fazer","Em andamento","Em revisão","Concluído","Cancelado"],"series":[{"name":"Atividades","values":[6.0,5.0,0.0,9.0,0.0]}],"colors":["#929b8f","#df8853","#df8853","#286856","#c2c9c0"]}
+%% backloger-chart-v1 {"kind":"donut","title":"Distribuição por estado","labels":["A fazer","Em andamento","Em revisão","Concluído","Cancelado"],"series":[{"name":"Atividades","values":[6.0,5.0,0.0,10.0,0.0]}],"colors":["#929b8f","#df8853","#df8853","#286856","#c2c9c0"]}
 pie showData
     title Distribuição por estado
     "A fazer" : 6
     "Em andamento" : 5
-    "Concluído" : 9
+    "Concluído" : 10
 ```
 
 | Estado | Quantidade | % do total | Limite WIP |
 | --- | --- | --- | --- |
-| A fazer | 6 | 30% | Não definido |
-| Em andamento | 5 | 25% | Não definido |
+| A fazer | 6 | 29% | Não definido |
+| Em andamento | 5 | 24% | Não definido |
 | Em revisão | 0 | 0% | Não definido |
-| Concluído | 9 | 45% | Não definido |
+| Concluído | 10 | 48% | Não definido |
 | Cancelado | 0 | 0% | Não definido |
 
 ### Prioridade do trabalho aberto
@@ -73,7 +73,7 @@ xychart-beta
 
 | Responsável | Total | Abertas | Concluídas | Bloqueadas |
 | --- | --- | --- | --- | --- |
-| Sem responsável | 20 | 11 | 9 | 3 |
+| Sem responsável | 21 | 11 | 10 | 3 |
 
 ## 3. Evolução e burndown
 
@@ -93,18 +93,18 @@ xychart-beta
 | Data observada (UTC) | Restantes | Escopo total |
 | --- | --- | --- |
 | 2026-11-11 | 11 | 20 |
-| 2026-11-13 | 11 | 20 |
+| 2026-11-13 | 11 | 21 |
 
 ### Ritmo de entrega — últimos 7 dias
 
 ```mermaid
-%% backloger-chart-v1 {"kind":"bar","title":"Entradas e conclusões observadas","labels":["11-07","11-08","11-09","11-10","11-11","11-12","11-13"],"series":[{"name":"Criadas","values":[0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{"name":"Concluídas","values":[0.0,0.0,0.0,0.0,0.0,0.0,0.0]}],"colors":[]}
+%% backloger-chart-v1 {"kind":"bar","title":"Entradas e conclusões observadas","labels":["11-07","11-08","11-09","11-10","11-11","11-12","11-13"],"series":[{"name":"Criadas","values":[0.0,0.0,0.0,0.0,0.0,0.0,1.0]},{"name":"Concluídas","values":[0.0,0.0,0.0,0.0,0.0,0.0,1.0]}],"colors":[]}
 xychart-beta
     title "Entradas e conclusões observadas"
     x-axis ["11-07", "11-08", "11-09", "11-10", "11-11", "11-12", "11-13"]
     y-axis "Atividades" 0 --> 1
-    bar [0, 0, 0, 0, 0, 0, 0]
-    bar [0, 0, 0, 0, 0, 0, 0]
+    bar [0, 0, 0, 0, 0, 0, 1]
+    bar [0, 0, 0, 0, 0, 0, 1]
 ```
 
 | Data (UTC) | Criadas | Concluídas |
@@ -115,11 +115,11 @@ xychart-beta
 | 2026-11-10 | 0 | 0 |
 | 2026-11-11 | 0 | 0 |
 | 2026-11-12 | 0 | 0 |
-| 2026-11-13 | 0 | 0 |
+| 2026-11-13 | 1 | 1 |
 
 > Somente eventos registrados pelo Backloger. Edições externas não são reconstruídas. Datas em UTC.
 
-Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 27. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
+Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 29. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
 
 ## 4. Marcos e iterações
 
@@ -165,6 +165,7 @@ Nenhum registro cadastrado.
 
 | Pré-requisito | Estado | Atividades alcançadas |
 | --- | --- | --- |
+| BKL-009 · Dashboard e Kanban | Em andamento | 2 |
 | BKL-017 · Autenticação e colaboração multiusuário | A fazer | 2 |
 
 Impacto considera todos os sucessores do grafo, inclusive itens já encerrados.
@@ -210,6 +211,7 @@ Seleção por prioridade, prazo e ID. Confirme capacidade e contexto antes de in
 | BKL-018 | Importadores e plugins | A fazer | Alta | Não definido | Não definido |
 | BKL-019 | Instância centralizada multiprojeto | A fazer | Média | Não definido | Não definido |
 | BKL-020 | Dependências entre projetos | A fazer | Média | Não definido | Não definido |
+| BKL-021 | Visão e planejamento de sprints | Concluído | Alta | Não definido | Não definido |
 
 ## 7. Detalhamento das atividades
 
@@ -886,10 +888,58 @@ Nenhum critério de aceite cadastrado.
 
 2026-11-11T15:19:45.584388+00:00 · v2 · Atualizados: Descrição.
 
+### BKL-021 — Visão e planejamento de sprints
+
+| Campo | Informação | Campo | Informação |
+| --- | --- | --- | --- |
+| Estado | Concluído | Prioridade | Alta |
+| Tipo | Funcionalidade | Responsável | Não definido |
+| Componente | Não definido | Prazo | Não definido |
+| Marco | Não definido | Iteração | Não definida |
+| Estimativa | Não definida | Versão | 2 |
+| Criação (UTC) | 2026-11-13 23:02 | Atualização (UTC) | 2026-11-13 23:10 |
+
+**Leitura de acompanhamento:** Concluída.
+
+**Descrição e escopo**
+
+> Objetivo: acompanhar em uma sprint o que está em andamento e o que ainda precisa ser entregue.
+> 
+> Entrega disponível: visão por iteração com A fazer, Em andamento e Concluídas, resumo integral, progresso, restantes, bloqueios, prazos, estimativas por unidade, burndown e canceladas separadas. Criação/edição com período opcional e revisão global. Inclusão individual de atividades do backlog, nova atividade herdando o ciclo e transferências pelo editor existente. Filtros recortam os cards, preservando os totais; listas grandes carregam mais e a busca alcança itens fora da página.
+> 
+> Dados usam iterations/iteration\_id do contrato atual, com validação, escrita atômica, backup, auditoria e somente leitura. Mudanças externas são refletidas pelo polling.
+> 
+> Validação: 134 testes Python, 21 testes DOM e E2E Chromium com criação, planejamento, conclusão (50%), viewport desktop/móvel e fluxo anterior da aplicação. Documentação de uso/contrato/arquitetura e instalação pipx atualizadas; servidor local reiniciado com nova API saudável.
+
+**Critérios de aceite**
+
+- [x] AC-SPR-01 · Exibir o escopo da sprint por categorias e progresso sem canceladas no denominador.
+- [x] AC-SPR-02 · Criar e editar sprints com revisão, referências, backup e somente leitura.
+- [x] AC-SPR-03 · Incluir atividades existentes e associar novas ao ciclo selecionado.
+- [x] AC-SPR-04 · Preservar totais sob filtros e refletir mudanças externas.
+- [x] AC-SPR-05 · Validar interface desktop/móvel e atualizar documentação e pacote.
+
+**Dependências e relações**
+
+- Depende de **BKL-003** · Modelos de domínio e validação
+- Depende de **BKL-004** · Persistência JSON e escrita atômica
+- Depende de **BKL-008** · API FastAPI
+- Depende de **BKL-009** · Dashboard e Kanban
+
+**Etiquetas:** p1, sprints
+
+**Último registro de acompanhamento**
+
+2026-11-13T23:10:48.975918+00:00 · v2 · Entrega validada em domínio/API nos dois armazenamentos, DOM e Chromium desktop/móvel. Pacote Python atualizado via pipx e aplicação local reiniciada. Guia SPRlNTS, contrato e decisões documentados; dados do consumidor permanecem consultados sem criar sprints automaticamente.
+
 ## 8. Histórico das atividades
 
 | Data/hora | Atividade | Versão | Registro |
 | --- | --- | --- | --- |
+| 2026-11-13T23:10:48.975918+00:00 | BKL-021 | 2 | Entrega validada em domínio/API nos dois armazenamentos, DOM e Chromium desktop/móvel. Pacote Python atualizado via pipx e aplicação local reiniciada. Guia SPRlNTS, contrato e decisões documentados; dados do consumidor permanecem consultados sem criar sprints automaticamente. |
+| 2026-11-13T23:10:48.975830+00:00 | BKL-021 | 2 | Estado: Em andamento → Concluído. Atualizados: Descrição, Estado, Critérios de aceite. |
+| 2026-11-13T23:02:35.699970+00:00 | BKL-021 | 1 | Implementação e testes de domínio/API, DOM e Chromium concluídos; preparando documentação, pacote e atualização local. |
+| 2026-11-13T23:02:35.699847+00:00 | BKL-021 | 1 | Atividade criada. |
 | 2026-11-13T20:04:22.260327+00:00 | BKL-014 | 5 | make check: 128 testes Python, Ruff e Mypy aprovados. E2E real em Chromium aprovado. Correção de memória/PDF validada com 482 cards e 377 páginas; pypdf incluído no runtime, diagnóstico por categoria e limites documentados. Instalação pipx atualizada e dependências conferidas. |
 | 2026-11-13T20:04:22.260304+00:00 | BKL-014 | 5 | Atualizados: Descrição. |
 | 2026-11-13T20:04:22.172342+00:00 | BKL-010 | 4 | E2E em Chromium real passou com seleção de atividade, tela inteira e downloads SVG/PDF. O bloqueio anterior de inicialização foi superado com as permissões atuais do ambiente. |

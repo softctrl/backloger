@@ -8,11 +8,13 @@
   <title>{{ project.name }} · Backloger</title>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/app.css">
+  <link rel="stylesheet" href="/static/sprint-view.css">
   <script defer src="/static/vendor/cytoscape.min.js"></script>
   <script defer src="/static/vendor/htmx.js"></script>
   <script defer src="/static/charts.js"></script>
   <script defer src="/static/graph-layout.js"></script>
   <script defer src="/static/dependency-view.js"></script>
+  <script defer src="/static/sprint-view.js"></script>
   <script defer src="/static/app.js"></script>
 </head>
 <body>
@@ -25,6 +27,7 @@
   <nav aria-label="Visualizações">
     <button data-view="dashboard" class="active" aria-current="page"><span>◫</span>Dashboard</button>
     <button data-view="kanban"><span>▥</span>Kanban</button>
+    <button data-view="sprints"><span>◷</span>Sprints</button>
     <button data-view="graph"><span>⌘</span>Dependências</button>
     <button data-view="table"><span>☷</span>Tabela</button>
     <button data-view="roadmap"><span>⚑</span>Roadmap</button>
@@ -54,6 +57,20 @@
     </section>
     <div class="section-line"><span id="view-label">DASHBOARD</span><span id="item-count"></span></div>
     <section id="kanban-view" class="view-panel" hidden><div id="board" class="board"></div></section>
+    <section id="sprints-view" class="view-panel" hidden>
+      <article class="panel sprint-header">
+        <div class="sprint-heading"><div><p class="eyebrow">UM CICLO, UM FOCO</p><h2 id="sprint-name">Atividades sem sprint</h2><p id="sprint-period"></p></div><div class="sprint-actions"><button id="sprint-edit" class="secondary">Editar sprint</button><button id="sprint-create" class="primary">＋ Criar sprint</button></div></div>
+        <div class="sprint-selector"><label for="sprint-select">Sprint</label><select id="sprint-select"></select><span id="sprint-phase" class="panel-chip"></span></div>
+        <p id="sprint-onboarding" class="metric-note" hidden>Crie uma sprint e adicione atividades do backlog para acompanhar o próximo ciclo.</p>
+        <div id="sprint-summary" class="sprint-summary" aria-label="Resumo completo da sprint"></div>
+        <div class="sprint-progress"><progress id="sprint-progress" max="100" value="0" aria-label="Conclusão da sprint"></progress><strong id="sprint-progress-label"></strong></div>
+        <p id="sprint-attention" class="metric-note"></p>
+      </article>
+      <div class="sprint-board-heading"><div><h2>Trabalho da sprint</h2><p id="sprint-scope-note" class="metric-note"></p></div><div class="sprint-actions"><button id="sprint-add" class="secondary">＋ Adicionar do backlog</button><button id="sprint-new" class="primary">＋ Nova atividade na sprint</button></div></div>
+      <div id="sprint-board" class="sprint-board"></div>
+      <details id="sprint-cancelled" class="panel sprint-details"><summary id="sprint-cancelled-label">Atividades canceladas</summary><div id="sprint-cancelled-list" class="sprint-cancelled-list"></div></details>
+      <details id="sprint-burndown-panel" class="panel sprint-details"><summary>Burndown da sprint · últimos 30 dias (UTC)</summary><div id="sprint-burndown" class="burndown-chart"></div><p id="sprint-burndown-note" class="metric-note"></p></details>
+    </section>
     <section id="dashboard-view" class="view-panel">
       <div class="analytics-grid">
         <article class="panel completion-panel"><div class="panel-heading"><div><p class="eyebrow">DO PLANEJAMENTO À ENTREGA</p><h2>Progresso do backlog</h2></div><span class="panel-chip">Agora</span></div><div id="completion-chart" class="completion-chart"></div><p class="chart-hint">Selecione um estado para explorar no Kanban.</p></article>
@@ -111,7 +128,7 @@
       <label>Componente<input name="component" maxlength="100"></label>
       <label>Prazo<input name="due_date" type="date"></label>
       <label>Milestone<select name="milestone_id"></select></label>
-      <label>Iteração<select name="iteration_id"></select></label>
+      <label>Sprint<select name="iteration_id"></select></label>
       <label>Estimativa<input name="estimate_value" type="number" min="0" max="1000000" step="any"></label>
       <label>Unidade<select name="estimate_unit"><option value="hours">Horas</option><option value="days">Dias</option><option value="points">Pontos</option></select></label>
     </div>
@@ -121,6 +138,23 @@
     <section class="item-history" aria-labelledby="history-title"><div class="history-heading"><h3 id="history-title">Histórico da atividade</h3><span id="history-count" class="panel-chip">0 registros</span></div><label>Nota de andamento<textarea name="history_note" rows="3" maxlength="4000" placeholder="Registre decisões, avanços ou contexto desta atualização…"></textarea></label><p class="chart-hint">A nota será adicionada ao salvar. Mudanças de campos são registradas automaticamente.</p><ol id="item-history-list" class="history-timeline"></ol></section>
     <div class="dialog-actions"><button type="button" id="cancel-editor" class="secondary">Fechar</button><button type="submit" id="save-item" class="primary">Salvar atividade</button></div>
   </form>
+</dialog>
+<dialog id="sprint-editor" aria-labelledby="sprint-editor-title">
+  <form id="sprint-form">
+    <div class="dialog-heading"><div><p class="eyebrow">PLANEJAMENTO DO CICLO</p><h2 id="sprint-editor-title">Criar sprint</h2></div><button type="button" id="sprint-close" class="icon-button" aria-label="Fechar planejamento da sprint">×</button></div>
+    <p id="sprint-editor-error" class="sprint-form-error" role="alert" hidden></p>
+    <label>Nome da sprint<input name="name" required maxlength="120" placeholder="Ex.: Sprint 12 — Entrega de autenticação"></label>
+    <div class="form-grid"><label>Início da sprint<input name="start_date" type="date"></label><label>Fim da sprint<input name="due_date" type="date"></label></div>
+    <p class="metric-note">O período é opcional. As atividades mantêm seus próprios estados e prazos.</p>
+    <div class="dialog-actions"><button type="button" id="sprint-cancel" class="secondary">Fechar</button><button type="submit" id="sprint-save" class="primary">Salvar sprint</button></div>
+  </form>
+</dialog>
+<dialog id="sprint-planner" aria-labelledby="sprint-planner-title">
+  <div class="dialog-heading"><div><p class="eyebrow">DO BACKLOG PARA O CICLO</p><h2 id="sprint-planner-title">Adicionar atividades</h2></div><button type="button" id="sprint-planner-close" class="icon-button" aria-label="Fechar seleção de atividades">×</button></div>
+  <p class="metric-note">Escolha atividades sem sprint. Para transferir de outra sprint, altere o campo Sprint na própria atividade.</p>
+  <label>Buscar no backlog<input id="sprint-backlog-search" type="search" placeholder="ID ou título"></label>
+  <p id="sprint-planner-error" class="sprint-form-error" role="alert" hidden></p>
+  <p id="sprint-planner-count" class="metric-note" role="status"></p><div id="sprint-backlog-list"></div>
 </dialog>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body>

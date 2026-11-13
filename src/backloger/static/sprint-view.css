@@ -1,0 +1,244 @@
+.sprint-heading,
+.sprint-board-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.sprint-heading h2 {
+  margin: 4px 0 10px;
+  font-size: 27px;
+}
+.sprint-heading p {
+  color: #748367;
+  font-size: 12px;
+}
+.sprint-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.sprint-selector {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+.sprint-selector label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.sprint-selector select {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: #40533a;
+  max-width: 100%;
+  font: inherit;
+  font-size: 12px;
+  min-width: 220px;
+}
+.sprint-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.sprint-metric {
+  display: grid;
+  gap: 7px;
+  padding: 20px 16px;
+  border-right: 1px solid var(--line);
+}
+.sprint-metric:last-child {
+  border-right: 0;
+  background: #fff5e8;
+}
+.sprint-metric strong {
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+  color: #465e39;
+}
+.sprint-metric span {
+  font-size: 11px;
+  color: #748367;
+}
+.sprint-progress {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 13px;
+}
+.sprint-progress progress {
+  flex: 1 1 220px;
+  height: 12px;
+  accent-color: #6b8d52;
+  border: 0;
+  border-radius: 8px;
+}
+.sprint-progress strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.sprint-progress progress::-webkit-progress-bar {
+  background: #edf1e8;
+  border-radius: 8px;
+}
+.sprint-progress progress::-webkit-progress-value {
+  background: #6b8d52;
+  border-radius: 8px;
+}
+.sprint-board-heading {
+  margin: 25px 0 16px;
+}
+.sprint-board-heading h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.sprint-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.sprint-column {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f2f5ed;
+  min-width: 0;
+}
+.sprint-column-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px 14px;
+}
+.sprint-column-heading h3 {
+  font-size: 13px;
+  font-weight: 600;
+}
+.sprint-column-heading span {
+  font-size: 11px;
+  color: #7a8b6e;
+}
+.sprint-column[data-category="active"] {
+  background: #faf4e9;
+}
+.sprint-column[data-category="done"] {
+  background: #eef5ee;
+}
+.sprint-card {
+  width: 100%;
+  margin: 0 0 11px;
+  text-align: left;
+}
+.sprint-card .card-type {
+  max-width: 60%;
+  overflow-wrap: anywhere;
+}
+.sprint-card .card-bottom {
+  flex-wrap: wrap;
+}
+.sprint-card-due {
+  display: block;
+  margin-top: 10px;
+  font-size: 10px;
+  color: #7b896e;
+}
+.sprint-more {
+  width: 100%;
+  margin-top: 8px;
+}
+.sprint-details {
+  margin-top: 22px;
+}
+.sprint-details summary {
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sprint-details[open] summary {
+  margin-bottom: 20px;
+}
+.sprint-cancelled-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.sprint-form-error {
+  background: #fff1e8;
+  color: #8b4830;
+  border: 1px solid #e8c8b4;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.sprint-candidate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.sprint-candidate strong {
+  font-size: 11px;
+  color: #6d825c;
+}
+.sprint-candidate p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+.sprint-candidate .secondary {
+  flex-shrink: 0;
+}
+#sprint-editor,
+#sprint-planner {
+  max-width: 650px;
+}
+#sprint-backlog-search {
+  width: 100%;
+}
+#sprint-attention,
+#sprint-scope-note {
+  line-height: 1.8;
+}
+@media (max-width: 900px) {
+  .sprint-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .sprint-metric {
+    border-bottom: 1px solid var(--line);
+  }
+  .sprint-board,
+  .sprint-cancelled-list {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 500px) {
+  .sprint-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sprint-selector select {
+    min-width: 0;
+    width: 100%;
+  }
+  .sprint-heading h2 {
+    font-size: 23px;
+    overflow-wrap: anywhere;
+  }
+  .sprint-candidate {
+    align-items: flex-start;
+  }
+}
