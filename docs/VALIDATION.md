@@ -1,5 +1,42 @@
 # Validação da fundação 0.1.0
 
+## Correção: PDF de projetos grandes — 13/11/2026
+
+Uma falha em projeto local com 482 atividades foi reproduzida no ambiente pipx:
+WeasyPrint 68.1/Pango geravam PDF pequeno, mas o documento completo de 1,32 MB
+de HTML encerrava com `MemoryError` sob o limite de 768 MiB. A mensagem antiga
+atribuía essa falha a dependências, omitindo sua causa real.
+
+O planejador passou a dividir o relatório em partes sem perder cards, linhas de
+inventário, descrições ou metadados. O worker reutiliza fontes, libera layouts
+anteriores e reúne as partes com pypdf. A regressão valida orientação e posição
+do contador global, além do texto dos números, pois a transformação de
+coordenadas do conteúdo WeasyPrint não pode ser herdada pelo rodapé acrescentado.
+
+O ensaio completo em WeasyPrint 66 gerou 377 páginas para os 482 IDs, com todas
+as páginas numeradas. Foram medidos 238,23 segundos de parede, 194,96 segundos
+de CPU e 147.528 KiB de RSS máximo (aproximadamente 144 MiB). Os arquivos do
+projeto consumidor e seus textos permaneceram fora da distribuição do Backloger;
+o material de diagnóstico foi gerado somente em `/tmp`.
+
+A instalação pipx em uso foi atualizada com pypdf 6.21.4 e passou na verificação
+de compatibilidade. O servidor local foi reiniciado. Com WeasyPrint 68.1, o
+download real por `GET /api/v1/export/pdf` retornou **HTTP 200**, 2.168.057 bytes
+e 378 páginas em 170,66 segundos. Os 482 IDs e a numeração de todas as páginas
+foram conferidos; a primeira página teve inspeção visual, com rodapé na posição
+e orientação corretas. O conteúdo do consumidor continuou somente em `/tmp`.
+
+`make check` aprovou **128 testes Python**, Ruff em 49 arquivos e Mypy strict em
+24 módulos. Os novos testes cobrem preservação de 482 cards, tabelas divididas,
+entidades escapadas, PDF real em partes, paginação global e sua geometria,
+mensagens de dependência/memória/CPU/tempo/tamanho e liberação do slot após erro.
+
+Com as permissões atuais, o E2E em **Chromium real passou**: Kanban, edição
+externa/conflito, navegação, tela inteira, seleção no grafo, downloads SVG/PDF,
+documento e viewport móvel. Esse resultado substitui o bloqueio de inicialização
+de navegador registrado na evolução anterior; Docker, CI remota e auditoria
+online continuam pendentes.
+
 ## Evolução: dependências em projetos grandes — 13/11/2026
 
 `make check` aprovou **117 testes Python**, com 1 E2E excluído, Ruff em 46

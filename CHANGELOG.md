@@ -2,6 +2,13 @@
 
 ## Em desenvolvimento
 
+Correção da exportação PDF para relatórios com centenas de atividades: layout em
+partes menores, metadados dos cards em blocos de texto, memória liberada entre
+partes e reunião em arquivo único com paginação global. Limites de recursos e
+bloqueio de recursos externos são mantidos. Falhas de memória, dependências,
+CPU, tempo e tamanho agora têm diagnósticos distintos. `pypdf` passa a ser uma
+dependência de runtime. Instalação inclui orientação para Fedora.
+
 Dependências com tela inteira, busca por ID/título, escopo de pendências/projeto,
 recortes de vizinhança/pré-requisitos/impactos, rótulos adaptáveis e layout
 hierárquico por maior precedência. Exportação SVG e PDF da visão com panorama,

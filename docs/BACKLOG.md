@@ -119,7 +119,7 @@ xychart-beta
 
 > Somente eventos registrados pelo Backloger. Edições externas não são reconstruídas. Datas em UTC.
 
-Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 24. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
+Auditoria observada desde 2026-11-11T15:19:44.954495+00:00. Eventos na janela de 30 dias: 27. Períodos anteriores ao início dos registros não comprovam ausência de atividade.
 
 ## 4. Marcos e iterações
 
@@ -421,8 +421,8 @@ Nenhum critério de aceite cadastrado.
 | Tipo | Funcionalidade | Responsável | Não definido |
 | Componente | Não definido | Prazo | Não definido |
 | Marco | Primeira versão utilizável | Iteração | Não definida |
-| Estimativa | Não definida | Versão | 2 |
-| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-11 15:19 |
+| Estimativa | Não definida | Versão | 3 |
+| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 20:04 |
 
 **Leitura de acompanhamento:** Concluída.
 
@@ -431,6 +431,8 @@ Nenhum critério de aceite cadastrado.
 > Objetivo: produzir documentação de acompanhamento que possa ser revisada no Git, compartilhada e consumida por outras ferramentas.
 > 
 > Entrega disponível: relatório gerencial com resumo executivo, indicadores, alertas, distribuição por estado/prioridade, burndown, ritmo de entrega, marcos, próximas ações e ficha completa de cada atividade. Markdown usa Mermaid; HTML e PDF incorporam gráficos vetoriais sem rede ou navegador. Inclui descrições, critérios de aceite, dependências e histórico. CSV protege células de fórmulas; Mermaid e SVG também podem ser exportados separadamente.
+> 
+> Correção de PDF para projetos grandes: renderização semântica em partes, metadados em blocos de texto e reunião com paginação contínua. O ensaio de 482 atividades gerou 377 páginas com pico de cerca de 144 MiB; fonte Markdown e prévia HTML seguem completas. Worker mantém limites de recursos e bloqueio de URLs externas.
 
 **Critérios de aceite**
 
@@ -444,7 +446,7 @@ Nenhum critério de aceite cadastrado.
 
 **Último registro de acompanhamento**
 
-2026-11-11T15:19:45.111883+00:00 · v2 · Atualizados: Descrição.
+2026-11-13T20:04:22.125660+00:00 · v3 · Corrigida falha MemoryError em PDF de 482 atividades. Planejamento em partes e pypdf preservam conteúdo e paginação global; mensagens distinguem dependências, memória, CPU, tempo e tamanho. PDF completo e orientação do rodapé validados.
 
 ### BKL-008 — API FastAPI
 
@@ -520,8 +522,8 @@ Nenhum critério de aceite cadastrado.
 | Tipo | Funcionalidade | Responsável | Não definido |
 | Componente | Não definido | Prazo | Não definido |
 | Marco | Primeira versão utilizável | Iteração | Não definida |
-| Estimativa | Não definida | Versão | 3 |
-| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 18:45 |
+| Estimativa | Não definida | Versão | 4 |
+| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 20:04 |
 
 **Leitura de acompanhamento:** Sem bloqueio de dependência.
 
@@ -533,7 +535,7 @@ Nenhum critério de aceite cadastrado.
 > 
 > Exportação da visão em SVG e PDF A4 paisagem: panorama, regiões legíveis e inventário com títulos/estados/pré-requisitos, inclusive externos ao recorte. Texto e relações canônicos, revisão e CSRF, sem gravação; funciona em modo somente leitura. PDF compartilha o worker isolado existente.
 > 
-> Validação: 14 testes DOM, casos de API/PDF nos dois armazenamentos e inspeção raster do PDF. Pendência: interação/diagramação em navegador real; Chromium foi bloqueado pelo sandbox deste ambiente.
+> Validação: 14 testes DOM, casos de API/PDF nos dois armazenamentos e inspeção raster do PDF. Fluxo básico validado agora em Chromium real: seleção, tela inteira e downloads SVG/PDF, no E2E da aplicação. Testes DOM de recortes grandes continuam complementando essa verificação.
 
 **Critérios de aceite**
 
@@ -548,7 +550,7 @@ Nenhum critério de aceite cadastrado.
 
 **Último registro de acompanhamento**
 
-2026-11-13T18:45:39.769225+00:00 · v3 · Entregues tela inteira, busca, recortes para grafos grandes, hierarquia por maior precedência, rotas críticas/estimativas e exportação SVG/PDF paginada. 14 testes DOM e API/PDF passaram; panorama e região do PDF inspecionados. Homologação em Chromium segue pendente por bloqueio do sandbox.
+2026-11-13T20:04:22.172342+00:00 · v4 · E2E em Chromium real passou com seleção de atividade, tela inteira e downloads SVG/PDF. O bloqueio anterior de inicialização foi superado com as permissões atuais do ambiente.
 
 ### BKL-011 — Sincronização de alterações externas
 
@@ -658,8 +660,8 @@ Nenhum critério de aceite cadastrado.
 | Tipo | Funcionalidade | Responsável | Não definido |
 | Componente | Não definido | Prazo | Não definido |
 | Marco | Primeira versão utilizável | Iteração | Não definida |
-| Estimativa | Não definida | Versão | 4 |
-| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 18:45 |
+| Estimativa | Não definida | Versão | 5 |
+| Criação (UTC) | 2026-11-11 13:23 | Atualização (UTC) | 2026-11-13 20:04 |
 
 **Leitura de acompanhamento:** Sem bloqueio de dependência.
 
@@ -667,7 +669,7 @@ Nenhum critério de aceite cadastrado.
 
 > Objetivo: demonstrar a confiabilidade da entrega e preparar sua adoção por outros projetos.
 > 
-> Entrega disponível: testes de domínio, arquivos, concorrência, recuperação, API/CLI, segurança, documentos/PDF e interface DOM; lint, tipos, schemas, empacotamento e SBOM. CI inclui navegador, Docker e uma composite action importável para relatórios opcionais Markdown/HTML/PDF, com manifesto SHA-256. Documentação cobre contrato, operação, arquitetura e limites. Pendências: CI remota, navegador real, Docker, auditoria online, locks com hashes e publicação da distribuição.
+> Entrega disponível: testes de domínio, arquivos, concorrência, recuperação, API/CLI, segurança, documentos/PDF e interface DOM; lint, tipos, schemas, empacotamento e SBOM. CI inclui navegador, Docker e uma composite action importável para relatórios opcionais Markdown/HTML/PDF, com manifesto SHA-256. Documentação cobre contrato, operação, arquitetura e limites. E2E em Chromium real executado: Kanban, edição externa/conflito, grafo/tela inteira, documentos, downloads e viewport móvel. Pendências: CI remota, Docker, auditoria online, locks com hashes e publicação da distribuição.
 
 **Critérios de aceite**
 
@@ -684,7 +686,7 @@ Nenhum critério de aceite cadastrado.
 
 **Último registro de acompanhamento**
 
-2026-11-13T18:45:45.394254+00:00 · v4 · Evolução de dependências documentada em DEPENDENCIES, contrato, arquitetura e operação. make check: 117 testes Python, Ruff e Mypy aprovados; 14 testes DOM aprovados. PDF real validado e inspecionado, limite de 2.000 nós/9.985 relações exercitado. E2E ampliado; Chromium bloqueado ao iniciar. Relatórios e pacote local atualizados; navegador real, Docker, CI remota e auditoria online continuam pendentes.
+2026-11-13T20:04:22.260327+00:00 · v5 · make check: 128 testes Python, Ruff e Mypy aprovados. E2E real em Chromium aprovado. Correção de memória/PDF validada com 482 cards e 377 páginas; pypdf incluído no runtime, diagnóstico por categoria e limites documentados. Instalação pipx atualizada e dependências conferidas.
 
 ### BKL-015 — Roadmap, timeline e relatórios avançados
 
@@ -888,6 +890,12 @@ Nenhum critério de aceite cadastrado.
 
 | Data/hora | Atividade | Versão | Registro |
 | --- | --- | --- | --- |
+| 2026-11-13T20:04:22.260327+00:00 | BKL-014 | 5 | make check: 128 testes Python, Ruff e Mypy aprovados. E2E real em Chromium aprovado. Correção de memória/PDF validada com 482 cards e 377 páginas; pypdf incluído no runtime, diagnóstico por categoria e limites documentados. Instalação pipx atualizada e dependências conferidas. |
+| 2026-11-13T20:04:22.260304+00:00 | BKL-014 | 5 | Atualizados: Descrição. |
+| 2026-11-13T20:04:22.172342+00:00 | BKL-010 | 4 | E2E em Chromium real passou com seleção de atividade, tela inteira e downloads SVG/PDF. O bloqueio anterior de inicialização foi superado com as permissões atuais do ambiente. |
+| 2026-11-13T20:04:22.172316+00:00 | BKL-010 | 4 | Atualizados: Descrição. |
+| 2026-11-13T20:04:22.125660+00:00 | BKL-007 | 3 | Corrigida falha MemoryError em PDF de 482 atividades. Planejamento em partes e pypdf preservam conteúdo e paginação global; mensagens distinguem dependências, memória, CPU, tempo e tamanho. PDF completo e orientação do rodapé validados. |
+| 2026-11-13T20:04:22.125626+00:00 | BKL-007 | 3 | Atualizados: Descrição. |
 | 2026-11-13T18:45:45.394254+00:00 | BKL-014 | 4 | Evolução de dependências documentada em DEPENDENCIES, contrato, arquitetura e operação. make check: 117 testes Python, Ruff e Mypy aprovados; 14 testes DOM aprovados. PDF real validado e inspecionado, limite de 2.000 nós/9.985 relações exercitado. E2E ampliado; Chromium bloqueado ao iniciar. Relatórios e pacote local atualizados; navegador real, Docker, CI remota e auditoria online continuam pendentes. |
 | 2026-11-13T18:45:39.769225+00:00 | BKL-010 | 3 | Entregues tela inteira, busca, recortes para grafos grandes, hierarquia por maior precedência, rotas críticas/estimativas e exportação SVG/PDF paginada. 14 testes DOM e API/PDF passaram; panorama e região do PDF inspecionados. Homologação em Chromium segue pendente por bloqueio do sandbox. |
 | 2026-11-13T18:45:39.769084+00:00 | BKL-010 | 3 | Atualizados: Descrição. |

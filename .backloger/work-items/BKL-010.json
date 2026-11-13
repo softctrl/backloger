@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "id": "BKL-010",
   "title": "Visualizador de grafos",
-  "description": "Objetivo: investigar dependências, bloqueadores e impacto com leitura viável em projetos grandes.\n\nEntrega disponível: Cytoscape.js local, tela inteira com alternativa CSS/teclado, busca por ID/título em todo o escopo, recortes automáticos de até 180 nós, panorama, vizinhança, pré-requisitos e impactos. Layout hierárquico por maior precedência, agrupamento de componentes, direções e rótulos adaptáveis. Painel textual lista relações transitivas 30 por vez e permite abrir cards. Destaque de todas as rotas sem folga, duração técnica/folga quando há estimativas compatíveis e orientação para completar estimativas ausentes. Atualizações preservam pan/zoom se a topologia não muda.\n\nExportação da visão em SVG e PDF A4 paisagem: panorama, regiões legíveis e inventário com títulos/estados/pré-requisitos, inclusive externos ao recorte. Texto e relações canônicos, revisão e CSRF, sem gravação; funciona em modo somente leitura. PDF compartilha o worker isolado existente.\n\nValidação: 14 testes DOM, casos de API/PDF nos dois armazenamentos e inspeção raster do PDF. Pendência: interação/diagramação em navegador real; Chromium foi bloqueado pelo sandbox deste ambiente.",
+  "description": "Objetivo: investigar dependências, bloqueadores e impacto com leitura viável em projetos grandes.\n\nEntrega disponível: Cytoscape.js local, tela inteira com alternativa CSS/teclado, busca por ID/título em todo o escopo, recortes automáticos de até 180 nós, panorama, vizinhança, pré-requisitos e impactos. Layout hierárquico por maior precedência, agrupamento de componentes, direções e rótulos adaptáveis. Painel textual lista relações transitivas 30 por vez e permite abrir cards. Destaque de todas as rotas sem folga, duração técnica/folga quando há estimativas compatíveis e orientação para completar estimativas ausentes. Atualizações preservam pan/zoom se a topologia não muda.\n\nExportação da visão em SVG e PDF A4 paisagem: panorama, regiões legíveis e inventário com títulos/estados/pré-requisitos, inclusive externos ao recorte. Texto e relações canônicos, revisão e CSRF, sem gravação; funciona em modo somente leitura. PDF compartilha o worker isolado existente.\n\nValidação: 14 testes DOM, casos de API/PDF nos dois armazenamentos e inspeção raster do PDF. Fluxo básico validado agora em Chromium real: seleção, tela inteira e downloads SVG/PDF, no E2E da aplicação. Testes DOM de recortes grandes continuam complementando essa verificação.",
   "type": "feature",
   "status": "in_progress",
   "priority": "critical",
@@ -27,8 +27,8 @@
   ],
   "acceptance_criteria": [],
   "created_at": "2026-11-11T13:23:30.934941Z",
-  "updated_at": "2026-11-13T18:45:39.768045Z",
-  "version": 3,
+  "updated_at": "2026-11-13T20:04:22.172087Z",
+  "version": 4,
   "extensions": {
     "delivery_priority": "P0"
   },
@@ -59,6 +59,24 @@
       "kind": "comment",
       "text": "Entregues tela inteira, busca, recortes para grafos grandes, hierarquia por maior precedência, rotas críticas/estimativas e exportação SVG/PDF paginada. 14 testes DOM e API/PDF passaram; panorama e região do PDF inspecionados. Homologação em Chromium segue pendente por bloqueio do sandbox.",
       "version": 3,
+      "changed_fields": []
+    },
+    {
+      "id": "H-332c2d33f1c24a03b6796178dbc68bd9",
+      "at": "2026-11-13T20:04:22.172316Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 4,
+      "changed_fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "H-f54edaaa4a1848fc955bb2b334a88416",
+      "at": "2026-11-13T20:04:22.172342Z",
+      "kind": "comment",
+      "text": "E2E em Chromium real passou com seleção de atividade, tela inteira e downloads SVG/PDF. O bloqueio anterior de inicialização foi superado com as permissões atuais do ambiente.",
+      "version": 4,
       "changed_fields": []
     }
   ]

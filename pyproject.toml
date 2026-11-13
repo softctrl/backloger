@@ -15,6 +15,7 @@ dependencies = [
   "typer>=0.16,<1", "rich>=14,<15", "networkx>=3.4,<4",
   "jinja2>=3.1.6,<4", "portalocker>=3.1,<4", "starlette>=0.49.2,<1",
   "markdown-it-py>=4,<5", "weasyprint>=66,<69",
+  "pypdf>=6,<7",
 ]
 
 [project.scripts]
@@ -25,7 +26,7 @@ dev = [
   "pytest>=8.3,<10", "pytest-cov>=6,<8", "httpx>=0.28,<1",
   "ruff>=0.11,<1", "mypy>=1.15,<3", "hatchling>=1.27,<2",
   "pip-audit>=2.9,<3", "playwright>=1.51,<2", "pyyaml>=6,<7",
-  "jsonschema>=4.23,<5", "pypdf>=6,<7",
+  "jsonschema>=4.23,<5",
 ]
 
 [tool.hatch.build.targets.wheel]

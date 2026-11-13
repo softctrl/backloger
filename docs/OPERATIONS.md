@@ -51,9 +51,18 @@ make export-pdf
 PDF usa WeasyPrint e bibliotecas Pango. No Debian/Ubuntu, prepare
 `libpango-1.0-0 libpangoft2-1.0-0 fonts-dejavu-core`; Docker e a action de
 relatórios já incluem essa preparação. O renderizador roda em processo isolado,
-sem buscar URLs/arquivos externos, com timeout de 30 segundos e limites de
-recursos. Documentos acima de 2 MiB devem ser exportados em Markdown para
-processamento local. A prévia fica em iframe sem permissão de executar scripts.
+sem buscar URLs/arquivos externos e com limites de recursos. Relatórios grandes
+são renderizados em partes e reunidos com paginação contínua, preservando todas
+as atividades. Cada parte admite 30 segundos; o trabalho completo admite até
+300 segundos. O PDF pode levar alguns minutos em projetos com centenas de cards.
+Documentos acima de 2 MiB devem ser exportados em Markdown para processamento
+local. A prévia fica em iframe sem permissão de executar scripts.
+
+Se a exportação falhar, a mensagem distingue dependências ausentes, memória,
+tempo e limites de saída. Os logs registram a categoria e o código de saída,
+sem publicar o texto dos cards ou o stderr bruto do renderizador. Reinstalar
+Pango não resolve uma mensagem de memória ou timeout. HTML/Markdown continuam
+disponíveis para os casos que excedem os limites do PDF.
 
 Para testar gráficos e interações sem navegador: instale Node 22.12+,
 execute `npm install --ignore-scripts` e `make test-ui`. Node é uma ferramenta de

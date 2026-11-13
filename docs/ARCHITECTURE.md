@@ -1,5 +1,34 @@
 # Arquitetura e decisões
 
+## ADR-010 — PDF completo com memória limitada
+
+O relatório de um projeto com 482 atividades esgotou os 768 MiB de endereço do
+worker durante a montagem de tabelas, embora WeasyPrint/Pango funcionassem em
+documentos pequenos. A mensagem anterior atribuía toda falha a dependências.
+
+Relatórios grandes passam por uma divisão semântica do HTML gerado internamente:
+gráficos/cards íntegros, tabelas longas divididas com cabeçalhos repetidos e
+metadados dos cards em blocos de texto. Markdown e prévia HTML permanecem as
+fontes completas; o layout de PDF conserva seus dados. Somente HTML do gerador
+entra nesse planejador. Nenhum markup enviado por clientes é aceito.
+
+Um worker isolado renderiza as partes sequencialmente, reutiliza configuração de
+fontes e libera o layout anterior. Pypdf reúne os PDFs internos, preserva títulos
+e bookmarks e acrescenta numeração global. A reunião permanece no worker, sem
+carregar layouts ou interpretar PDFs enviados por clientes no servidor HTTP.
+
+Limites: fonte Markdown 2 MiB, HTML original 8 MiB, payload de partes 16 MiB,
+128 partes, 768 MiB de endereço, 30 segundos por parte/reunião, 250 segundos de
+CPU para o lote, 300 segundos de parede para o lote, 2.000 páginas e 32 MiB de
+saída. O caminho de uma parte mantém 25 segundos de CPU e 30 de parede. Um único
+PDF por processo do servidor evita concorrência de renderizações pesadas.
+Fetchers seguem bloqueando arquivos, rede e data URLs. Categorias de falha
+chegam ao usuário; logs guardam apenas código/classe de erro, sem conteúdo dos
+cards ou stderr bruto.
+
+O uso de blocos de texto reduz o trabalho com tabelas apontado nas orientações
+oficiais de [desempenho do WeasyPrint](https://doc.courtbouillon.org/weasyprint/stable/common_use_cases.html#improve-rendering-speed-and-memory-use).
+
 ## ADR-009 — Grafo navegável e cálculo explícito de precedência
 
 O cálculo usa passagens topológicas com bitsets para alcance transitivo e CPM

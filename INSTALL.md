@@ -76,6 +76,16 @@ sudo apt-get update
 sudo apt-get install libpango-1.0-0 libpangoft2-1.0-0 fonts-dejavu-core
 ```
 
+No Fedora:
+
+```sh
+sudo dnf install pango fontconfig dejavu-sans-fonts
+```
+
+O pacote instala também `pypdf`, usado para reunir relatórios grandes em um
+único arquivo com numeração contínua. Instale/atualize o pacote completo para
+manter essas dependências disponíveis no mesmo ambiente do comando.
+
 Se o Python da distribuição não oferecer `venv`/`ensurepip`, instale também o
 pacote `python3-venv` correspondente ao interpretador escolhido. Docker e a
 action de relatórios já incluem a preparação de Pango/fontes. O renderizador

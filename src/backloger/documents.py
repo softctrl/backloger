@@ -1,7 +1,10 @@
 """One Markdown source for the web document and the downloadable PDF."""
 
 import html
+import json
+import logging
 import re
+import signal
 import subprocess
 import sys
 from datetime import datetime
@@ -15,9 +18,12 @@ from markdown_it.token import Token
 from backloger import exports
 from backloger.errors import BacklogError
 from backloger.models import Backlog
+from backloger.pdf_layout import report_parts
+from backloger.pdf_merge import MAX_PDF_BYTES
 from backloger.report_charts import render_chart
 
 PDF_TIMEOUT = 30
+PDF_JOB_TIMEOUT = 300
 MAX_DOCUMENT_BYTES = 2 * 1024 * 1024
 PDF_SLOTS = BoundedSemaphore(1)
 
@@ -155,24 +161,72 @@ def render_pdf(document: str) -> bytes:
     if not PDF_SLOTS.acquire(blocking=False):
         raise PDFUnavailable("Há um PDF sendo gerado; aguarde e tente novamente")
     try:
-        result = subprocess.run(
-            [sys.executable, "-I", "-m", "backloger.pdf_worker"],
-            input=document.encode(),
-            capture_output=True,
-            timeout=PDF_TIMEOUT,
-            check=False,
-        )
-        if result.returncode or not result.stdout.startswith(b"%PDF-"):
-            raise PDFUnavailable(
-                "Não foi possível gerar o PDF. Verifique WeasyPrint/Pango no ambiente "
-                "ou baixe o Markdown."
-            )
-        if len(result.stdout) > 32 * 1024 * 1024:
-            raise BacklogError("PDF excedeu o limite de 32 MiB")
-        return result.stdout
-    except subprocess.TimeoutExpired as exc:
-        raise PDFUnavailable(
-            "O PDF excedeu 30 segundos; baixe o Markdown ou reduza o documento"
-        ) from exc
+        fragments = report_parts(document)
+        if len(fragments) == 1:
+            return _pdf_worker(document.encode())
+        payload = json.dumps(fragments, ensure_ascii=False).encode()
+        if len(payload) > 16 * 1024 * 1024:
+            raise BacklogError("Partes do PDF excedem 16 MiB; exporte HTML ou Markdown")
+        return _pdf_worker(payload, batch=True)
     finally:
         PDF_SLOTS.release()
+
+
+def _pdf_worker(source: bytes, *, batch: bool = False) -> bytes:
+    try:
+        result = subprocess.run(
+            [sys.executable, "-I", "-m", "backloger.pdf_worker", *(["--batch"] if batch else [])],
+            input=source,
+            capture_output=True,
+            timeout=PDF_JOB_TIMEOUT if batch else PDF_TIMEOUT,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as exc:
+        limit = PDF_JOB_TIMEOUT if batch else PDF_TIMEOUT
+        raise PDFUnavailable(
+            f"O PDF excedeu {limit} segundos; exporte HTML ou reduza o documento"
+        ) from exc
+    if result.returncode or not result.stdout.startswith(b"%PDF-"):
+        error = result.stderr.decode(errors="replace")
+        reason = "rendering"
+        if "BACKLOGER_PDF_ERROR:memory" in error:
+            reason = "memory"
+        elif "BACKLOGER_PDF_ERROR:dependencies" in error:
+            reason = "dependencies"
+        elif "BACKLOGER_PDF_ERROR:limits" in error:
+            reason = "limits"
+        elif result.returncode in {-signal.SIGXCPU, -signal.SIGKILL}:
+            reason = "resources"
+        elif result.returncode == -signal.SIGALRM:
+            reason = "timeout"
+        diagnostic = re.search(r"BACKLOGER_PDF_ERROR:[a-z]+:([A-Za-z_][A-Za-z0-9_]{0,80})", error)
+        logging.getLogger(__name__).error(
+            "pdf_worker_failed reason=%s exit=%s detail=%s",
+            reason,
+            result.returncode,
+            diagnostic.group(1) if diagnostic else "unavailable",
+        )
+        messages = {
+            "limits": "O PDF excedeu 32 MiB ou 2.000 páginas; exporte HTML ou Markdown.",
+            "timeout": "Uma parte do PDF excedeu 30 segundos; exporte HTML ou reduza o documento.",
+            "memory": (
+                "O PDF excedeu o limite de memória do renderizador. "
+                "Exporte HTML ou reduza o documento."
+            ),
+            "resources": (
+                "O renderizador PDF foi encerrado por limite de recursos. "
+                "Exporte HTML ou reduza o documento."
+            ),
+            "dependencies": (
+                "Renderizador PDF indisponível. Instale WeasyPrint/Pango "
+                "e reinstale o pacote Backloger completo."
+            ),
+            "rendering": (
+                "O renderizador falhou ao montar o PDF. Consulte o log do servidor; "
+                "HTML e Markdown continuam disponíveis."
+            ),
+        }
+        raise PDFUnavailable(messages[reason])
+    if len(result.stdout) > MAX_PDF_BYTES:
+        raise BacklogError("PDF excedeu o limite de 32 MiB")
+    return result.stdout

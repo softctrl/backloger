@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "id": "BKL-014",
   "title": "Testes, CI e documentação",
-  "description": "Objetivo: demonstrar a confiabilidade da entrega e preparar sua adoção por outros projetos.\n\nEntrega disponível: testes de domínio, arquivos, concorrência, recuperação, API/CLI, segurança, documentos/PDF e interface DOM; lint, tipos, schemas, empacotamento e SBOM. CI inclui navegador, Docker e uma composite action importável para relatórios opcionais Markdown/HTML/PDF, com manifesto SHA-256. Documentação cobre contrato, operação, arquitetura e limites. Pendências: CI remota, navegador real, Docker, auditoria online, locks com hashes e publicação da distribuição.",
+  "description": "Objetivo: demonstrar a confiabilidade da entrega e preparar sua adoção por outros projetos.\n\nEntrega disponível: testes de domínio, arquivos, concorrência, recuperação, API/CLI, segurança, documentos/PDF e interface DOM; lint, tipos, schemas, empacotamento e SBOM. CI inclui navegador, Docker e uma composite action importável para relatórios opcionais Markdown/HTML/PDF, com manifesto SHA-256. Documentação cobre contrato, operação, arquitetura e limites. E2E em Chromium real executado: Kanban, edição externa/conflito, grafo/tela inteira, documentos, downloads e viewport móvel. Pendências: CI remota, Docker, auditoria online, locks com hashes e publicação da distribuição.",
   "type": "feature",
   "status": "in_progress",
   "priority": "critical",
@@ -35,8 +35,8 @@
   ],
   "acceptance_criteria": [],
   "created_at": "2026-11-11T13:23:30.935004Z",
-  "updated_at": "2026-11-13T18:45:45.393489Z",
-  "version": 4,
+  "updated_at": "2026-11-13T20:04:22.260101Z",
+  "version": 5,
   "extensions": {
     "delivery_priority": "P0"
   },
@@ -65,6 +65,24 @@
       "kind": "comment",
       "text": "Evolução de dependências documentada em DEPENDENCIES, contrato, arquitetura e operação. make check: 117 testes Python, Ruff e Mypy aprovados; 14 testes DOM aprovados. PDF real validado e inspecionado, limite de 2.000 nós/9.985 relações exercitado. E2E ampliado; Chromium bloqueado ao iniciar. Relatórios e pacote local atualizados; navegador real, Docker, CI remota e auditoria online continuam pendentes.",
       "version": 4,
+      "changed_fields": []
+    },
+    {
+      "id": "H-e644351782834035aa17cda8707230db",
+      "at": "2026-11-13T20:04:22.260304Z",
+      "kind": "updated",
+      "text": "Atualizados: Descrição.",
+      "version": 5,
+      "changed_fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "H-9c808dc21d624ad09edf2fc590e67be1",
+      "at": "2026-11-13T20:04:22.260327Z",
+      "kind": "comment",
+      "text": "make check: 128 testes Python, Ruff e Mypy aprovados. E2E real em Chromium aprovado. Correção de memória/PDF validada com 482 cards e 377 páginas; pypdf incluído no runtime, diagnóstico por categoria e limites documentados. Instalação pipx atualizada e dependências conferidas.",
+      "version": 5,
       "changed_fields": []
     }
   ]

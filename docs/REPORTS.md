@@ -76,5 +76,8 @@ retrato, paginação, cabeçalhos repetidos nas tabelas e agrupamento das fichas
 quando couberem na página. Descrições extensas podem ocupar várias páginas.
 
 CLI, API e [GitHub Action](GITHUB_ACTION.md) usam esse mesmo conteúdo. PDF mantém
-limite de 2 MiB de fonte, 30 segundos de geração e 32 MiB de saída. Para projetos
-maiores que esses limites, exporte Markdown/HTML para processamento local.
+limite de 2 MiB de fonte e 32 MiB de saída. Relatórios grandes usam partes com
+até 30 segundos de renderização cada e até 300 segundos para a geração completa;
+o arquivo final mantém todas as atividades e paginação contínua. O processamento
+admite até 128 partes e 2.000 páginas. Para projetos maiores que esses limites,
+exporte Markdown/HTML para processamento local.

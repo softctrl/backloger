@@ -64,9 +64,9 @@ Para desenvolver: `make install-dev`, `make check`, `make test-e2e`.
 Para Docker: `make docker-config`, `make docker-up PROJECT=/repo`.
 `make help` lista todos os alvos.
 
-Esta fundação 0.1.0 implementa o fluxo local. Validações em navegador e Docker,
-auditoria online e fechamento da distribuição permanecem pendentes neste
-ambiente restrito; portanto a primeira versão ainda não está homologada.
+Esta fundação 0.1.0 implementa o fluxo local e tem um fluxo E2E validado em
+Chromium. Docker, auditoria online e fechamento da distribuição permanecem
+pendentes; portanto a primeira versão ainda não está totalmente homologada.
 P1/P2 (colaboração, integrações, plugins e múltiplos projetos) seguem no backlog.
 
 - [Especificação-base 1.0](docs/SPECIFICATION.md)
